@@ -1,4 +1,5 @@
-﻿using SvoyaIgraClient.ViewModels;
+﻿using Client;
+using SvoyaIgraClient.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +30,9 @@ namespace SvoyaIgraClient.Views
 
         private void btnLogIn_Click(object sender, RoutedEventArgs e)
         {
+           
             this.NavigationService.Navigate(new Login());
+            
         }
 
         private void btnRegister_Click(object sender, RoutedEventArgs e)

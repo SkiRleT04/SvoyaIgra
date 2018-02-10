@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Client;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,7 @@ namespace SvoyaIgraClient.Views
         public Login()
         {
             InitializeComponent();
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -35,5 +37,7 @@ namespace SvoyaIgraClient.Views
             this.NavigationService.Navigate(new UserIdentification());
 
         }
+
+        
     }
 }

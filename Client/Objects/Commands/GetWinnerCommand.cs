@@ -13,7 +13,7 @@ namespace Client.Objects.Commands
     {
         public override RequestType RequestType => RequestType.GetWinner;
 
-        public override int Frequency => throw new NotImplementedException();
+        public override int Frequency => 3;
 
         public override void Execute(BaseResponse baseResponse, Page page)
         {

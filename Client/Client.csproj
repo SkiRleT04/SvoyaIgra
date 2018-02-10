@@ -54,6 +54,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ClientObject.cs" />
+    <Compile Include="Objects\Commands\BaseCommand.cs" />
+    <Compile Include="Objects\Commands\CheckAnswerCommand.cs" />
+    <Compile Include="Objects\Commands\GetQuestionsTableCommand.cs" />
+    <Compile Include="Objects\Commands\GetWinnerCommand.cs" />
+    <Compile Include="Objects\Commands\LoginUserCommand.cs" />
+    <Compile Include="Objects\Commands\RegisterUserCommand.cs" />
+    <Compile Include="Objects\Commands\SetRespondentCommand.cs" />
     <Compile Include="ViewModels\PlayerViewModel.cs" />
     <Compile Include="Views\Game.xaml.cs">
       <DependentUpon>Game.xaml</DependentUpon>
@@ -158,6 +166,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{62352747-7c42-4f7b-a121-c42720f79b17}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

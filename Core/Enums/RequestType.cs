@@ -13,7 +13,6 @@ namespace Core.Enums
         GetQuestionsTable,
         CheckAnswer,
         SetRespondent,
-        GetPlayerPoints,
         GetWinner
     }
 }

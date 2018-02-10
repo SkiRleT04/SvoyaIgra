@@ -1,9 +1,11 @@
-﻿using SvoyaIgraClient.Models;
+﻿using Client;
+using SvoyaIgraClient.Models;
 using SvoyaIgraClient.ViewModels;
 using SvoyaIgraClient.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -28,10 +30,14 @@ namespace SvoyaIgraClient
 
         public MainWindow()
         {
+
             InitializeComponent();
             //Auth auth = new Auth();
             //DataContext = pvm;
             Frame.NavigationService.Navigate(new UserIdentification());
+            
+            ClientObject.RecieveMessage();
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

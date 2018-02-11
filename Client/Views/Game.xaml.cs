@@ -1,4 +1,5 @@
-﻿using SvoyaIgraClient.Views.GameFrames;
+﻿using Client;
+using SvoyaIgraClient.Views.GameFrames;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,7 @@ namespace SvoyaIgraClient.Views
         {
             InitializeComponent();
             ActionFrame.NavigationService.Navigate(new Players());
+            ClientObject.page = this;
 
 
 

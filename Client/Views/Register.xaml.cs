@@ -1,4 +1,5 @@
-﻿using SvoyaIgraClient.ViewModels;
+﻿using Client;
+using SvoyaIgraClient.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,8 @@ namespace SvoyaIgraClient.Views
         public Register()
         {
             InitializeComponent();
-            
+            ClientObject.page = this;
+
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)

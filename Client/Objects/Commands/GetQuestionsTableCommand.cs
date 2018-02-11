@@ -15,7 +15,7 @@ namespace Client.Objects.Commands
 
         public override int Frequency => 2;
 
-        public override void Execute(string response, Page page)
+        public override void Execute(string packet)
         {
             throw new NotImplementedException();
         }

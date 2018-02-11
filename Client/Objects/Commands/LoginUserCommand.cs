@@ -13,7 +13,7 @@ namespace Client.Objects.Commands
     {
         public override RequestType RequestType => RequestType.LoginUser;
 
-        public override int Frequency => throw new NotImplementedException();
+        public override int Frequency => 1;
 
         public override void Execute(BaseResponse baseResponse, Page page)
         {

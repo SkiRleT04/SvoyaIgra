@@ -46,7 +46,7 @@ namespace Server.Objects
                             Console.WriteLine(packet);
 
                     //"SerializeError"
-                    var typePacket = JsonConvert.DeserializeObject<Request>(packet, new JsonSerializerSettings
+                    var typePacket = JsonConvert.DeserializeObject<BaseRequest>(packet, new JsonSerializerSettings
                     {
                         TypeNameHandling = TypeNameHandling.All
                     }).Type;
@@ -56,7 +56,7 @@ namespace Server.Objects
                             Console.WriteLine(server.Comands[0].Frequency);
                             foreach (var comand in server.Comands)
                             {
-                                if (comand.TypesAreEqual(typePacket))
+                                if (comand.TypesAreEqual(typePacket.Type))
                                 {
                                     comand.Excecute(packet, this, server);
                                     break;

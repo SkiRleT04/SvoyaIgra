@@ -28,9 +28,9 @@ namespace Client
             reader = new StreamReader(client.GetStream());
         }
 
-        static void SendMessage()
+        public static void SendMessage(string s)
         {
-            writer.WriteLine("KEK");
+            writer.WriteLine(s);
             writer.Flush();
         }
 
@@ -42,7 +42,7 @@ namespace Client
                    string s = reader.ReadLine();
                    if(!String.IsNullOrEmpty(s))
                    {
-                        MessageBox.Show(s);
+                        
                    }
 
                 }

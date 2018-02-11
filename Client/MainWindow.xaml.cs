@@ -1,5 +1,4 @@
 ﻿using Client;
-using SvoyaIgraClient.Models;
 using SvoyaIgraClient.ViewModels;
 using SvoyaIgraClient.Views;
 using System;
@@ -36,7 +35,7 @@ namespace SvoyaIgraClient
             //DataContext = pvm;
             Frame.NavigationService.Navigate(new UserIdentification());
             
-            ClientObject.RecieveMessage();
+            //ClientObject.RecieveMessage();
             
         }
 

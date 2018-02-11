@@ -13,7 +13,7 @@ namespace Client.Objects.Commands
     {
         public abstract RequestType RequestType {get;}
         public abstract int Frequency { get; }
-        public abstract void Execute(BaseResponse baseResponse, Page page);
+        public abstract void Execute(string response, Page page);
 
         public bool TypesAreEqual(RequestType reqestType)
         {

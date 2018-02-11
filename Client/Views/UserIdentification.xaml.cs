@@ -25,7 +25,6 @@ namespace SvoyaIgraClient.Views
         public UserIdentification()
         {
             InitializeComponent();
-            DataContext = new PlayerViewModel();
         }
 
         private void btnLogIn_Click(object sender, RoutedEventArgs e)

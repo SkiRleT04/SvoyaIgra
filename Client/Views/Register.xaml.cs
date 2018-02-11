@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SvoyaIgraClient.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,7 @@ namespace SvoyaIgraClient.Views
         public Register()
         {
             InitializeComponent();
+            
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
@@ -33,7 +35,7 @@ namespace SvoyaIgraClient.Views
 
         private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new Game());
+            //this.NavigationService.Navigate(new Game());
 
         }
     }

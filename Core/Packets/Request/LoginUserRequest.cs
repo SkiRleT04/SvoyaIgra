@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace Core.Packets.Request
 {
-    class LoginUserRequest : BaseRequest
+    public class LoginUserRequest : Request
     {
+        public override RequestType Type { get; set; } = RequestType.LoginUser;
     }
 }

@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace Core.Packets.Response
 {
-    class LoginUserResponse : BaseResponse
+    public class LoginUserResponse : Response
     {
         public ResponseStatus Status { get; }
+        public override RequestType Request { get; set; } = RequestType.LoginUser;
+
     }
 }

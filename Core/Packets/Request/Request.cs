@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Packets.Response
+namespace Core.Packets.Request
 {
-    public class BaseResponse : Response
+    public abstract class Request
     {
-        public override RequestType Request { get; set; }
+        public abstract RequestType Type { get; set; }
     }
 }

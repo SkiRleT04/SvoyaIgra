@@ -34,8 +34,8 @@ namespace TestClient
         private void btnCheck_Click(object sender, RoutedEventArgs e)
         {
             var request = new RegisterUserRequest();
-            request.Type = RequestType.RegisterUser;
             request.User = new User("skirlet", "qwerty12");
+
             string json = JsonConvert.SerializeObject(request);
             client.SendMessage(json);
         }

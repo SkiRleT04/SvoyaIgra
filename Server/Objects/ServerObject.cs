@@ -15,21 +15,12 @@ namespace Server.Objects
         static TcpListener tcpListener;
         List<BaseCommand> comands = new List<BaseCommand>();
         List<ClientObject> clients = new List<ClientObject>();
-
-
-        public ReadOnlyCollection<BaseCommand> Comands
-        {
-            get
-            {
-                return comands.AsReadOnly();
-            }
-        }
+        public ReadOnlyCollection<BaseCommand> Comands => comands.AsReadOnly();
 
 
 
         public ServerObject()
         {
-
             //initialize comands
             comands.Add(new RegisterUserComand());
             comands = comands.OrderByDescending(x => x.Frequency).ToList();

@@ -12,13 +12,14 @@ namespace Server.Objects.Commands
     class RegisterUserComand : BaseCommand
     {
         public override int Frequency => 1;
-
         public override RequestType Type => RequestType.RegisterUser;
+
 
         public override void Excecute(string packet, ClientObject client, ServerObject server)
         {
-            var comand = JsonConvert.DeserializeObject<RegisterUserComand>(packet);
+            var comand = JsonConvert.DeserializeObject<RegisterUserRequest>(packet);
             Console.WriteLine("RegisterUserComand");
+            server.SendMessageToDefiniteClient("Ok", client.Id);
         }
     }
 }

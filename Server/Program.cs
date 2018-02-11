@@ -1,4 +1,5 @@
-﻿using Server.Objects;
+﻿using Core.Objects;
+using Server.Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,19 +13,41 @@ namespace Server
         static ServerObject server;
         static void Main(string[] args)
         {
-            try
+            using (var  db = new ApplicationContext())
             {
-                server = new ServerObject();
-                Task.Factory.StartNew(server.Listen);
-                do
-                { }
-                while (Console.ReadKey().Key != ConsoleKey.Escape);
+                // создаем два объекта User
+                User user1 = new User("ss","we");
+
+
+                // добавляем их в бд
+                db.Users.Add(user1);
+                db.SaveChanges();
+                Console.WriteLine("Объекты успешно сохранены");
+
+                // получаем объекты из бд и выводим на консоль
+                var users = db.Users;
+                Console.WriteLine("Список объектов:");
+                foreach (User u in users)
+                {
+                    Console.WriteLine(u.Login);
+                }
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                server.Disconnect();
-            }
+            Console.Read();
         }
+
+        /*try
+        {
+            server = new ServerObject();
+            Task.Factory.StartNew(server.Listen);
+            do
+            { }
+            while (Console.ReadKey().Key != ConsoleKey.Escape);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            server.Disconnect();
+        }*/
     }
-}
+    }
+//}

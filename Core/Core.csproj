@@ -46,6 +46,7 @@
     <Compile Include="Enums\QuestionContentType.cs" />
     <Compile Include="Enums\RequestType.cs" />
     <Compile Include="Enums\ResponseStatus.cs" />
+    <Compile Include="Objects\Category.cs" />
     <Compile Include="Objects\Player.cs" />
     <Compile Include="Objects\Question.cs" />
     <Compile Include="Objects\User.cs" />

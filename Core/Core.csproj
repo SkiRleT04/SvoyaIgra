@@ -50,6 +50,7 @@
     <Compile Include="Objects\Question.cs" />
     <Compile Include="Objects\User.cs" />
     <Compile Include="Packets\Request\BaseRequest.cs" />
+    <Compile Include="Packets\Request\Request.cs" />
     <Compile Include="Packets\Request\CheckAnswerRequest.cs" />
     <Compile Include="Packets\Request\GetQuestionsTableRequest.cs" />
     <Compile Include="Packets\Request\GetWinnerRequest.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Packets\Response\GetWinnerResponse.cs" />
     <Compile Include="Packets\Response\LoginUserResponse.cs" />
     <Compile Include="Packets\Response\RegisterUserResponse.cs" />
+    <Compile Include="Packets\Response\Response.cs" />
     <Compile Include="Packets\Response\SetRespondentResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -46,7 +46,10 @@ namespace Server.Objects
                             Console.WriteLine(packet);
 
                     //"SerializeError"
-                    var typePacket = JsonConvert.DeserializeObject<BaseRequest>(packet);
+                    var typePacket = JsonConvert.DeserializeObject<BaseRequest>(packet, new JsonSerializerSettings
+                    {
+                        TypeNameHandling = TypeNameHandling.All
+                    }).Type;
                    
 
                             //Comand Excecute

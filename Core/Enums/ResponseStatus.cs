@@ -9,6 +9,8 @@ namespace Core.Enums
     public enum ResponseStatus
     {
         Ok,
-        Bad
+        Bad,
+        WrongPassword,
+        LoginIsTaken
     }
 }

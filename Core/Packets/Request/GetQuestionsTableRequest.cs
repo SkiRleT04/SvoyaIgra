@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace Core.Packets.Request
 {
-    class GetQuestionsTableRequest : BaseRequest
+    public class GetQuestionsTableRequest : Request
     {
+        public override RequestType Type { get; set; } = RequestType.GetQuestionsTable;
     }
 }

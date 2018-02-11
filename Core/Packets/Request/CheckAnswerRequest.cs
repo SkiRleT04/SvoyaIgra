@@ -8,9 +8,10 @@ using Core.Objects;
 
 namespace Core.Packets.Request
 {
-    class CheckAnswerRequest : BaseRequest
+    public class CheckAnswerRequest : Request
     {
         public Question Question { get; set; }
         public Player Player { get; set; }
+        public override RequestType Type { get; set; } = RequestType.CheckAnswer;
     }
 }

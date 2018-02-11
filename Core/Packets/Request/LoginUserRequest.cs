@@ -1,4 +1,5 @@
 ﻿using Core.Enums;
+using Core.Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace Core.Packets.Request
 {
     public class LoginUserRequest : Request
     {
+        public User User { get; set; }
         public override RequestType Type { get; set; } = RequestType.LoginUser;
     }
 }

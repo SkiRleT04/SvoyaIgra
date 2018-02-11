@@ -4,16 +4,22 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SvoyaIgraClient.Views"
+      xmlns:ViewModels="clr-namespace:SvoyaIgraClient.ViewModels"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
       Title="Register" Width="600" Height="400">
 
+
+    <Page.DataContext>
+        <ViewModels:UserViewModel/>
+    </Page.DataContext>
+    
     <Grid Background="White">
         <Label Content="Логин" Margin="0,15,0,0" VerticalAlignment="Top" HorizontalAlignment="Center"/>
-        <Button x:Name="btnRegister" Content="Зарегестрироваться" Margin="0,167,0,0" VerticalAlignment="Top" Width="140" Height="40" Click="btnRegister_Click"/>
+        <Button x:Name="btnRegister" Command="{Binding ClickRegister}" Content="Зарегестрироваться" Margin="0,167,0,0" VerticalAlignment="Top" Width="140" Height="40" Click="btnRegister_Click"/>
         <Label Content="Пароль" Margin="0,76,0,0" VerticalAlignment="Top" HorizontalAlignment="Center"/>
-        <TextBox x:Name="tbLogin" Height="25" Margin="0,42,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="200"/>
-        <TextBox x:Name="tbPassword" Height="25" Margin="0,103,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="200"/>
+        <TextBox x:Name="tbLogin" Text="{Binding Login}" Height="25" Margin="0,42,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="200"/>
+        <TextBox x:Name="tbPassword" Text="{Binding Password}" Height="25" Margin="0,103,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="200"/>
         <Button x:Name="btnBack" Content="Назад" Margin="230,295,230,0" VerticalAlignment="Top" Click="btnBack_Click" Width="140" Height="40"/>
 
     </Grid>

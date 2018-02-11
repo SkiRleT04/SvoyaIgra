@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using Core.Enums;
 using Core.Packets.Response;
+using Newtonsoft.Json;
+using SvoyaIgraClient;
+using SvoyaIgraClient.Views;
 
 namespace Client.Objects.Commands
 {
@@ -15,9 +19,21 @@ namespace Client.Objects.Commands
 
         public override int Frequency => 1;
 
-        public override void Execute(BaseResponse baseResponse, Page page)
+        public override void Execute(string packet)
         {
-            throw new NotImplementedException();
+            RegisterUserResponse registerUserResponse = JsonConvert.DeserializeObject<RegisterUserResponse>(packet);
+
+            switch (registerUserResponse.Status )
+            {
+                case ResponseStatus.Ok:
+                    ((MainWindow)Application.Current.MainWindow).Frame.NavigationService.Navigate(new Game());
+                    break;
+
+                case ResponseStatus.LoginIsTaken:
+                    Register register = ClientObject.page as Register;
+                    register.tbLogin.Text = "Этот логин уже занят!";
+                        break;
+            }
         }
     }
 }

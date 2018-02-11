@@ -12,11 +12,10 @@ namespace Server.Objects.Commands
     {
         //Range(1;5)
         public abstract int Frequency { get; }
+        public abstract RequestType Type { get; }
+        public abstract void Excecute(string packet, ClientObject client, ServerObject server);
 
-        public abstract RequestType Type{ get; }
-        public abstract void Excecute(BaseRequest packet, ClientObject client, ServerObject server);
-
-        public bool isEqualsType(RequestType RequestType)
+        public bool TypesAreEqual(RequestType RequestType)
         {
             return Type == RequestType;
         }

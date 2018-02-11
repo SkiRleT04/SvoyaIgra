@@ -17,7 +17,13 @@ namespace Server.Objects
         List<ClientObject> clients = new List<ClientObject>();
 
 
-        public ReadOnlyCollection<BaseCommand> Comands { get => comands.AsReadOnly(); }
+        public ReadOnlyCollection<BaseCommand> Comands
+        {
+            get
+            {
+                return comands.AsReadOnly();
+            }
+        }
 
 
 
@@ -36,7 +42,7 @@ namespace Server.Objects
             {
                 tcpListener = new TcpListener(IPAddress.Any, 8888);
                 tcpListener.Start();
-
+                Console.WriteLine("Сервер запущен. Ожидание подключений...");
                 while (true)
                 {
                     TcpClient client = tcpListener.AcceptTcpClient();

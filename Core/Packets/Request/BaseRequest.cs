@@ -9,6 +9,6 @@ namespace Core.Packets.Request
 {
     public abstract class BaseRequest
     {
-        public  RequestType Type { get ; }
+        public  RequestType Type { get; set; }
     }
 }

@@ -5,8 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestClient"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="271.053" Width="335.526">
     <Grid>
-        
+        <Button x:Name="btnCheck" Content="Check" HorizontalAlignment="Left" VerticalAlignment="Top" Width="296" Margin="10,10,0,0" Click="btnCheck_Click"/>
+        <TextBox x:Name="tbResponce" HorizontalAlignment="Left" Height="191" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" Margin="10,35,0,0"/>
+
     </Grid>
 </Window>

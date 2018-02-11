@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Core.Enums;
+using Core.Objects;
+using Core.Packets.Request;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +24,20 @@ namespace TestClient
     /// </summary>
     public partial class MainWindow : Window
     {
+        ClientObject client;
         public MainWindow()
         {
             InitializeComponent();
+            client = new ClientObject();
+        }
+
+        private void btnCheck_Click(object sender, RoutedEventArgs e)
+        {
+            var request = new RegisterUserRequest();
+            request.Type = RequestType.RegisterUser;
+            request.User = new User("skirlet", "qwerty12");
+            string json = JsonConvert.SerializeObject(request);
+            client.SendMessage(json);
         }
     }
 }

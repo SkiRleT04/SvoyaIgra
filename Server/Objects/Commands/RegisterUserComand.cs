@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Core.Enums;
 using Core.Packets.Request;
+using Newtonsoft.Json;
 
 namespace Server.Objects.Commands
 {
@@ -14,9 +15,10 @@ namespace Server.Objects.Commands
 
         public override RequestType Type => RequestType.RegisterUser;
 
-        public override void Excecute(BaseRequest packet, ClientObject client, ServerObject server)
+        public override void Excecute(string packet, ClientObject client, ServerObject server)
         {
-            throw new NotImplementedException();
+            var comand = JsonConvert.DeserializeObject<RegisterUserComand>(packet);
+            Console.WriteLine("RegisterUserComand");
         }
     }
 }

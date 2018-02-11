@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Objects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace Core.Packets.Request
 {
-    class RegisterUserRequest : BaseRequest
+    public class RegisterUserRequest : BaseRequest
     {
+        public User User { get; set; }
     }
 }

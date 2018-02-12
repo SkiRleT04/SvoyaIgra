@@ -1,4 +1,5 @@
-﻿using Core.Objects;
+﻿using Core.Enums;
+using Core.Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,36 +10,30 @@ namespace Server.Objects
 {
     public static class DB
     {
-        public static bool IsUserExist(User user)
+        public static ResponseStatus RegisterUser(User user)
         {
             using (var db = new ApplicationContext())
             {
-                return db.Users.FirstOrDefault(u => u.Login == user.Login) != null;
-            }
-        }
-
-        public static void RegisterUser(User user)
-        {
-            /*using (var db = new ApplicationContext())
-            {
+                //if user exists
                 if (db.Users.FirstOrDefault(u => u.Login == user.Login) != null)
-                    response.Status = ResponseStatus.Bad;
+                    return ResponseStatus.LoginIsTaken;
+                db.Users.Add(user);
+                if (db.SaveChanges() > 0)
+                    return ResponseStatus.Ok;
                 else
-                {
-                    db.Users.Add(comand.User);
-                    db.SaveChanges();
-                    response.Status = ResponseStatus.Ok;
-                }
-            }*/
+                    return ResponseStatus.Bad;
+            }
         }
 
-        public static bool Auth(User user)
+        public static ResponseStatus AuthUser(User user)
         {
             using (var db = new ApplicationContext())
             {
-
+                if (db.Users.FirstOrDefault(u => u.Login == user.Login && u.Password == user.Password) != null)
+                    return ResponseStatus.Ok;
+                if (db.Users.FirstOrDefault(u => u.Login == user.Login) != null)
+                    return ResponseStatus.UserDoesntExsists;
             }
-            return false;
         }
         
     }

@@ -19,10 +19,12 @@ namespace Server.Objects.Commands
         public override void Excecute(string packet, ClientObject client, ServerObject server)
         {
             Console.WriteLine("Register user");
-            var comand = JsonConvert.DeserializeObject<RegisterUserRequest>(packet);
+            var request = JsonConvert.DeserializeObject<RegisterUserRequest>(packet);
+
+
             var response = new RegisterUserResponse();
-            response.Status = DB.RegisterUser(comand.User);
-            Console.WriteLine($"Register user {response.Status.ToString()}");
+            response.Status = DB.RegisterUser(request.User);
+            Console.WriteLine($"Register user status: {response.Status.ToString()}");
 
             string packetResponse = JsonConvert.SerializeObject(response);
             server.SendMessageToDefiniteClient(packetResponse, client.Id);

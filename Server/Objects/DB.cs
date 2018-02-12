@@ -31,8 +31,9 @@ namespace Server.Objects
             {
                 if (db.Users.FirstOrDefault(u => u.Login == user.Login && u.Password == user.Password) != null)
                     return ResponseStatus.Ok;
-                if (db.Users.FirstOrDefault(u => u.Login == user.Login) != null)
+                if (db.Users.FirstOrDefault(u => u.Login == user.Login) == null)
                     return ResponseStatus.UserDoesntExsists;
+                if(db.Users.)
             }
         }
         

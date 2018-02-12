@@ -32,9 +32,11 @@ namespace Server.Objects
                 if (db.Users.FirstOrDefault(u => u.Login == user.Login && u.Password == user.Password) != null)
                     return ResponseStatus.Ok;
                 if (db.Users.FirstOrDefault(u => u.Login == user.Login) == null)
-                    return ResponseStatus.UserDoesntExsists;
-                if(db.Users.)
+                    return ResponseStatus.UserDoesntExist;
+                if (db.Users.FirstOrDefault(u => u.Login == user.Login && u.Password != user.Password) != null)
+                    return ResponseStatus.WrongPassword;
             }
+            return ResponseStatus.Bad;
         }
         
     }

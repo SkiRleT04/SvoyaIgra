@@ -21,18 +21,9 @@ namespace Server.Objects.Commands
             Console.WriteLine("Register user");
             var comand = JsonConvert.DeserializeObject<RegisterUserRequest>(packet);
             var response = new RegisterUserResponse();
-            using (var db = new ApplicationContext())
-            {
-                if (db.Users.FirstOrDefault(x => x.Login == comand.User.Login) != null)
-                    response.Status = ResponseStatus.Bad;
-                else
-                {
-                    db.Users.Add(comand.User);
-                    db.SaveChanges();
-                    response.Status = ResponseStatus.Ok;
-                }
-            }
-            Console.WriteLine("Register user done");
+            response.Status = DB.RegisterUser(comand.User);
+            Console.WriteLine($"Register user {response.Status.ToString()}");
+
             string packetResponse = JsonConvert.SerializeObject(response);
             server.SendMessageToDefiniteClient(packetResponse, client.Id);
         }

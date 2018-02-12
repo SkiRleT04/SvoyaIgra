@@ -11,8 +11,7 @@ namespace Core.Enums
         Ok,
         Bad,
         LoginIsTaken,
-        UserDoesntExsists,
-        WrongPassword
-
+        WrongPassword,
+        UserDoesntExist   
     }
 }

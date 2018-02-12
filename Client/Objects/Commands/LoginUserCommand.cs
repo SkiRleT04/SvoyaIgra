@@ -33,8 +33,17 @@ namespace Client.Objects.Commands
                     break;
 
                 case ResponseStatus.Bad:
-                    (ClientObject.view as UserViewModel).Status = "Неверный логин или пароль";
+                    (ClientObject.view as UserViewModel).Status = "Ошибка на стороне сервера";
                     break;
+
+                case ResponseStatus.UserDoesntExist:
+                    (ClientObject.view as UserViewModel).Status = "Пользователя с таким логином не существует";
+                    break;
+
+                case ResponseStatus.WrongPassword:
+                    (ClientObject.view as UserViewModel).Status = "Был введён неверный пароль";
+                    break;
+
             }
         }
     }

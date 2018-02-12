@@ -10,6 +10,5 @@ namespace Core.Objects
     {
         public int Points { get; set; }
         public string Login { get; set; }
-        
     }
 }

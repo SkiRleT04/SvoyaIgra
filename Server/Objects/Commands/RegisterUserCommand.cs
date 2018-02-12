@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 
 namespace Server.Objects.Commands
 {
-    class RegisterUserComand : BaseCommand
+    class RegisterUserCommand : BaseCommand
     {
         public override int Frequency => 1;
         public override RequestType Type => RequestType.RegisterUser;
@@ -18,12 +18,13 @@ namespace Server.Objects.Commands
 
         public override void Excecute(string packet, ClientObject client, ServerObject server)
         {
+            Console.WriteLine("Register user");
             var comand = JsonConvert.DeserializeObject<RegisterUserRequest>(packet);
             var response = new RegisterUserResponse();
             using (var db = new ApplicationContext())
             {
                 if (db.Users.FirstOrDefault(x => x.Login == comand.User.Login) != null)
-                    response.Status = ResponseStatus.LoginIsTaken;
+                    response.Status = ResponseStatus.Bad;
                 else
                 {
                     db.Users.Add(comand.User);
@@ -31,6 +32,7 @@ namespace Server.Objects.Commands
                     response.Status = ResponseStatus.Ok;
                 }
             }
+            Console.WriteLine("Register user done");
             string packetResponse = JsonConvert.SerializeObject(response);
             server.SendMessageToDefiniteClient(packetResponse, client.Id);
         }

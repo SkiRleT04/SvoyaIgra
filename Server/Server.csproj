@@ -70,7 +70,9 @@
     <Compile Include="Objects\ApplicationContext.cs" />
     <Compile Include="Objects\ClientObject.cs" />
     <Compile Include="Objects\Commands\BaseCommand.cs" />
-    <Compile Include="Objects\Commands\RegisterUserComand.cs" />
+    <Compile Include="Objects\Commands\LoginUserCommand.cs" />
+    <Compile Include="Objects\Commands\RegisterUserCommand.cs" />
+    <Compile Include="Objects\DB.cs" />
     <Compile Include="Objects\ServerObject.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

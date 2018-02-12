@@ -22,7 +22,7 @@ namespace Server.Objects
         public ServerObject()
         {
             //initialize comands
-            comands.Add(new RegisterUserComand());
+            comands.Add(new RegisterUserCommand());
             comands = comands.OrderByDescending(x => x.Frequency).ToList();
             
         }

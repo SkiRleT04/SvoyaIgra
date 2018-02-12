@@ -10,7 +10,5 @@ namespace Core.Enums
     {
         Ok,
         Bad,
-       
-        
     }
 }

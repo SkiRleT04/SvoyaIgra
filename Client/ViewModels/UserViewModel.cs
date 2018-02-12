@@ -36,6 +36,11 @@ namespace SvoyaIgraClient.ViewModels
             }
         }
 
+        public string Status
+        {
+            get;set;
+        }
+
         public string Password
         {
             get { return user.Password; }

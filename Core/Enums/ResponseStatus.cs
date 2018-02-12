@@ -10,7 +10,8 @@ namespace Core.Enums
     {
         Ok,
         Bad,
-       
-        
+        LoginIsTaken,
+        WrongPassword,
+        UserDoesntExist   
     }
 }

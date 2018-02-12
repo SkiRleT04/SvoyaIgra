@@ -33,7 +33,7 @@ namespace Client.Objects.Commands
                     break;
 
                 case ResponseStatus.Bad:
-                    (ClientObject.view as UserViewModel).Login = "Неверный логин или пароль";
+                    (ClientObject.view as UserViewModel).Status = "Неверный логин или пароль";
                     break;
             }
         }

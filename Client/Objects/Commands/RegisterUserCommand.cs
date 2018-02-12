@@ -35,8 +35,13 @@ namespace Client.Objects.Commands
                     break;
 
                 case ResponseStatus.Bad:
-                    (ClientObject.view as UserViewModel).Login = "Login is taken!!!";
+                    (ClientObject.view as UserViewModel).Status = "Ошибка на стороне сервера";
                     break;
+
+                case ResponseStatus.LoginIsTaken:
+                    (ClientObject.view as UserViewModel).Status = "Пользователя с таким логином уже существует";
+                    break;
+
             }
 
 

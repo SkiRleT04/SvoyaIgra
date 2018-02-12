@@ -9,7 +9,7 @@ namespace Core.Packets.Response
 {
     public class RegisterUserResponse : Response
     {
-        public ResponseStatus Status { get; }
+        public ResponseStatus Status { get; set; }
         public override RequestType Request { get; set; } = RequestType.RegisterUser;
 
     }

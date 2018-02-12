@@ -25,8 +25,8 @@ namespace SvoyaIgraClient.Views
         public Register()
         {
             InitializeComponent();
-            ClientObject.page = this;
-
+            //ClientObject.page = this;
+            ClientObject.view = DataContext as UserViewModel;
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)

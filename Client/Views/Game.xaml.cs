@@ -27,7 +27,7 @@ namespace SvoyaIgraClient.Views
         {
             InitializeComponent();
             ActionFrame.NavigationService.Navigate(new Players());
-            ClientObject.page = this;
+            //ClientObject.page = this;
 
 
 

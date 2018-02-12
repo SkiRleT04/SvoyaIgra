@@ -9,6 +9,7 @@ using Core.Enums;
 using Core.Packets.Response;
 using Newtonsoft.Json;
 using SvoyaIgraClient;
+using SvoyaIgraClient.ViewModels;
 using SvoyaIgraClient.Views;
 
 namespace Client.Objects.Commands
@@ -26,14 +27,20 @@ namespace Client.Objects.Commands
             switch (registerUserResponse.Status )
             {
                 case ResponseStatus.Ok:
-                    ((MainWindow)Application.Current.MainWindow).Frame.NavigationService.Navigate(new Game());
+                    MessageBox.Show("Ok");
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        SetPage(new Game());
+                    });
                     break;
 
                 case ResponseStatus.LoginIsTaken:
-                    Register register = ClientObject.page as Register;
-                    register.tbLogin.Text = "Этот логин уже занят!";
-                        break;
+                    (ClientObject.view as UserViewModel).Login = "kek";
+                    break;
             }
+
+
+
         }
     }
 }

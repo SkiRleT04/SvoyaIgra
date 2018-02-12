@@ -11,19 +11,20 @@ using System.Threading.Tasks;
 using System.Windows;
 using Newtonsoft.Json;
 using System.Windows.Controls;
+using DevExpress.Mvvm;
 
 namespace Client
 {
     static class ClientObject
     {
         
-        private const string host = "192.168.0.103";
-        private const int port = 8587;
+        private const string host = "127.0.0.1";
+        private const int port = 8888;
         static TcpClient client;
         static StreamReader reader;
         static StreamWriter writer;
         public static Page page;
-       
+        public static ViewModelBase view;
 
         static ClientObject()
         {
@@ -31,6 +32,7 @@ namespace Client
             client.Connect(host, port);
             writer = new StreamWriter(client.GetStream());
             reader = new StreamReader(client.GetStream());
+            RecieveMessage();
         }
 
         public static void SendMessage(string s)

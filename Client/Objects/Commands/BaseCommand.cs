@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using Core.Enums;
 using Core.Packets.Response;
+using SvoyaIgraClient;
 
 namespace Client.Objects.Commands
 {
@@ -18,6 +20,14 @@ namespace Client.Objects.Commands
         public bool TypesAreEqual(RequestType reqestType)
         {
             return RequestType.Equals(reqestType);
+        }
+
+        public void SetPage(Page page)
+        {
+            //Application.Current.Dispatcher.Invoke(() =>
+            //{
+                ((MainWindow)Application.Current.MainWindow).Frame.NavigationService.Navigate(page);
+            //});
         }
 
     }

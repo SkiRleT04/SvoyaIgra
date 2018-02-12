@@ -10,7 +10,7 @@ namespace Server.Objects
 {
     class ApplicationContext:DbContext
     {
-        public ApplicationContext() : base("DbConnection") { }
+        public ApplicationContext() : base("DBConnection") { }
         public DbSet<User> Users { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Question> Questions { get; set; }

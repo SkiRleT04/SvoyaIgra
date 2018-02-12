@@ -27,15 +27,15 @@ namespace Client.Objects.Commands
             switch (registerUserResponse.Status )
             {
                 case ResponseStatus.Ok:
-                    MessageBox.Show("Ok");
+                    
                     Application.Current.Dispatcher.Invoke(() =>
                     {
-                        SetPage(new Game());
+                        SetPage(new Login());
                     });
                     break;
 
-                case ResponseStatus.LoginIsTaken:
-                    (ClientObject.view as UserViewModel).Login = "kek";
+                case ResponseStatus.Bad:
+                    (ClientObject.view as UserViewModel).Login = "Login is taken!!!";
                     break;
             }
 

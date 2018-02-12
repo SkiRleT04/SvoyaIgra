@@ -22,6 +22,7 @@ namespace Server.Objects
 
         public ClientObject(TcpClient client, ServerObject server)
         {
+            Player = null;
             Id = Guid.NewGuid().ToString();
             this.client = client;
             this.server = server;

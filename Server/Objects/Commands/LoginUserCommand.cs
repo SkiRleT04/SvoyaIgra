@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Core.Enums;
+using Core.Objects;
 using Core.Packets.Request;
 using Core.Packets.Response;
 using Newtonsoft.Json;
@@ -19,10 +20,17 @@ namespace Server.Objects.Commands
         public override void Excecute(string packet, ClientObject client, ServerObject server)
         {
             Console.WriteLine("Login user");
-            var comand = JsonConvert.DeserializeObject<RegisterUserRequest>(packet);
-            var response = new RegisterUserResponse();
-            response.Status = DB.RegisterUser(comand.User);
-            Console.WriteLine($"Register user {response.Status.ToString()}");
+            var request = JsonConvert.DeserializeObject<LoginUserRequest>(packet);
+
+
+            var response = new LoginUserResponse();
+            response.Status = DB.AuthUser(request.User);
+            Console.WriteLine($"Login user status: {response.Status.ToString()}");
+            if (response.Status == ResponseStatus.Ok)
+            {
+                client.Player = new Player(request.User.Login);
+                Console.WriteLine($"User: {request.User.Login} successfully authorized");
+            }
 
             string packetResponse = JsonConvert.SerializeObject(response);
             server.SendMessageToDefiniteClient(packetResponse, client.Id);

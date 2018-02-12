@@ -23,6 +23,7 @@ namespace Server.Objects
         {
             //initialize comands
             comands.Add(new RegisterUserCommand());
+            comands.Add(new LoginUserCommand());
             comands = comands.OrderByDescending(x => x.Frequency).ToList();
             
         }
@@ -65,7 +66,8 @@ namespace Server.Objects
         {
             foreach (var client in clients)
             {
-                client.Writer.WriteLine(message);
+                if (client.Player != null)
+                    client.Writer.WriteLine(message);
             }
         }
 
@@ -73,7 +75,7 @@ namespace Server.Objects
         {
             foreach (var client in clients)
             {
-                if (client.Id != idSendingUser)
+                if (client.Id != idSendingUser && client.Player!=null)
                     client.Writer.WriteLine(message);
             }
         }

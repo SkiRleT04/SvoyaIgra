@@ -21,6 +21,7 @@ namespace SvoyaIgraClient.ViewModels
         public UserViewModel()
         {
             user = new User("", "");
+           
         }
 
         public string Login
@@ -36,9 +37,20 @@ namespace SvoyaIgraClient.ViewModels
             }
         }
 
+        private string status;
         public string Status
         {
-            get;set;
+            get
+            {
+                return status;
+            }
+            set
+            {
+                
+                    status = value;
+                    RaisePropertyChanged(() => Status);
+                
+            }
         }
 
         public string Password
@@ -64,6 +76,7 @@ namespace SvoyaIgraClient.ViewModels
                     registerUserRequest.User = user;
                     string jsonUser = JsonConvert.SerializeObject(registerUserRequest);
                     ClientObject.SendMessage(jsonUser);
+                    
                 });
             }
         }
@@ -78,6 +91,7 @@ namespace SvoyaIgraClient.ViewModels
                     loginUserRequest.User = user;
                     string jsonUser = JsonConvert.SerializeObject(loginUserRequest);
                     ClientObject.SendMessage(jsonUser);
+                    
                 });
             }
         }

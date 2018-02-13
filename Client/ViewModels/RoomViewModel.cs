@@ -16,7 +16,23 @@ namespace Client.ViewModels
     {
         private Room selectedRoom;
 
-        public ObservableCollection<Room> Rooms { get; set; }
+        public RoomViewModel()
+        {
+
+            Rooms = new ObservableCollection<Room>();
+            
+        }
+
+        private ObservableCollection<Room> rooms;
+        public ObservableCollection<Room> Rooms
+        {
+            get { return rooms; }
+            set
+            {
+                rooms = value;
+                RaisePropertyChanged(() => Rooms);
+            }
+        }
 
         public Room SelectedRoom
         {

@@ -5,6 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Client.Views"
       xmlns:viewmodels="clr-namespace:Client.ViewModels"
+      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
       Title="RoomsPage" Width="600" Height="400" Background="White">
@@ -16,15 +18,31 @@
 
     <Grid>
         <ListBox Grid.Column="0" ItemsSource="{Binding Rooms}"
-                 SelectedItem="{Binding selectedRoom}">
-            <ListBox.ItemTemplate>
+                 SelectedItem="{Binding SelectedRoom}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction Command="{Binding ClickJoin}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+
+            <ListBox.ItemTemplate >
+
+                
+                
                 <DataTemplate>
+                    
+                        
                     <StackPanel Margin="5">
-                        <TextBlock FontSize="18" Text="{Binding Path=Name}" />
-                        <TextBlock Text="{Binding Path=Price}" />
+                        
+                        <TextBlock FontSize="18" Text="{Binding Name}"/>
+                        <TextBlock Text="{Binding Size}" />
+                   
                     </StackPanel>
+                   
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+     
+
     </Grid>
 </Page>

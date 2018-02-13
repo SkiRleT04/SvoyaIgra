@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using Client.ViewModels;
 using Core.Enums;
+using Core.Objects;
 using Core.Packets.Response;
 using Newtonsoft.Json;
 using SvoyaIgraClient.ViewModels;
@@ -29,7 +32,7 @@ namespace Client.Objects.Commands
                     Application.Current.Dispatcher.Invoke(() =>
                     {
                         SetPage(new Game());
-                       
+                        (ClientObject.view as RoomViewModel).Rooms = new ObservableCollection<Room>(loginUserResponse.Rooms); 
                     });
                     break;
 

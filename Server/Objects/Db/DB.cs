@@ -46,7 +46,11 @@ namespace Server.Objects.Db
         {
             using (var db = new ApplicationContext())
             {
-
+                for (int i = 1; i < 16; i++)
+                {
+                    db.Categories.Add(new Category {Name=$"Category{i}" });
+                    db.SaveChanges();
+                }
                 List<Category> categories = db.Categories.ToList();
 
                 for (int i = 1; i < 50; i++)

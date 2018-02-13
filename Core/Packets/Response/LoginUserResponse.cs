@@ -1,4 +1,5 @@
 ﻿using Core.Enums;
+using Core.Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace Core.Packets.Response
     {
         public ResponseStatus Status { get; set; }
         public override RequestType Request { get; set; } = RequestType.LoginUser;
+        public IEnumerable<Room> Rooms { get; set; }
 
     }
 }

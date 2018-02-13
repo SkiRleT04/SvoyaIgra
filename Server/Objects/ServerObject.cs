@@ -34,8 +34,8 @@ namespace Server.Objects
 
 
             //initialize rooms
-            rooms.Add(new RoomObject(1, "GameRoom1", 5));
-            rooms.Add(new RoomObject(2, "GameRoom2", 5));
+            rooms.Add(new RoomObject(1, "GameRoom1", 2));
+
             //rooms.Add(new RoomObject(2, "GameRoom2", 3));
         }
 
@@ -56,7 +56,7 @@ namespace Server.Objects
             if (freeRooms.Length == 0)
             {
                 int idRoom = rooms.OrderByDescending(r => r.Info.Id).First().Info.Id + 1;
-                rooms.Add(new RoomObject(idRoom, $"GameRoom{idRoom}", 5));
+                rooms.Add(new RoomObject(idRoom, $"GameRoom{idRoom}", 2));
             }
                 
         }
@@ -137,6 +137,9 @@ namespace Server.Objects
             AddConnection(clientObject);
             clientObject.Room.RemoveConnection(clientObject);
             clientObject.Room = null;
+
+
+
         }
 
         public void Disconnect()

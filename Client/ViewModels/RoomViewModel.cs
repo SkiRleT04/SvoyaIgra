@@ -83,6 +83,7 @@ namespace Client.ViewModels
             }
         }
 
+
         public string Name
         {
             get { return selectedRoom.Name; }

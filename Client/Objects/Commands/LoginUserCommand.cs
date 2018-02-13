@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using Client.ViewModels;
+using Client.Views;
 using Core.Enums;
 using Core.Objects;
 using Core.Packets.Response;
@@ -31,8 +32,8 @@ namespace Client.Objects.Commands
                 case ResponseStatus.Ok:
                     Application.Current.Dispatcher.Invoke(() =>
                     {
-                        SetPage(new Game());
-                        (ClientObject.view as RoomViewModel).Rooms = new ObservableCollection<Room>(loginUserResponse.Rooms); 
+                        SetPage(new RoomsPage());
+                        (ClientObject.view as RoomViewModel).Rooms = new ObservableCollection<Room>(loginUserResponse.Rooms);
                     });
                     break;
 

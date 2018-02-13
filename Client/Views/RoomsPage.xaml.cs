@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Client.ViewModels;
+using Core.Objects;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +26,7 @@ namespace Client.Views
         public RoomsPage()
         {
             InitializeComponent();
+            ClientObject.view = DataContext as RoomViewModel;
         }
     }
 }

@@ -46,52 +46,28 @@ namespace Server.Objects.Db
         {
             using (var db = new ApplicationContext())
             {
-                for (int i = 1; i < 16; i++)
-                {
-                    db.Categories.Add(new Category {Name=$"Category{i}" });
-                    db.SaveChanges();
-                }
-                List<Category> categories = db.Categories.ToList();
-
-                for (int i = 1; i < 50; i++)
-                {
-                    for (int j = 1; j < 6; j++)
-                    {
-                        QuestionContentType t = (i * j % 2 == 0) ? QuestionContentType.Img : QuestionContentType.Text;
-
-                        int r = new Random().Next(categories.Count);
-                        db.Questions.Add(new Question(j * 300, $"Answer{i * j}", $"Content{i * j}", t, categories[r]));
-                        db.SaveChanges();
-                    }
-
-                }
-
-
                 var table = new Dictionary<string, IEnumerable<Question>>();
-                //get 6 random category 
-                /*var categories = db.Categories
+                var categories = db.Categories
                     .OrderBy(x => Guid.NewGuid())
-                    .Take(6);
+                    .Take(6)
+                    .Include(x => x.Questions);
 
-                //fill table questions
                 foreach (var category in categories)
                 {
                     List<Question> questions = new List<Question>();
                     for (int i = 1; i < 6; i++)
                     {
+                        
                         Question current = category.Questions
                        .Where(q => q.Points == (i * 300))
-                       .OrderBy(x => Guid.NewGuid())
+                       .OrderBy(x=>Guid.NewGuid())
                        .FirstOrDefault();
                         questions.Add(current);
                     }
-                    table.Add(category.Name, questions.ToArray());
+                    table.Add(category.Name, questions.AsEnumerable());
                 }
               
                 return table;
-                  */
-                return table;
-    
             }     
         }
         

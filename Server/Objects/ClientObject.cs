@@ -71,7 +71,10 @@ namespace Server.Objects
             }
             finally
             {
-                Room.RemoveConnection(this);
+                if (Room==null)
+                    server.RemoveConnection(this);
+                else
+                    Room.RemoveConnection(this);
                 Close();
             }
         }

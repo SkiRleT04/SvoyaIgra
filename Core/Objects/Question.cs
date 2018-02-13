@@ -18,5 +18,18 @@ namespace Core.Objects
 
         public int? CategoryId { get; set; }
         public Category Category { get; set; }
+
+        public Question(int points, string answer, string content, QuestionContentType type, Category category)
+        {
+            Points = points;
+            Answer = answer;
+            Content = content;
+            Type = type;
+            Category = category;
+        }
+
+        public Question()
+        {
+        }
     }
 }

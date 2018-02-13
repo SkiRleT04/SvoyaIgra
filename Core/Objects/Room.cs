@@ -13,7 +13,7 @@ namespace Core.Objects
         public int Size { get; set; }
         public int PlayersCount { get; set; }
 
-        public Room(int id, string name, int size, int playersCount = 5)
+        public Room(int id, string name, int size, int playersCount = 0)
         {
             Id = id;
             Name = name;

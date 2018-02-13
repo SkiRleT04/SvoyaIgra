@@ -28,10 +28,14 @@ namespace Server.Objects
             comands.Add(new RegisterUserCommand());
             comands.Add(new LoginUserCommand());
             comands.Add(new GetRoomsCommand());
-
+            comands.Add(new RoomJoinCommand());
+            comands.Add(new RoomLeaveCommand());
             comands = comands.OrderByDescending(x => x.Frequency).ToList();
+
+
             //initialize rooms
             rooms.Add(new RoomObject(1, "GameRoom1", 5));
+            rooms.Add(new RoomObject(2, "GameRoom2", 5));
             //rooms.Add(new RoomObject(2, "GameRoom2", 3));
         }
 
@@ -42,7 +46,7 @@ namespace Server.Objects
             var emptyRooms = rooms.Where(r => r.Info.PlayersCount == 0).ToArray();
             if (emptyRooms.Length > 1)
             {
-                for (int i = 0; i < emptyRooms.Length-1; i++)
+                for (int i = 0; i < emptyRooms.Length - 1; i++)
                     rooms.Remove(emptyRooms[i]);
                 return;
             }
@@ -66,6 +70,7 @@ namespace Server.Objects
         public List<Room> GetFreeRooms()
         {
             UpdateRooms();
+            var list  = rooms.Where(x => x.Info.PlayersCount < x.Info.Size).Select(x => x.Info).ToList();
             return rooms.Where(x => x.Info.PlayersCount < x.Info.Size).Select(x => x.Info).ToList();
         }
 
@@ -109,6 +114,12 @@ namespace Server.Objects
             tmpClients.Add(clientObject);
         }
 
+
+        public bool IsTempClient(ClientObject clientObject)
+        {
+            return tmpClients.FirstOrDefault(u => u.Id == clientObject.Id) != null;
+        }
+
         public void RemoveConnection(ClientObject clientObject)
         {
             tmpClients.Remove(clientObject);
@@ -125,6 +136,7 @@ namespace Server.Objects
         {
             AddConnection(clientObject);
             clientObject.Room.RemoveConnection(clientObject);
+            clientObject.Room = null;
         }
 
         public void Disconnect()

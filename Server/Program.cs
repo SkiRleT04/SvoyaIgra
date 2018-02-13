@@ -16,25 +16,22 @@ namespace Server
 
         static void Main(string[] args)
         {
-            var projectPath = Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))+ @"\Database\";
+            var projectPath = Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory())) + @"\Database\";
             AppDomain.CurrentDomain.SetData("DataDirectory", projectPath);
-            //try
-            //{
+            try
+            {
+                //DB.GetQuestionsTable();
                 server = new ServerObject();
-           
-
-            DB.GetQuestionsTable();
                 Task.Factory.StartNew(server.Listen);
-
                 do
                 { }
                 while (Console.ReadKey().Key != ConsoleKey.Escape);
-            //}
-            //catch (Exception ex)
-            //{
-              //  Console.WriteLine(ex.Message);
-               // server.Disconnect();
-           // }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                server.Disconnect();
+            }
         }
     }
 }

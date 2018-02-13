@@ -26,6 +26,7 @@ namespace Server.Objects.Commands
 
             var response = new LoginUserResponse();
             response.Status = DB.AuthUser(request.User);
+            response.Rooms = server.GetFreeRooms().AsEnumerable<Room>();
             Console.WriteLine($"Login user status: {response.Status.ToString()}");
             if (response.Status == ResponseStatus.Ok)
             {

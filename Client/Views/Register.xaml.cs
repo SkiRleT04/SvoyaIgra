@@ -25,19 +25,12 @@ namespace SvoyaIgraClient.Views
         public Register()
         {
             InitializeComponent();
-            //ClientObject.page = this;
             ClientObject.view = DataContext as UserViewModel;
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new UserIdentification());
-
-        }
-
-        private void btnRegister_Click(object sender, RoutedEventArgs e)
-        {
-            //this.NavigationService.Navigate(new Game());
 
         }
     }

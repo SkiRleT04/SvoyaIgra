@@ -12,6 +12,7 @@ namespace Core.Enums
         Bad,
         LoginIsTaken,
         WrongPassword,
-        UserDoesntExist   
+        UserDoesntExist,
+        RoomIsFull
     }
 }

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Server.Objects
+namespace Server.Objects.Db
 {
     class ApplicationContext:DbContext
     {

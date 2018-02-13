@@ -8,6 +8,7 @@ using Core.Objects;
 using Core.Packets.Request;
 using Core.Packets.Response;
 using Newtonsoft.Json;
+using Server.Objects.Db;
 
 namespace Server.Objects.Commands
 {
@@ -17,7 +18,7 @@ namespace Server.Objects.Commands
 
         public override RequestType Type => RequestType.LoginUser;
 
-        public override void Excecute(string packet, ClientObject client, ServerObject server)
+        public override void Excecute(string packet, ClientObject client, ServerObject server, RoomObject room)
         {
             Console.WriteLine("Login user");
             var request = JsonConvert.DeserializeObject<LoginUserRequest>(packet);
@@ -34,8 +35,6 @@ namespace Server.Objects.Commands
 
             string packetResponse = JsonConvert.SerializeObject(response);
             server.SendMessageToDefiniteClient(packetResponse, client.Id);
-
-
         }
     }
 }

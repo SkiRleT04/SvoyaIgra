@@ -27,10 +27,6 @@ namespace SvoyaIgraClient.Views
         {
             InitializeComponent();
             ActionFrame.NavigationService.Navigate(new Players());
-            //ClientObject.page = this;
-
-
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

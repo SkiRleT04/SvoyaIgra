@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Core.Packets.Request;
+using Core.Packets.Response;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -34,13 +37,19 @@ namespace TestClient
                 string packet = reader.ReadLine();
                 if (!String.IsNullOrEmpty(packet))
                 {
-                    MessageBox.Show("New data");
+                    
+                    var response = JsonConvert.DeserializeObject<GetRoomResponse>(packet);
+                    foreach (var room in response.Rooms)
+                    {
+                        MessageBox.Show(room.ToString());
+                    }
                 }
             }
         }
 
         public void SendMessage(string message)
         {
+
             writer.WriteLine(message);
         }
     }

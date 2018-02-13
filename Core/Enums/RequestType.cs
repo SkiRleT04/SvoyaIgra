@@ -13,6 +13,9 @@ namespace Core.Enums
         GetQuestionsTable,
         CheckAnswer,
         SetRespondent,
-        GetWinner
+        GetWinner,
+        RoomJoin,
+        RoomLeave,
+        GetRooms
     }
 }

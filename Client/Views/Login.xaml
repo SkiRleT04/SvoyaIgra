@@ -16,7 +16,7 @@
     <Grid Background="White" Width="600" Height="400
           ">
         <Label Content="Логин" Margin="0,15,0,0" VerticalAlignment="Top" HorizontalAlignment="Center"/>
-        <Button x:Name="btnLogIn" Command="{Binding ClickLogin}" Content="Войти" Margin="0,200,0,0" VerticalAlignment="Top" Click="Button_Click" Width="140" Height="40"/>
+        <Button x:Name="btnLogIn" Command="{Binding ClickLogin}" Content="Войти" Margin="0,200,0,0" VerticalAlignment="Top" Width="140" Height="40"/>
         <Label Content="Пароль" Margin="0,76,0,0" VerticalAlignment="Top" HorizontalAlignment="Center"/>
         <TextBox x:Name="tbLogin" Height="25" Margin="0,42,0,0" TextWrapping="Wrap" Text="{Binding Login}" VerticalAlignment="Top" Width="200"/>
         <TextBox x:Name="tbPassword" Height="25" Margin="50,103,50,0" TextWrapping="Wrap" Text="{Binding Password}" VerticalAlignment="Top" Width="200"/>

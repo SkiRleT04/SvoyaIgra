@@ -36,9 +36,19 @@ namespace SvoyaIgraClient.ViewModels
             }
         }
 
+        public string status;
+
         public string Status
         {
-            get;set;
+            get { return status; }
+            set
+            {
+                if (status != value)
+                {
+                    status = value;
+                    RaisePropertyChanged(() => Status);
+                }
+            }
         }
 
         public string Password

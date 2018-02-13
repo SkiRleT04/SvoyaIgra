@@ -15,6 +15,7 @@ namespace Server.Objects
     {
         TcpClient client;
         ServerObject server;
+        public RoomObject Room { get; set; }
         public Player Player { get; set; }
         public string Id { get; set; }
         public StreamReader Reader { get; private set; }
@@ -46,12 +47,11 @@ namespace Server.Objects
                         {
                             Console.WriteLine(packet);
                             var typePacket = JsonConvert.DeserializeObject<BaseRequest>(packet).Type;
-                            //Comand Excecute
                             foreach (var comand in server.Comands)
                             {
                                 if (comand.TypesAreEqual(typePacket))
                                 {
-                                    comand.Excecute(packet, this, server);
+                                    comand.Excecute(packet, this, server, Room);
                                     break;
                                 }
                             }
@@ -71,7 +71,7 @@ namespace Server.Objects
             }
             finally
             {
-                server.RemoveConnection(Id);
+                Room.RemoveConnection(this);
                 Close();
             }
         }

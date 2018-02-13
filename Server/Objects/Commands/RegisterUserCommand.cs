@@ -7,6 +7,7 @@ using Core.Enums;
 using Core.Packets.Request;
 using Core.Packets.Response;
 using Newtonsoft.Json;
+using Server.Objects.Db;
 
 namespace Server.Objects.Commands
 {
@@ -16,7 +17,7 @@ namespace Server.Objects.Commands
         public override RequestType Type => RequestType.RegisterUser;
 
 
-        public override void Excecute(string packet, ClientObject client, ServerObject server)
+        public override void Excecute(string packet, ClientObject client, ServerObject server, RoomObject room)
         {
             Console.WriteLine("Register user");
             var request = JsonConvert.DeserializeObject<RegisterUserRequest>(packet);

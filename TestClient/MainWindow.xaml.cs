@@ -33,11 +33,18 @@ namespace TestClient
 
         private void btnCheck_Click(object sender, RoutedEventArgs e)
         {
-            var request = new RegisterUserRequest();
+            /*var request = new RegisterUserRequest();
             request.User = new User("skirlet", "qwerty12");
+                        string json = JsonConvert.SerializeObject(request);
+            */
 
+            var request = new GetRoomRequest();
             string json = JsonConvert.SerializeObject(request);
+
+
             client.SendMessage(json);
         }
+
+        
     }
 }

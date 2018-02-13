@@ -45,11 +45,9 @@ namespace SvoyaIgraClient.ViewModels
                 return status;
             }
             set
-            {
-                
-                    status = value;
-                    RaisePropertyChanged(() => Status);
-                
+            {               
+                status = value;
+                RaisePropertyChanged(() => Status);             
             }
         }
 
@@ -74,7 +72,9 @@ namespace SvoyaIgraClient.ViewModels
                 {
                     RegisterUserRequest registerUserRequest = new RegisterUserRequest();
                     registerUserRequest.User = user;
+                    
                     string jsonUser = JsonConvert.SerializeObject(registerUserRequest);
+                    
                     ClientObject.SendMessage(jsonUser);
                     
                 });
@@ -86,12 +86,11 @@ namespace SvoyaIgraClient.ViewModels
             get
             {
                 return new DelegateCommand(() => {
-
                     LoginUserRequest loginUserRequest = new LoginUserRequest();
                     loginUserRequest.User = user;
+                    ClientObject.user = user;
                     string jsonUser = JsonConvert.SerializeObject(loginUserRequest);
                     ClientObject.SendMessage(jsonUser);
-                    
                 });
             }
         }

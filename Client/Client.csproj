@@ -71,6 +71,7 @@
     <Compile Include="Objects\Commands\LoginUserCommand.cs" />
     <Compile Include="Objects\Commands\RegisterUserCommand.cs" />
     <Compile Include="Objects\Commands\SetRespondentCommand.cs" />
+    <Compile Include="ViewModels\RoomViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
     <Compile Include="Views\Game.xaml.cs">
       <DependentUpon>Game.xaml</DependentUpon>
@@ -92,6 +93,9 @@
     </Compile>
     <Compile Include="Views\Register.xaml.cs">
       <DependentUpon>Register.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RoomsPage.xaml.cs">
+      <DependentUpon>RoomsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserIdentification.xaml.cs">
       <DependentUpon>UserIdentification.xaml</DependentUpon>
@@ -136,6 +140,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Register.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RoomsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

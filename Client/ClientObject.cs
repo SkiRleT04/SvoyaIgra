@@ -12,6 +12,7 @@ using System.Windows;
 using Newtonsoft.Json;
 using System.Windows.Controls;
 using DevExpress.Mvvm;
+using Core.Objects;
 
 namespace Client
 {
@@ -25,6 +26,7 @@ namespace Client
         static StreamWriter writer;
         public static Page page;
         public static ViewModelBase view;
+        public static User user;
 
         static ClientObject()
         {

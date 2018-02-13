@@ -29,6 +29,7 @@ namespace Client.Objects.Commands
                     Application.Current.Dispatcher.Invoke(() =>
                     {
                         SetPage(new Game());
+                       
                     });
                     break;
 

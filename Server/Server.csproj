@@ -106,14 +106,13 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Content Include="Database\svoyaigra.mdf">
+    <Content Include="Database\SvoyaIgra.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Database\svoyaigra_log.ldf">
+    <Content Include="Database\SvoyaIgra_log.ldf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>svoyaigra.mdf</DependentUpon>
+      <DependentUpon>SvoyaIgra.mdf</DependentUpon>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -15,7 +15,7 @@ namespace Core.Objects
 
         public int Id { get; set; }
         public string Name { get; set; }
-        ICollection<Question> Questions { get; set; }
+        public ICollection<Question> Questions { get; set; }
 
     }
 }

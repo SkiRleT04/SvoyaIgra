@@ -45,14 +45,7 @@ namespace Server.Objects
         //отправка сообщения определенному клиенту находящемуся в комнате
         public void SendMessageToDefiniteClient(string message, ClientObject clientObject)
         {
-            foreach (var client in clients)
-            {
-                if (client.Id == client.Id)
-                {
-                    client.Writer.WriteLine(message);
-                    break;
-                }
-            }
+            clientObject.Writer.WriteLine(message);
         }
 
         //добавления клиента в комнату
@@ -61,12 +54,14 @@ namespace Server.Objects
             clients.Add(clientObject);
             clientObject.Room = this;
             clientObject.Player.Points = 0;
+            Info.PlayersCount++;
         }
 
         //удаления клиента с комнаты
         public void RemoveConnection(ClientObject clientObject)
         {
             clients.Remove(clientObject);
+            Info.PlayersCount--;
         }
 
         //возвращает всех игроков комнаты

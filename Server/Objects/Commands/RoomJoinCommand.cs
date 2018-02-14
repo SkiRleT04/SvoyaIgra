@@ -29,7 +29,6 @@ namespace Server.Objects.Commands
                     server.ConnectToRoom(client, roomObject);
                     response.Status = ResponseStatus.Ok;
                     Console.WriteLine($"User {client.Player.Login} connect to room {roomObject.Info.Name}");
-                    server.Commands[RequestType.GetRoomInfo]?.Excecute(client, server, roomObject);
                 }
 
             }
@@ -38,6 +37,13 @@ namespace Server.Objects.Commands
             Console.WriteLine($"Join to room status: {response.Status.ToString()}");
             string packetResponse = JsonConvert.SerializeObject(response);
             roomObject.SendMessageToDefiniteClient(packetResponse, client);
+
+            //send addition info
+            if (response.Status == ResponseStatus.Ok)
+                server.Commands[RequestType.GetRoomInfo]?.Excecute(client, server, roomObject);
+            if (response.Status == ResponseStatus.RoomIsFull)
+                server.Commands[RequestType.GetRooms]?.Excecute(client, server, roomObject);
+
         }
     }
 }

@@ -24,13 +24,14 @@ namespace Client.Objects.Commands
         {
             RoomLeaveResponse roomLeaveResponse = JsonConvert.DeserializeObject<RoomLeaveResponse>(packet);
 
-            (ClientObject.view as RoomViewModel).Rooms = new ObservableCollection<Room>(roomLeaveResponse.Rooms);
-                    Application.Current.Dispatcher.Invoke(() =>
-                    {
-                        SetPage(new RoomsPage());
-                    });
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                SetPage(new RoomsPage());
+            });
+
+            (ClientObject.view as RoomViewModel).Rooms = new ObservableCollection<Room>(roomLeaveResponse.Rooms);    
             
-        
+
         }
     }
 }

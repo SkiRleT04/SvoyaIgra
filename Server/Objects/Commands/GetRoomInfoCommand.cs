@@ -15,7 +15,7 @@ namespace Server.Objects.Commands
         {
             Console.WriteLine("Get room info");
             var response = new GetRoomInfoResponse();
-            response.TableQuestions = room.Game.TableQuestions;
+            //response.TableQuestions = room.Game.TableQuestions;
             response.Players = room.GetAllPlayers();
 
             string packetResponse = JsonConvert.SerializeObject(response);

@@ -19,7 +19,7 @@ namespace Client
     static class ClientObject
     {
         
-        private const string host = "192.168.0.109";
+        private const string host = "127.0.0.1";
         private const int port = 8888;
         static TcpClient client;
         static StreamReader reader;

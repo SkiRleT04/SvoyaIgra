@@ -18,21 +18,16 @@ namespace Server.Objects.Commands
             server.LeaveRoom(client);
             Console.WriteLine($"The room ({room.Info.Name}) was left by the user ({client.Player.Login})");
 
-
-            //if this is are request from the user
-            if (String.IsNullOrEmpty(packet))
-            {
-                //send respons about update players in room
-                var request = JsonConvert.DeserializeObject<RoomLeaveRequest>(packet);
-                //...
-            }
-
-
-
             //отправка всем временным пользователям о обновлении комнаты
             response.Rooms = server.GetFreeRooms();
             string packetResponse = JsonConvert.SerializeObject(response);
             server.SendMessageToAllClients(packetResponse);
+
+            //отправка игрокам комнаты информацию об обновлении комнаты
+            var responeForPlayers = new GetRoomInfoResponse();
+            responeForPlayers.Players = room.GetAllPlayers();
+            string packetResponseForPlayers = JsonConvert.SerializeObject(responeForPlayers);
+            room.SendMessageToAllClients(packetResponseForPlayers);
         }
     }
 }

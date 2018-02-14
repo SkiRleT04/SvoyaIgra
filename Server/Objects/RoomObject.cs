@@ -61,12 +61,14 @@ namespace Server.Objects
             clients.Add(clientObject);
             clientObject.Room = this;
             clientObject.Player.Points = 0;
+            Info.PlayersCount++;
         }
 
         //удаления клиента с комнаты
         public void RemoveConnection(ClientObject clientObject)
         {
             clients.Remove(clientObject);
+            Info.PlayersCount--;
         }
 
         //возвращает всех игроков комнаты

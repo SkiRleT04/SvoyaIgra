@@ -69,11 +69,14 @@
     <Compile Include="ClientObject.cs" />
     <Compile Include="Objects\Commands\BaseCommand.cs" />
     <Compile Include="Objects\Commands\CheckAnswerCommand.cs" />
-    <Compile Include="Objects\Commands\GetQuestionsTableCommand.cs" />
+    <Compile Include="Objects\Commands\GetRoomInfoCommand.cs" />
     <Compile Include="Objects\Commands\GetWinnerCommand.cs" />
     <Compile Include="Objects\Commands\LoginUserCommand.cs" />
     <Compile Include="Objects\Commands\RegisterUserCommand.cs" />
+    <Compile Include="Objects\Commands\RoomJoinCommand.cs" />
+    <Compile Include="Objects\Commands\RoomLeaveCommand.cs" />
     <Compile Include="Objects\Commands\SetRespondentCommand.cs" />
+    <Compile Include="ViewModels\GameViewModel.cs" />
     <Compile Include="ViewModels\RoomViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
     <Compile Include="Views\Game.xaml.cs">

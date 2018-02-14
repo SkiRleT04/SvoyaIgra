@@ -11,6 +11,6 @@ namespace Core.Packets.Request
     public class RoomLeaveRequest : BaseRequest
     {
         public override RequestType Type => RequestType.RoomLeave;
-        public User User { get; set; }
+        
     }
 }

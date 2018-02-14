@@ -17,7 +17,7 @@ namespace Client.Objects.Commands
 
         public override void Execute(string packet)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
 }

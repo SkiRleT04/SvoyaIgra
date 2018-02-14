@@ -39,10 +39,10 @@ namespace Server.Objects.Commands
             roomObject.SendMessageToDefiniteClient(packetResponse, client);
 
             //send addition info
-           // if (response.Status == ResponseStatus.Ok)
-                //server.Commands[RequestType.GetRoomInfo]?.Excecute(client, server, roomObject);
-           // if (response.Status == ResponseStatus.RoomIsFull)
-                //server.Commands[RequestType.GetRooms]?.Excecute(client, server, roomObject);
+            if (response.Status == ResponseStatus.Ok)
+                server.Commands[RequestType.GetRoomInfo]?.Excecute(client, server, roomObject);
+            if (response.Status == ResponseStatus.RoomIsFull)
+                server.Commands[RequestType.GetRooms]?.Excecute(client, server, roomObject);
 
         }
     }

@@ -35,16 +35,16 @@ namespace Server.Objects
         //прослушивания каждого клиента и обработка присланных команд
         public void Process()
         {
-           // try
-           // {
+            try
+            {
                 Reader = new StreamReader(client.GetStream());
                 Writer = new StreamWriter(client.GetStream());
                 Writer.AutoFlush = true;
                 Console.WriteLine($"{Id}: connected");
                 while (true)
                 {
-                    //try
-                   // {
+                    try
+                    {
                         string packet = Reader.ReadLine();
                         if (!String.IsNullOrEmpty(packet))
                         {
@@ -52,27 +52,27 @@ namespace Server.Objects
                             var typePacket = JsonConvert.DeserializeObject<BaseRequest>(packet).Type;
                             server.Commands[typePacket]?.Excecute(this, server, Room, packet);
                         }
-                   // }
-                    //catch
-                    //{
-                       // Console.WriteLine($"{Id}: leave");
-                       // server.Commands[RequestType.RoomLeave]?.Excecute(this, server, Room);
-                       // break;
-                   // }
+                    }
+                    catch
+                    {
+                        Console.WriteLine($"{Id}: leave");
+                        server.Commands[RequestType.RoomLeave]?.Excecute(this, server, Room);
+                        break;
+                    }
                 }
-            //}
-            //catch (Exception ex)
-            //{
-               // Console.WriteLine(ex.Message);
-            //}
-            //finally
-           // {
-              //  if (IsInTheRoom())
-             //       Room.RemoveConnection(this);
-            //    else
-             //       server.RemoveConnection(this);
-             //   Close();
-           // }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                if (IsInTheRoom())
+                    Room.RemoveConnection(this);
+                else
+                    server.RemoveConnection(this);
+                Close();
+            }
         }
 
         //проверяет находится ли клиент в комнате

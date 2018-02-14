@@ -45,14 +45,7 @@ namespace Server.Objects
         //отправка сообщения определенному клиенту находящемуся в комнате
         public void SendMessageToDefiniteClient(string message, ClientObject clientObject)
         {
-            foreach (var client in clients)
-            {
-                if (client.Id == client.Id)
-                {
-                    client.Writer.WriteLine(message);
-                    break;
-                }
-            }
+            clientObject.Writer.WriteLine(message);
         }
 
         //добавления клиента в комнату

@@ -20,7 +20,6 @@ namespace Client.ViewModels
                 return new DelegateCommand(() =>
                 {
                     RoomLeaveRequest roomLeaveRequest = new RoomLeaveRequest();
-                   
                     string jsonLeaveRoom = JsonConvert.SerializeObject(roomLeaveRequest);
                     ClientObject.SendMessage(jsonLeaveRoom);
                 });

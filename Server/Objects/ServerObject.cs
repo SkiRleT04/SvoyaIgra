@@ -1,4 +1,5 @@
-﻿using Core.Objects;
+﻿using Core.Enums;
+using Core.Objects;
 using Server.Objects.Commands;
 using System;
 using System.Collections.Generic;
@@ -14,34 +15,35 @@ namespace Server.Objects
     class ServerObject
     {
         static TcpListener tcpListener;
-        List<BaseCommand> comands = new List<BaseCommand>();
+
         List<RoomObject> rooms = new List<RoomObject>();
-        public ReadOnlyCollection<BaseCommand> Comands => comands.AsReadOnly();
         public ReadOnlyCollection<RoomObject> Rooms => rooms.AsReadOnly();
+        IDictionary<RequestType, ICommand> commands = new Dictionary<RequestType, ICommand>();
+        public ReadOnlyDictionary<RequestType, ICommand> Commands { get; }
         List<ClientObject> tmpClients = new List<ClientObject>();
 
-
-
+        //инициализация сервера
         public ServerObject()
         {
             //initialize comands
-            comands.Add(new RegisterUserCommand());
-            comands.Add(new LoginUserCommand());
-            comands.Add(new GetRoomsCommand());
-            comands.Add(new RoomJoinCommand());
-            comands.Add(new RoomLeaveCommand());
-            comands = comands.OrderByDescending(x => x.Frequency).ToList();
-
-
-            //initialize rooms
-            rooms.Add(new RoomObject(1, "GameRoom1", 2));
-
-            //rooms.Add(new RoomObject(2, "GameRoom2", 3));
+            commands.Add(RequestType.LoginUser, new LoginUserCommand());
+            commands.Add(RequestType.RegisterUser, new RegisterUserCommand());
+            commands.Add(RequestType.GetRooms, new GetRoomsCommand());
+            commands.Add(RequestType.RoomJoin, new RoomJoinCommand());
+            commands.Add(RequestType.RoomLeave, new RoomLeaveCommand());
+            commands.Add(RequestType.GetRoomInfo, new GetRoomInfoCommand());
+            Commands = new ReadOnlyDictionary<RequestType, ICommand>(commands);
         }
 
         //обновление комнат
         private void UpdateRooms()
         {
+            //если нету комнат создаем одну
+            if (rooms.Count == 0)
+            {
+                rooms.Add(new RoomObject(1, "GameRoom1", 2));
+                return;
+            }
             //если пустых комнат больше чем одна, оставляем только одну
             var emptyRooms = rooms.Where(r => r.Info.PlayersCount == 0).ToArray();
             if (emptyRooms.Length > 1)
@@ -57,23 +59,24 @@ namespace Server.Objects
             {
                 int idRoom = rooms.OrderByDescending(r => r.Info.Id).First().Info.Id + 1;
                 rooms.Add(new RoomObject(idRoom, $"GameRoom{idRoom}", 2));
-            }
-                
+            } 
         }
-
+        
+        //получение комнаты по ид
         public RoomObject GetRoomById(int id)
         {
             return rooms.FirstOrDefault(r => r.Info.Id == id);
         }
 
-
+        //получение свободных комнат
         public List<Room> GetFreeRooms()
         {
             UpdateRooms();
             var list  = rooms.Where(x => x.Info.PlayersCount < x.Info.Size).Select(x => x.Info).ToList();
             return rooms.Where(x => x.Info.PlayersCount < x.Info.Size).Select(x => x.Info).ToList();
         }
-
+       
+        //прослушивание новых подключений
         public void Listen()
         {
             try
@@ -95,12 +98,13 @@ namespace Server.Objects
                 Disconnect();
             }
         }
-
-        public void SendMessageToDefiniteClient(string message, string idDefiniteClient)
+        
+        //отправка сообщения клиенту по ид
+        public void SendMessageToDefiniteClient(string message, ClientObject clientObject)
         {
             foreach (var client in tmpClients)
             {
-                if (client.Id == idDefiniteClient)
+                if (client.Id == clientObject.Id)
                 {
                     client.Writer.WriteLine(message);
                     break;
@@ -108,40 +112,49 @@ namespace Server.Objects
             }
         }
 
+        //отправка сообщения всем временным клиентам
+        public void SendMessageToAllClients(string message)
+        {
+            foreach (var client in tmpClients)
+            {
+                client.Writer.WriteLine(message);
+            }
+        }
 
+        //добавляет клиента во временные подключения
         public void AddConnection(ClientObject clientObject)
         {
             tmpClients.Add(clientObject);
         }
-
-
+        
+        //проверяет временный клиент или нет
         public bool IsTempClient(ClientObject clientObject)
         {
             return tmpClients.FirstOrDefault(u => u.Id == clientObject.Id) != null;
         }
-
+       
+        //удаляет клиента из временного подключения
         public void RemoveConnection(ClientObject clientObject)
         {
             tmpClients.Remove(clientObject);
         }
-
-
+        
+        //подключает клиента в указанную комнату
         public void ConnectToRoom(ClientObject clientObject, RoomObject roomObject)
         {
             roomObject.AddConnection(clientObject);
             RemoveConnection(clientObject);
         }
 
+        //перемещает клиента во временные пользователи и удаляет с комнаты
         public void LeaveRoom(ClientObject clientObject)
         {
             AddConnection(clientObject);
             clientObject.Room.RemoveConnection(clientObject);
             clientObject.Room = null;
-
-
-
         }
 
+        //отключение сервера
         public void Disconnect()
         {
             tcpListener.Stop();

@@ -1,4 +1,5 @@
-﻿using Core.Objects;
+﻿using Core.Enums;
+using Core.Objects;
 using Core.Packets.Request;
 using Newtonsoft.Json;
 using System;
@@ -21,6 +22,7 @@ namespace Server.Objects
         public StreamReader Reader { get; private set; }
         public StreamWriter Writer { get; private set; }
 
+        //создвет клиента и помещает во временные подклбчения
         public ClientObject(TcpClient client, ServerObject server)
         {
             Player = null;
@@ -30,6 +32,7 @@ namespace Server.Objects
             server.AddConnection(this);
         }
 
+        //прослушивания каждого клиента и обработка присланных команд
         public void Process()
         {
             try
@@ -37,7 +40,7 @@ namespace Server.Objects
                 Reader = new StreamReader(client.GetStream());
                 Writer = new StreamWriter(client.GetStream());
                 Writer.AutoFlush = true;
-                Console.WriteLine($"{Id}: вошел в чат");
+                Console.WriteLine($"{Id}: connected");
                 while (true)
                 {
                     try
@@ -47,20 +50,13 @@ namespace Server.Objects
                         {
                             Console.WriteLine(packet);
                             var typePacket = JsonConvert.DeserializeObject<BaseRequest>(packet).Type;
-                            foreach (var comand in server.Comands)
-                            {
-                                if (comand.TypesAreEqual(typePacket))
-                                {
-                                    comand.Excecute(packet, this, server, Room);
-                                    break;
-                                }
-                            }
+                            server.Commands[typePacket]?.Excecute(this, server, Room, packet);
                         }
                     }
                     catch
                     {
-                        Console.WriteLine($"{Id}: покинул чат");
-                        //server.SendMessageToAllClientsExceptSendingClient($"{Player.Login}: покинул чат", Id);
+                        Console.WriteLine($"{Id}: leave");
+                        server.Commands[RequestType.RoomLeave]?.Excecute(this, server, Room);
                         break;
                     }
                 }
@@ -71,14 +67,21 @@ namespace Server.Objects
             }
             finally
             {
-                if (Room==null)
-                    server.RemoveConnection(this);
-                else
+                if (IsInTheRoom())
                     Room.RemoveConnection(this);
+                else
+                    server.RemoveConnection(this);
                 Close();
             }
         }
 
+        //проверяет находится ли клиент в комнате
+        private bool IsInTheRoom()
+        {
+            return Room != null;
+        }
+
+        //освобождает ресурсы клиента
         public void Close()
         {
             Reader?.Close();

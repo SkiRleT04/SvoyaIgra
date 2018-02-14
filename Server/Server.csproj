@@ -67,12 +67,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Objects\Commands\GetRoomInfoCommand.cs" />
     <Compile Include="Objects\Commands\GetRoomsCommand.cs" />
     <Compile Include="Objects\Commands\RoomJoinCommand.cs" />
     <Compile Include="Objects\Commands\RoomLeaveCommand.cs" />
     <Compile Include="Objects\Db\ApplicationContext.cs" />
     <Compile Include="Objects\ClientObject.cs" />
-    <Compile Include="Objects\Commands\BaseCommand.cs" />
+    <Compile Include="Objects\Commands\ICommand.cs" />
     <Compile Include="Objects\Commands\LoginUserCommand.cs" />
     <Compile Include="Objects\Commands\RegisterUserCommand.cs" />
     <Compile Include="Objects\Db\DB.cs" />

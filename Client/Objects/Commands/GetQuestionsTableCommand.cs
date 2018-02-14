@@ -11,7 +11,7 @@ namespace Client.Objects.Commands
 {
     class GetQuestionsTableCommand : BaseCommand
     {
-        public override RequestType RequestType => RequestType.GetQuestionsTable;
+        public override RequestType RequestType => RequestType.GetRoomInfo;
 
         public override int Frequency => 2;
 

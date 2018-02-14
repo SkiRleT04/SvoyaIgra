@@ -9,19 +9,15 @@ using Newtonsoft.Json;
 
 namespace Server.Objects.Commands
 {
-    class GetRoomsCommand : BaseCommand
+    class GetRoomsCommand : ICommand
     {
-        public override int Frequency => 3;
-
-        public override RequestType Type => RequestType.GetRooms;
-
-        public override void Excecute(string packet, ClientObject client, ServerObject server, RoomObject room)
+        public void Excecute(ClientObject client, ServerObject server, RoomObject room, string packet = "")
         {
             Console.WriteLine("Get rooms");
             var response = new GetRoomResponse(server.GetFreeRooms());
             
             string packetResponse = JsonConvert.SerializeObject(response);
-            server.SendMessageToDefiniteClient(packetResponse, client.Id);
+            server.SendMessageToDefiniteClient(packetResponse, client);
         }
     }
 }

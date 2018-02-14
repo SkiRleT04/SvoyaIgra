@@ -11,13 +11,9 @@ using Server.Objects.Db;
 
 namespace Server.Objects.Commands
 {
-    class RegisterUserCommand : BaseCommand
+    class RegisterUserCommand : ICommand
     {
-        public override int Frequency => 1;
-        public override RequestType Type => RequestType.RegisterUser;
-
-
-        public override void Excecute(string packet, ClientObject client, ServerObject server, RoomObject room)
+        public void Excecute(ClientObject client, ServerObject server, RoomObject room, string packet = "")
         {
             Console.WriteLine("Register user");
             var request = JsonConvert.DeserializeObject<RegisterUserRequest>(packet);
@@ -28,7 +24,7 @@ namespace Server.Objects.Commands
             Console.WriteLine($"Register user status: {response.Status.ToString()}");
 
             string packetResponse = JsonConvert.SerializeObject(response);
-            server.SendMessageToDefiniteClient(packetResponse, client.Id);
+            server.SendMessageToDefiniteClient(packetResponse, client);
         }
     }
 }

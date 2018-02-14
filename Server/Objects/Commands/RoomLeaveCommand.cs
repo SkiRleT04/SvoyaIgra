@@ -10,23 +10,29 @@ using Newtonsoft.Json;
 
 namespace Server.Objects.Commands
 {
-    class RoomLeaveCommand : BaseCommand
+    class RoomLeaveCommand : ICommand
     {
-        public override int Frequency => 3;
-
-        public override RequestType Type => RequestType.RoomLeave;
-
-        public override void Excecute(string packet, ClientObject client, ServerObject server, RoomObject room)
+        public void Excecute(ClientObject client, ServerObject server, RoomObject room, string packet = "")
         {
-            var request = JsonConvert.DeserializeObject<RoomLeaveRequest>(packet);
             var response = new RoomLeaveResponse();
-            if (room != null)
+            server.LeaveRoom(client);
+            Console.WriteLine($"The room ({room.Info.Name}) was left by the user ({client.Player.Login})");
+
+
+            //if this is are request from the user
+            if (String.IsNullOrEmpty(packet))
             {
-                server.LeaveRoom(client);
-                Console.WriteLine($"Leave to room {room.Info.Name}");
-                //send data game
+                //send respons about update players in room
+                var request = JsonConvert.DeserializeObject<RoomLeaveRequest>(packet);
+                //...
             }
-            
+
+
+
+            //отправка всем временным пользователям о обновлении комнаты
+            response.Rooms = server.GetFreeRooms();
+            string packetResponse = JsonConvert.SerializeObject(response);
+            server.SendMessageToAllClients(packetResponse);
         }
     }
 }

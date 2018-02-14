@@ -16,7 +16,6 @@ namespace Server.Objects.Db
         {
             using (var db = new ApplicationContext())
             {
-                //if user exists
                 if (db.Users.FirstOrDefault(u => u.Login == user.Login) != null)
                     return ResponseStatus.LoginIsTaken;
                 db.Users.Add(user);
@@ -62,13 +61,36 @@ namespace Server.Objects.Db
                        .Where(q => q.Points == (i * 300))
                        .OrderBy(x=>Guid.NewGuid())
                        .FirstOrDefault();
+                        current.Answer = "";
                         questions.Add(current);
                     }
                     table.Add(category.Name, questions.AsEnumerable());
                 }
-              
                 return table;
             }     
+        }
+
+        public static void Test()
+        {
+            int counter = 0;
+            using (var db = new ApplicationContext())
+            {
+                var categories = db.Categories.ToList();
+
+                for (int i = 0; i < categories.Count; i++)
+                {
+                    for (int c = 0; c < 5; c++)
+                    {
+                        for (int j = 1; j < 6; j++)
+                        {
+                            counter++;
+                            var type = (counter % 2 == 0) ? QuestionContentType.Img : QuestionContentType.Text;
+                            db.Questions.Add(new Question(j * 300, $"Answer{counter}", $"Content{counter}", type, categories[i]));
+                            db.SaveChanges();
+                        }
+                    }
+                }
+            }
         }
         
     }

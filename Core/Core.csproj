@@ -55,7 +55,7 @@
     <Compile Include="Packets\Request\GetRoomRequest.cs" />
     <Compile Include="Packets\Request\Request.cs" />
     <Compile Include="Packets\Request\CheckAnswerRequest.cs" />
-    <Compile Include="Packets\Request\GetQuestionsTableRequest.cs" />
+    <Compile Include="Packets\Request\GetRoomInfoRequest.cs" />
     <Compile Include="Packets\Request\GetWinnerRequest.cs" />
     <Compile Include="Packets\Request\LoginUserRequest.cs" />
     <Compile Include="Packets\Request\RegisterUserRequest.cs" />
@@ -64,7 +64,7 @@
     <Compile Include="Packets\Request\SetRespondentRequest.cs" />
     <Compile Include="Packets\Response\BaseResponse.cs" />
     <Compile Include="Packets\Response\CheckAnswerResponse.cs" />
-    <Compile Include="Packets\Response\GetQuestionsTableResponse.cs" />
+    <Compile Include="Packets\Response\GetRoomInfoResponse.cs" />
     <Compile Include="Packets\Response\GetRoomResponse.cs" />
     <Compile Include="Packets\Response\GetWinnerResponse.cs" />
     <Compile Include="Packets\Response\LoginUserResponse.cs" />

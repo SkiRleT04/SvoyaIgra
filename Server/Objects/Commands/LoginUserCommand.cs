@@ -12,13 +12,9 @@ using Server.Objects.Db;
 
 namespace Server.Objects.Commands
 {
-    class LoginUserCommand : BaseCommand
+    class LoginUserCommand : ICommand
     {
-        public override int Frequency => 3;
-
-        public override RequestType Type => RequestType.LoginUser;
-
-        public override void Excecute(string packet, ClientObject client, ServerObject server, RoomObject room)
+        public void Excecute(ClientObject client, ServerObject server, RoomObject room, string packet = "")
         {
             Console.WriteLine("Login user");
             var request = JsonConvert.DeserializeObject<LoginUserRequest>(packet);
@@ -35,7 +31,7 @@ namespace Server.Objects.Commands
             }
 
             string packetResponse = JsonConvert.SerializeObject(response);
-            server.SendMessageToDefiniteClient(packetResponse, client.Id);
+            server.SendMessageToDefiniteClient(packetResponse, client);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Core.Enums
     {
         RegisterUser,
         LoginUser,
-        GetQuestionsTable,
+        GetRoomInfo,
         CheckAnswer,
         SetRespondent,
         GetWinner,

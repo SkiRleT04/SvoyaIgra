@@ -15,14 +15,14 @@ namespace Server.Objects
         public Room Info { get; private set; }
         public GameObject Game { get; private set; }
 
-
+        //инициализарует новую комнату
         public RoomObject(int id, string name, int size)
         {
             Info = new Room(id, name, size);
             Game = new GameObject();
         }
 
-
+        //отправка сообщения всем клиентам комнаты
         public void SendMessageToAllClients(string message)
         {
             foreach (var client in clients)
@@ -32,20 +32,22 @@ namespace Server.Objects
             }
         }
 
-        public void SendMessageToAllClientsExceptSendingClient(string message, string idSendingUser)
+        //отправка сообщениям всем клиентам комнаты кроме себя
+        public void SendMessageToAllClientsExceptSendingClient(string message, ClientObject clientObject)
         {
             foreach (var client in clients)
             {
-                if (client.Id != idSendingUser && client.Player != null)
+                if (client.Id != clientObject.Id && client.Player != null)
                     client.Writer.WriteLine(message);
             }
         }
 
-        public void SendMessageToDefiniteClient(string message, string idDefiniteClient)
+        //отправка сообщения определенному клиенту находящемуся в комнате
+        public void SendMessageToDefiniteClient(string message, ClientObject clientObject)
         {
             foreach (var client in clients)
             {
-                if (client.Id == idDefiniteClient)
+                if (client.Id == client.Id)
                 {
                     client.Writer.WriteLine(message);
                     break;
@@ -53,15 +55,24 @@ namespace Server.Objects
             }
         }
 
+        //добавления клиента в комнату
         public void AddConnection(ClientObject clientObject)
         {
             clients.Add(clientObject);
             clientObject.Room = this;
+            clientObject.Player.Points = 0;
         }
 
+        //удаления клиента с комнаты
         public void RemoveConnection(ClientObject clientObject)
         {
-            clients?.Remove(clientObject);
+            clients.Remove(clientObject);
+        }
+
+        //возвращает всех игроков комнаты
+        public IEnumerable<Player> GetAllPlayers()
+        {
+            return clients.Select(c => c.Player).AsEnumerable();
         }
 
     }

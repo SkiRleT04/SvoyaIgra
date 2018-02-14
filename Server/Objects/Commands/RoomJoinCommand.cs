@@ -10,13 +10,9 @@ using Newtonsoft.Json;
 
 namespace Server.Objects.Commands
 {
-    class RoomJoinCommand : BaseCommand
+    class RoomJoinCommand : ICommand
     {
-        public override int Frequency => 4;
-
-        public override RequestType Type => RequestType.RoomJoin;
-
-        public override void Excecute(string packet, ClientObject client, ServerObject server, RoomObject room)
+        public void Excecute(ClientObject client, ServerObject server, RoomObject room, string packet = "")
         {
             var request = JsonConvert.DeserializeObject<RoomJoinRequest>(packet);
             Console.WriteLine($"Join to room {request.Room.Name}");
@@ -26,13 +22,14 @@ namespace Server.Objects.Commands
 
             if (roomObject != null)
             {
-                if (roomObject.Info.PlayersCount == roomObject.Info.Size)
+                if (roomObject.Info.PlayersCount >= roomObject.Info.Size)
                     response.Status = ResponseStatus.RoomIsFull;
                 else
                 {
                     server.ConnectToRoom(client, roomObject);
                     response.Status = ResponseStatus.Ok;
                     Console.WriteLine($"User {client.Player.Login} connect to room {roomObject.Info.Name}");
+                    server.Commands[RequestType.GetRoomInfo]?.Excecute(client, server, roomObject);
                 }
 
             }
@@ -40,8 +37,7 @@ namespace Server.Objects.Commands
                 response.Status = ResponseStatus.Bad;
             Console.WriteLine($"Join to room status: {response.Status.ToString()}");
             string packetResponse = JsonConvert.SerializeObject(response);
-            roomObject.SendMessageToDefiniteClient(packetResponse, client.Id);
-
+            roomObject.SendMessageToDefiniteClient(packetResponse, client);
         }
     }
 }

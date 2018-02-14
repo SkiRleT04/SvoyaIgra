@@ -9,7 +9,7 @@ using Core.Packets.Response;
 
 namespace Client.Objects.Commands
 {
-    class GetQuestionsTableCommand : BaseCommand
+    class GetRoomInfoCommand : BaseCommand
     {
         public override RequestType RequestType => RequestType.GetRoomInfo;
 

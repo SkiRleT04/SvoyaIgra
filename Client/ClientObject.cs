@@ -47,11 +47,13 @@ namespace Client
         {
             List<BaseCommand> commands = new List<BaseCommand>();
             commands.Add(new CheckAnswerCommand());
-            commands.Add(new GetQuestionsTableCommand());
+            commands.Add(new GetRoomInfoCommand());
             commands.Add(new GetWinnerCommand());
             commands.Add(new LoginUserCommand());
             commands.Add(new RegisterUserCommand());
             commands.Add(new SetRespondentCommand());
+            commands.Add(new RoomJoinCommand());
+            commands.Add(new RoomLeaveCommand());
             commands = commands.OrderByDescending(x => x.Frequency).ToList();
 
             Task.Run(() =>{

@@ -4,9 +4,14 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SvoyaIgraClient.Views"
+      xmlns:viewmodels="clr-namespace:Client.ViewModels"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
       Title="Game" Width="600" Height="400">
+
+    <Page.DataContext>
+        <viewmodels:GameViewModel/>
+    </Page.DataContext>
 
     <Grid Height="400" Background="White" Margin="0,0,0,0">
         <Grid Name="Controls">
@@ -15,7 +20,7 @@
         <Label Content="Принятие решения" HorizontalAlignment="Left" Margin="0,47,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.482,0.462" Width="100" FontSize="9"/>
         <Button x:Name="btnAnswer" Content="ОТВЕТИТЬ" HorizontalAlignment="Left" Margin="258,334,0,0" VerticalAlignment="Top" Width="75" Click="btnAnswer_Click"/>
         <Button Content="Button" HorizontalAlignment="Left" Margin="516,14,0,0" VerticalAlignment="Top" Width="66" Click="Button_Click"/>
-        <Button x:Name="btnExit" Content="Выход" HorizontalAlignment="Left" Margin="25,334,0,0" VerticalAlignment="Top" Width="75"/>
+            <Button x:Name="btnLeaveRoom"  Content="Покинуть комнату" Command="{Binding ClickLeaveRoom}" HorizontalAlignment="Left" Margin="25,334,0,0" VerticalAlignment="Top" Width="75"/>
         </Grid>
         <Frame x:Name="ActionFrame" Content="" HorizontalAlignment="Left" Height="120
                " Margin="100,200,0,0" VerticalAlignment="Top" Width="400"/>

@@ -14,13 +14,15 @@ namespace Server.Objects
 {
     class ServerObject
     {
+        static volatile object locker = new Object();
         static TcpListener tcpListener;
-
         List<RoomObject> rooms = new List<RoomObject>();
         public ReadOnlyCollection<RoomObject> Rooms => rooms.AsReadOnly();
         IDictionary<RequestType, ICommand> commands = new Dictionary<RequestType, ICommand>();
         public ReadOnlyDictionary<RequestType, ICommand> Commands { get; }
         List<ClientObject> tmpClients = new List<ClientObject>();
+
+
 
         //инициализация сервера
         public ServerObject()
@@ -38,11 +40,12 @@ namespace Server.Objects
         //обновление комнат
         private void UpdateRooms()
         {
-            //если нету комнат создаем одну
-            if (rooms.Count == 0)
+            lock (locker)
             {
-                rooms.Add(new RoomObject(1, "GameRoom1", 2));
-                return;
+                if (rooms.Count == 0)
+                {
+                    rooms.Add(new RoomObject(1, "GameRoom1", 2));
+                }
             }
             //если пустых комнат больше чем одна, оставляем только одну
             var emptyRooms = rooms.Where(r => r.Info.PlayersCount == 0).ToArray();
@@ -58,7 +61,7 @@ namespace Server.Objects
             if (freeRooms.Length == 0)
             {
                 int idRoom = rooms.OrderByDescending(r => r.Info.Id).First().Info.Id + 1;
-                rooms.Add(new RoomObject(idRoom, $"GameRoom{idRoom}", 2));
+                rooms.Add(new RoomObject(idRoom, $"GameRoom{idRoom}", 3));
             } 
         }
         
@@ -152,6 +155,16 @@ namespace Server.Objects
             AddConnection(clientObject);
             clientObject.Room.RemoveConnection(clientObject);
             clientObject.Room = null;
+        }
+
+        public bool UserIsPlaying(ClientObject clientObject)
+        {
+            foreach (var room in rooms)
+            {
+                if (room.Clients.Contains(clientObject))
+                    return false;
+            }
+            return true;
         }
 
         //отключение сервера

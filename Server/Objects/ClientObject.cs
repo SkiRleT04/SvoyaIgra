@@ -56,7 +56,15 @@ namespace Server.Objects
                     catch
                     {
                         Console.WriteLine($"{Id}: leave");
-                        server.Commands[RequestType.RoomLeave]?.Excecute(this, server, Room);
+                        //если клиент был в комнате удаляем его с нее, иначе со временных клиентов
+                        if (IsInTheRoom())
+                        {
+                            Room.RemoveConnection(this);
+                            //отправляем уведомление о том что пользователь покинул игру
+                            server.Commands[RequestType.RoomLeave]?.Excecute(this, server, Room);
+                        }
+                        else
+                            server.RemoveConnection(this);
                         break;
                     }
                 }
@@ -67,10 +75,6 @@ namespace Server.Objects
             }
             finally
             {
-                if (IsInTheRoom())
-                    Room.RemoveConnection(this);
-                else
-                    server.RemoveConnection(this);
                 Close();
             }
         }
@@ -79,6 +83,12 @@ namespace Server.Objects
         private bool IsInTheRoom()
         {
             return Room != null;
+        }
+
+        //проверка подключен ли пользователь к сети
+        public bool IsConnected()
+        {
+            return client.Client.Connected;
         }
 
         //освобождает ресурсы клиента

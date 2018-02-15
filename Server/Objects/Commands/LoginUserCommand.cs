@@ -22,10 +22,15 @@ namespace Server.Objects.Commands
 
             var response = new LoginUserResponse();
             response.Status = DB.AuthUser(request.User);
-            response.Rooms = server.GetFreeRooms().AsEnumerable<Room>();
+
+            if (server.UserIsPlaying(client))
+                response.Status = ResponseStatus.UserIsPlaying;
+
             Console.WriteLine($"Login user status: {response.Status.ToString()}");
+
             if (response.Status == ResponseStatus.Ok)
             {
+                response.Rooms = server.GetFreeRooms().AsEnumerable();
                 client.Player = new Player(request.User.Login);
                 Console.WriteLine($"User: {request.User.Login} successfully authorized");
             }

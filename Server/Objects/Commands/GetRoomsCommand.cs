@@ -15,7 +15,6 @@ namespace Server.Objects.Commands
         {
             Console.WriteLine("Get rooms");
             var response = new GetRoomResponse(server.GetFreeRooms());
-            
             string packetResponse = JsonConvert.SerializeObject(response);
             server.SendMessageToDefiniteClient(packetResponse, client);
         }

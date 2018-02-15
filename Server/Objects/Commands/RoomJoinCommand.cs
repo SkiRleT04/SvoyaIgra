@@ -17,40 +17,37 @@ namespace Server.Objects.Commands
             var request = JsonConvert.DeserializeObject<RoomJoinRequest>(packet);
             Console.WriteLine($"Join to room {request.Room.Name}");
             var roomObject = server.GetRoomById(request.Room.Id);
-
             var response = new RoomJoinResponse();
-
+            //если запрашиваемае комната существует
             if (roomObject != null)
             {
+                //если нету свободных мест в комнате
                 if (roomObject.Info.PlayersCount >= roomObject.Info.Size)
                     response.Status = ResponseStatus.RoomIsFull;
                 else
                 {
+                    //конектим пользователя к комнате
                     server.ConnectToRoom(client, roomObject);
                     response.Status = ResponseStatus.Ok;
                     Console.WriteLine($"User {client.Player.Login} connect to room {roomObject.Info.Name}");
                 }
-
             }
             else
                 response.Status = ResponseStatus.Bad;
             Console.WriteLine($"Join to room status: {response.Status.ToString()}");
             string packetResponse = JsonConvert.SerializeObject(response);
+            //отправляем пользователю статус подключения к комнате
             roomObject.SendMessageToDefiniteClient(packetResponse, client);
 
 
-            //отправка всем временным пользователям о обновлении комнаты
+            //----------------------------------------------------------------------------//
+            //отправка всем временным пользователям о обновлении комнат
             var responseForTempClient = new RoomLeaveResponse();
             responseForTempClient.Rooms = server.GetFreeRooms();
             string packetResponseForTempClient = JsonConvert.SerializeObject(responseForTempClient);
             server.SendMessageToAllClients(packetResponseForTempClient);
 
-            //send addition info
-            /*if (response.Status == ResponseStatus.Ok)
-                server.Commands[RequestType.GetRoomInfo]?.Excecute(client, server, roomObject);
-            if (response.Status == ResponseStatus.RoomIsFull)
-                server.Commands[RequestType.GetRooms]?.Excecute(client, server, roomObject);
-                */
+            //---------------------Отправить игрокам комнаты информацию об новом игроке----------------------//
         }
     }
 }

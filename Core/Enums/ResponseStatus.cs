@@ -13,6 +13,7 @@ namespace Core.Enums
         LoginIsTaken,
         WrongPassword,
         UserDoesntExist,
-        RoomIsFull
+        RoomIsFull,
+        UserIsPlaying
     }
 }

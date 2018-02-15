@@ -14,15 +14,22 @@ namespace Server.Objects.Commands
     {
         public void Excecute(ClientObject client, ServerObject server, RoomObject room, string packet = "")
         {
+            //удаляем клиента с комнаты
             var response = new RoomLeaveResponse();
-            server.LeaveRoom(client);
-            Console.WriteLine($"The room ({room.Info.Name}) was left by the user ({client.Player.Login})");
+
+            //проверяем если клиент подключен к серверу то удаляем с комнаты, а если соединение прервано то пропускаем удаление
+            if (client.IsConnected())
+            {
+                server.LeaveRoom(client);
+                Console.WriteLine($"The room ({room.Info.Name}) was left by the user ({client.Player.Login})");
+            }
 
             //отправка всем временным пользователям о обновлении комнаты
             response.Rooms = server.GetFreeRooms();
             string packetResponse = JsonConvert.SerializeObject(response);
             server.SendMessageToAllClients(packetResponse);
 
+            //-------------------------------------------------------------------//
             //отправка игрокам комнаты информацию об обновлении комнаты
             var responeForPlayers = new GetRoomInfoResponse();
             responeForPlayers.Players = room.GetAllPlayers();

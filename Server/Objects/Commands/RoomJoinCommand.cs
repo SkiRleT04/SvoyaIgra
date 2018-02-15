@@ -38,12 +38,19 @@ namespace Server.Objects.Commands
             string packetResponse = JsonConvert.SerializeObject(response);
             roomObject.SendMessageToDefiniteClient(packetResponse, client);
 
+
+            //отправка всем временным пользователям о обновлении комнаты
+            var responseForTempClient = new RoomLeaveResponse();
+            responseForTempClient.Rooms = server.GetFreeRooms();
+            string packetResponseForTempClient = JsonConvert.SerializeObject(responseForTempClient);
+            server.SendMessageToAllClients(packetResponseForTempClient);
+
             //send addition info
-            if (response.Status == ResponseStatus.Ok)
+            /*if (response.Status == ResponseStatus.Ok)
                 server.Commands[RequestType.GetRoomInfo]?.Excecute(client, server, roomObject);
             if (response.Status == ResponseStatus.RoomIsFull)
                 server.Commands[RequestType.GetRooms]?.Excecute(client, server, roomObject);
-
+                */
         }
     }
 }

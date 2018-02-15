@@ -84,9 +84,9 @@ namespace Server.Objects
         //освобождает ресурсы клиента
         public void Close()
         {
+            client?.Close();
             Reader?.Close();
             Writer?.Close();
-            client?.Close();
         }
     }
 }

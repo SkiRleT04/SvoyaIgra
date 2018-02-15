@@ -157,14 +157,15 @@ namespace Server.Objects
             clientObject.Room = null;
         }
 
+        //проверяет играет сейчас пользователь или нет
         public bool UserIsPlaying(ClientObject clientObject)
         {
             foreach (var room in rooms)
             {
                 if (room.Clients.Contains(clientObject))
-                    return false;
+                    return true;
             }
-            return true;
+            return false;
         }
 
         //отключение сервера

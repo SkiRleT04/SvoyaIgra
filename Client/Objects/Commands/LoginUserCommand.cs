@@ -49,6 +49,10 @@ namespace Client.Objects.Commands
                     (ClientObject.view as UserViewModel).Status = "Был введён неверный пароль";
                     break;
 
+                case ResponseStatus.UserIsPlaying:
+                    (ClientObject.view as UserViewModel).Status = "Пользователь с таким логином уже играет";
+                    break;
+
             }
         }
     }

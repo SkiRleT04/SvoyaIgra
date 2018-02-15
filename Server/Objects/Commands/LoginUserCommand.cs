@@ -19,15 +19,16 @@ namespace Server.Objects.Commands
             Console.WriteLine("Login user");
             var request = JsonConvert.DeserializeObject<LoginUserRequest>(packet);
 
-
             var response = new LoginUserResponse();
             response.Status = DB.AuthUser(request.User);
 
+            //проверяем играет ли пользователь
             if (server.UserIsPlaying(client))
                 response.Status = ResponseStatus.UserIsPlaying;
 
             Console.WriteLine($"Login user status: {response.Status.ToString()}");
 
+            //если пользователь с таким логином и паролем существует и не играет
             if (response.Status == ResponseStatus.Ok)
             {
                 response.Rooms = server.GetFreeRooms().AsEnumerable();

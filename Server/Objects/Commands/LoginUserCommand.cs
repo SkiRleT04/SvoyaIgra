@@ -14,30 +14,45 @@ namespace Server.Objects.Commands
 {
     class LoginUserCommand : ICommand
     {
+        static object locker = new Object();
         public void Excecute(ClientObject client, ServerObject server, RoomObject room, string packet = "")
         {
-            Console.WriteLine("Login user");
-            var request = JsonConvert.DeserializeObject<LoginUserRequest>(packet);
+            //lock (locker)
+            //{
+                Console.WriteLine("Login user");
+                var request = JsonConvert.DeserializeObject<LoginUserRequest>(packet);
+                var response = new LoginUserResponse();
+                response.Status = DB.AuthUser(request.User);
 
-            var response = new LoginUserResponse();
-            response.Status = DB.AuthUser(request.User);
+                //проверяем играет ли пользователь
+                if (UserIsPlaying(request.User, server))
+                    response.Status = ResponseStatus.UserIsPlaying;
+                Console.WriteLine($"Login user status: {response.Status.ToString()}");
+                //если пользователь с таким логином и паролем существует и не играет
+                if (response.Status == ResponseStatus.Ok)
+                {
+                    response.Rooms = server.GetFreeRooms().AsEnumerable();
+                    client.Player = new Player(request.User.Login);
+                    Console.WriteLine($"User: {request.User.Login} successfully authorized");
+                }
+                string packetResponse = JsonConvert.SerializeObject(response);
+                server.SendMessageToDefiniteClient(packetResponse, client);
+            //}
+        }
 
-            //проверяем играет ли пользователь
-            if (server.UserIsPlaying(client))
-                response.Status = ResponseStatus.UserIsPlaying;
 
-            Console.WriteLine($"Login user status: {response.Status.ToString()}");
+        //проверяет играет сейчас пользователь или нет
+        private bool UserIsPlaying(User user, ServerObject server)
+        {
+            if (server.TmpClients.Count(u => u.Player != null && u.Player.Login == user.Login) > 0)
+                return true;
 
-            //если пользователь с таким логином и паролем существует и не играет
-            if (response.Status == ResponseStatus.Ok)
+            foreach (var room in server.Rooms)
             {
-                response.Rooms = server.GetFreeRooms().AsEnumerable();
-                client.Player = new Player(request.User.Login);
-                Console.WriteLine($"User: {request.User.Login} successfully authorized");
+                if (room.Clients.Count(u => u.Player != null && u.Player.Login == user.Login) > 0)
+                    return true;
             }
-
-            string packetResponse = JsonConvert.SerializeObject(response);
-            server.SendMessageToDefiniteClient(packetResponse, client);
+            return false;
         }
     }
 }

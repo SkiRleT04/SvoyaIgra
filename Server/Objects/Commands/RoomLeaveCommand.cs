@@ -27,7 +27,7 @@ namespace Server.Objects.Commands
             //отправка всем временным пользователям о обновлении комнаты
             response.Rooms = server.GetFreeRooms();
             string packetResponse = JsonConvert.SerializeObject(response);
-            server.SendMessageToAllClients(packetResponse);
+            server.SendMessageToAllAuthClients(packetResponse);
 
             //-------------------------------------------------------------------//
             //отправка игрокам комнаты информацию об обновлении комнаты

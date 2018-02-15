@@ -14,14 +14,14 @@ namespace Server.Objects
 {
     class ServerObject
     {
-        static volatile object locker = new Object();
+        static object locker = new Object();
         static TcpListener tcpListener;
         List<RoomObject> rooms = new List<RoomObject>();
         public ReadOnlyCollection<RoomObject> Rooms => rooms.AsReadOnly();
         IDictionary<RequestType, ICommand> commands = new Dictionary<RequestType, ICommand>();
         public ReadOnlyDictionary<RequestType, ICommand> Commands { get; }
         List<ClientObject> tmpClients = new List<ClientObject>();
-
+        public ReadOnlyCollection<ClientObject> TmpClients => tmpClients.AsReadOnly();
 
 
         //инициализация сервера
@@ -124,6 +124,16 @@ namespace Server.Objects
             }
         }
 
+        public void SendMessageToAllAuthClients(string message)
+        {
+            foreach (var client in tmpClients)
+            {
+                if (client.Player != null)
+                    client.Writer.WriteLine(message);
+            }
+
+        }
+
         //добавляет клиента во временные подключения
         public void AddConnection(ClientObject clientObject)
         {
@@ -155,17 +165,6 @@ namespace Server.Objects
             AddConnection(clientObject);
             clientObject.Room.RemoveConnection(clientObject);
             clientObject.Room = null;
-        }
-
-        //проверяет играет сейчас пользователь или нет
-        public bool UserIsPlaying(ClientObject clientObject)
-        {
-            foreach (var room in rooms)
-            {
-                if (room.Clients.Contains(clientObject))
-                    return true;
-            }
-            return false;
         }
 
         //отключение сервера

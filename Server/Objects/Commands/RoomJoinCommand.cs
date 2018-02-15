@@ -45,9 +45,13 @@ namespace Server.Objects.Commands
             var responseForTempClient = new RoomLeaveResponse();
             responseForTempClient.Rooms = server.GetFreeRooms();
             string packetResponseForTempClient = JsonConvert.SerializeObject(responseForTempClient);
-            server.SendMessageToAllClients(packetResponseForTempClient);
+            server.SendMessageToAllAuthClients(packetResponseForTempClient);
 
             //---------------------Отправить игрокам комнаты информацию об новом игроке----------------------//
+
+            //---------------------Отправить игроку комнаты информации о игре----------------------//
+            var responseForNewPlayer = new GetRoomInfoResponse();
+            server.Commands[RequestType.GetRoomInfo]?.Excecute(client, server, room);
         }
     }
 }

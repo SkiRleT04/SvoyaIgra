@@ -67,7 +67,8 @@ namespace Server.Objects
         //возвращает всех игроков комнаты
         public IEnumerable<Player> GetAllPlayers()
         {
-            return clients.Select(c => c.Player).AsEnumerable();
+            var listPlayers = clients.Select(c => c.Player).ToArray();
+            return listPlayers.AsEnumerable();
         }
 
     }

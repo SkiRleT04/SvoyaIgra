@@ -23,14 +23,17 @@ namespace Server.Objects.Commands
                 server.LeaveRoom(client);
                 Console.WriteLine($"The room ({room.Info.Name}) was left by the user ({client.Player.Login})");
             }
-
             //отправка всем временным пользователям о обновлении комнаты
             response.Rooms = server.GetFreeRooms();
             string packetResponse = JsonConvert.SerializeObject(response);
             server.SendMessageToAllAuthClients(packetResponse);
-
             //-------------------------------------------------------------------//
-            //отправка игрокам комнаты информацию об обновлении комнаты
+            NotifyPlayersAboutUpdateRooms(room);
+        }
+
+        //отправка игрокам комнаты информацию об обновлении комнаты
+        public void NotifyPlayersAboutUpdateRooms(RoomObject room)
+        {
             var responeForPlayers = new GetRoomInfoResponse();
             responeForPlayers.Players = room.GetAllPlayers();
             string packetResponseForPlayers = JsonConvert.SerializeObject(responeForPlayers);

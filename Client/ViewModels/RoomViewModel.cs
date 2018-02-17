@@ -106,8 +106,11 @@ namespace Client.ViewModels
                     RoomJoinRequest roomJoinRequest = new RoomJoinRequest();
                     roomJoinRequest.User = ClientObject.user;
                     roomJoinRequest.Room = selectedRoom;
-                    string jsonSelectedRoom = JsonConvert.SerializeObject(roomJoinRequest);
-                    ClientObject.SendMessage(jsonSelectedRoom);
+                    if (selectedRoom != null)
+                    {
+                        string jsonSelectedRoom = JsonConvert.SerializeObject(roomJoinRequest);
+                        ClientObject.SendMessage(jsonSelectedRoom);
+                    }
                 });
             }
         }

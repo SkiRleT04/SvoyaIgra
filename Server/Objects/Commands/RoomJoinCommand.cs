@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Core.Enums;
 using Core.Packets.Request;
 using Core.Packets.Response;
@@ -38,20 +34,21 @@ namespace Server.Objects.Commands
             string packetResponse = JsonConvert.SerializeObject(response);
             //отправляем пользователю статус подключения к комнате
             roomObject.SendMessageToDefiniteClient(packetResponse, client);
-
-
             //----------------------------------------------------------------------------//
-            //отправка всем временным пользователям о обновлении комнат
+            NotifyTempUsersAboutUpdateRooms(server);
+            //---------------------Отправить игрокам комнаты информацию об новом игроке----------------------//
+            //---------------------Отправить игроку комнаты информации о игре----------------------//
+            var responseForNewPlayer = new GetRoomInfoResponse();
+            server.Commands[RequestType.GetRoomInfo]?.Excecute(client, server, roomObject);
+        }
+
+        //отправка всем временным пользователям о обновлении комнат
+        public void NotifyTempUsersAboutUpdateRooms(ServerObject server)
+        {
             var responseForTempClient = new RoomLeaveResponse();
             responseForTempClient.Rooms = server.GetFreeRooms();
             string packetResponseForTempClient = JsonConvert.SerializeObject(responseForTempClient);
             server.SendMessageToAllAuthClients(packetResponseForTempClient);
-
-            //---------------------Отправить игрокам комнаты информацию об новом игроке----------------------//
-
-            //---------------------Отправить игроку комнаты информации о игре----------------------//
-            var responseForNewPlayer = new GetRoomInfoResponse();
-            server.Commands[RequestType.GetRoomInfo]?.Excecute(client, server, room);
         }
     }
 }

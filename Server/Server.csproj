@@ -80,6 +80,7 @@
     <Compile Include="Objects\GameObject.cs" />
     <Compile Include="Objects\RoomObject.cs" />
     <Compile Include="Objects\ServerObject.cs" />
+    <Compile Include="Objects\Utils\NameRoom.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -115,6 +116,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>SvoyaIgra.mdf</DependentUpon>
     </Content>
+    <Content Include="Files\NamesRoom.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

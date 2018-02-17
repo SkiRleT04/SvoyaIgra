@@ -63,6 +63,10 @@ namespace Server.Objects.Db
                        .FirstOrDefault();
                         current.Answer = "";
                         questions.Add(current);
+                        
+                        current.Category = null;
+                        current.Answer = "";
+
                     }
                     table.Add(category.Name, questions.AsEnumerable());
                 }

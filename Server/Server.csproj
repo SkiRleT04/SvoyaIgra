@@ -71,6 +71,7 @@
     <Compile Include="Objects\Commands\GetRoomsCommand.cs" />
     <Compile Include="Objects\Commands\RoomJoinCommand.cs" />
     <Compile Include="Objects\Commands\RoomLeaveCommand.cs" />
+    <Compile Include="Objects\Commands\SetRespondentCommand.cs" />
     <Compile Include="Objects\Db\ApplicationContext.cs" />
     <Compile Include="Objects\ClientObject.cs" />
     <Compile Include="Objects\Commands\ICommand.cs" />

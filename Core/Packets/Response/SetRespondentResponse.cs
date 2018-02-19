@@ -1,4 +1,5 @@
 ﻿using Core.Enums;
+using Core.Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace Core.Packets.Response
     public class SetRespondentResponse : Response
     {
         public override RequestType Request { get; set; } = RequestType.SetRespondent;
-
+        public ResponseStatus Status { get; set; }
+        public Player Player { get; set; }
     }
 }

@@ -14,7 +14,7 @@ namespace Server.Objects.Commands
 {
     class LoginUserCommand : ICommand
     {
-        static object locker = new Object();
+        //static object locker = new Object();
         public void Excecute(ClientObject client, ServerObject server, RoomObject room, string packet = "")
         {
             //lock (locker)

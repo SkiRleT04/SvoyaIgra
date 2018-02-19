@@ -30,7 +30,10 @@ namespace Client.Objects.Commands
             });*/
 
             (ClientObject.view as GameViewModel).Players = new ObservableCollection<Player>(getRoomInfoResponse.Players);
-            (ClientObject.view as GameViewModel).QuestionsTable = getRoomInfoResponse.TableQuestions;
+
+            
+            if(getRoomInfoResponse.TableQuestions != null)
+             (ClientObject.view as GameViewModel).QuestionsTable= getRoomInfoResponse.TableQuestions;
 
 
         }

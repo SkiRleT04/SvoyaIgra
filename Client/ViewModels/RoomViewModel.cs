@@ -19,11 +19,13 @@ namespace Client.ViewModels
         public RoomViewModel()
         {
 
-            Rooms = new ObservableCollection<Room>();
+            rooms = new ObservableCollection<Room>();
             
         }
 
         private ObservableCollection<Room> rooms;
+        
+
         public ObservableCollection<Room> Rooms
         {
             get { return rooms; }

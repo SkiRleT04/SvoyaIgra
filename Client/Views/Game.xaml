@@ -9,9 +9,6 @@
       d:DesignHeight="300" d:DesignWidth="300"
       Title="Game" Width="600" Height="400">
 
-    <Page.DataContext>
-        <viewmodels:GameViewModel/>
-    </Page.DataContext>
 
     <Grid Height="400" Background="White" Margin="0,0,0,0">
         <Grid Name="Controls">

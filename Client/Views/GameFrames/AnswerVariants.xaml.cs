@@ -36,7 +36,7 @@ namespace SvoyaIgraClient.Views.GameFrames
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            actionFrame.NavigationService.Navigate(new Players());
+            actionFrame.NavigationService.GoBack();
             controls.IsEnabled = true;
             
         }

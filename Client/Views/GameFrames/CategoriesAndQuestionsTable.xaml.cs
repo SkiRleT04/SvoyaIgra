@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Client;
+using Client.ViewModels;
+using Core.Objects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +26,21 @@ namespace SvoyaIgraClient.Views.GameFrames
         public CategoriesAndQuestionsTable()
         {
             InitializeComponent();
+            
+            DataContext = ClientObject.view as GameViewModel;
+
+            /*foreach (var item in Questions.Children)
+            {
+                if (item.GetType() == typeof(Button))
+                {
+                    
+                    MessageBox.Show(((Button)item).Content.ToString());
+                }
+            }*/
+           
+            
         }
+
+
     }
 }

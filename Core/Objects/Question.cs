@@ -15,6 +15,7 @@ namespace Core.Objects
         public string Answer { get; set; }
         public string Content { get; set; }
         public QuestionContentType Type {get;set;}
+            
 
         public int? CategoryId { get; set; }
         public Category Category { get; set; }

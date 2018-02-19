@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Client;
+using Client.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,8 @@ namespace SvoyaIgraClient.Views.GameFrames
         public ImageQuestionContent()
         {
             InitializeComponent();
+            DataContext = ClientObject.view as GameViewModel;
+
         }
     }
 }

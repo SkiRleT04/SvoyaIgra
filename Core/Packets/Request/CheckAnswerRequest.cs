@@ -10,8 +10,7 @@ namespace Core.Packets.Request
 {
     public class CheckAnswerRequest : Request
     {
-        public Question Question { get; set; }
-        public Player Player { get; set; }
         public override RequestType Type { get; set; } = RequestType.CheckAnswer;
+        public Question Question { get; set; }
     }
 }

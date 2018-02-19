@@ -32,7 +32,7 @@ namespace Server.Objects.Commands
         }
 
         //отправка игрокам комнаты информацию об обновлении комнаты
-        public void NotifyPlayersAboutUpdateRooms(RoomObject room)
+        private void NotifyPlayersAboutUpdateRooms(RoomObject room)
         {
             var responeForPlayers = new GetRoomInfoResponse();
             responeForPlayers.Players = room.GetAllPlayers();

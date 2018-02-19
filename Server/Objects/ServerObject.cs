@@ -76,7 +76,6 @@ namespace Server.Objects
         public List<Room> GetFreeRooms()
         {
             UpdateRooms();
-            var list  = rooms.Where(x => x.Info.PlayersCount < x.Info.Size).Select(x => x.Info).ToList();
             return rooms.Where(x => x.Info.PlayersCount < x.Info.Size).Select(x => x.Info).ToList();
         }
        

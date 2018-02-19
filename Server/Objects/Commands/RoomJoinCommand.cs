@@ -37,18 +37,27 @@ namespace Server.Objects.Commands
             //----------------------------------------------------------------------------//
             NotifyTempUsersAboutUpdateRooms(server);
             //---------------------Отправить игрокам комнаты информацию об новом игроке----------------------//
+            NotifyPlayersAboutUpdateRooms(roomObject);
             //---------------------Отправить игроку комнаты информации о игре----------------------//
-            var responseForNewPlayer = new GetRoomInfoResponse();
             server.Commands[RequestType.GetRoomInfo]?.Excecute(client, server, roomObject);
         }
 
         //отправка всем временным пользователям о обновлении комнат
-        public void NotifyTempUsersAboutUpdateRooms(ServerObject server)
+        private void NotifyTempUsersAboutUpdateRooms(ServerObject server)
         {
             var responseForTempClient = new RoomLeaveResponse();
             responseForTempClient.Rooms = server.GetFreeRooms();
             string packetResponseForTempClient = JsonConvert.SerializeObject(responseForTempClient);
             server.SendMessageToAllAuthClients(packetResponseForTempClient);
+        }
+
+        //отправка игрокам комнаты информацию об обновлении комнаты
+        private void NotifyPlayersAboutUpdateRooms(RoomObject room)
+        {
+            var responeForPlayers = new GetRoomInfoResponse();
+            responeForPlayers.Players = room.GetAllPlayers();
+            string packetResponseForPlayers = JsonConvert.SerializeObject(responeForPlayers);
+            room.SendMessageToAllClients(packetResponseForPlayers);
         }
     }
 }

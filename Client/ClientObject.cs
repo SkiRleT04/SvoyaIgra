@@ -24,7 +24,6 @@ namespace Client
         static TcpClient client;
         static StreamReader reader;
         static StreamWriter writer;
-        public static Page page;
         public static ViewModelBase view;
         public static User user;
 

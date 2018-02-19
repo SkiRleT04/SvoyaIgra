@@ -1,4 +1,5 @@
 ﻿using Client;
+using Client.ViewModels;
 using SvoyaIgraClient.Views.GameFrames;
 using System;
 using System.Collections.Generic;
@@ -26,7 +27,12 @@ namespace SvoyaIgraClient.Views
         public Game()
         {
             InitializeComponent();
+            DataContext = new GameViewModel();
+            ClientObject.view = DataContext as GameViewModel;
             ActionFrame.NavigationService.Navigate(new Players());
+            GameFrame.NavigationService.Navigate(new CategoriesAndQuestionsTable());
+            //ClientObject.view = DataContext as GameViewModel;
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

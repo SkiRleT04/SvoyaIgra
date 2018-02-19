@@ -4,68 +4,132 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SvoyaIgraClient.Views.GameFrames"
+      xmlns:viewmodels="clr-namespace:Client.ViewModels"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
+
       Title="CategoriesAndQuestionsTable" Width="400" Height="200">
 
+    <Page.DataContext>
+        <viewmodels:GameViewModel/>
+    </Page.DataContext>
+
+
     <Grid Background="White">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*" />
-            <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="1*" />
 
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1*" />
-            <RowDefinition Height="1*" />
-            <RowDefinition Height="1*" />
-            <RowDefinition Height="1*" />
-            <RowDefinition Height="1*" />
-            <RowDefinition Height="1*" />
-        </Grid.RowDefinitions>
-        <Label Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top" Height="33" Width="114"/>
-        <Label Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top" Height="33" Width="114" Grid.Row="1"/>
-        <Label Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top" Height="33" Width="114" Grid.Row="2"/>
-        <Label Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top" Height="33" Width="114" Grid.Row="3"/>
-        <Label Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top" Height="33" Width="114" Grid.Row="4"/>
-        <Label Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top" Height="33" Width="114" Grid.Row="5"/>
-        <Button Content="Button" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Height="33"/>
-        <Button Content="Button" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Height="33"/>
-        <Button Content="Button" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Height="33"/>
-        <Button Content="Button" Grid.Column="4" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Height="33"/>
-        <Button Content="Button" Grid.Column="5" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Height="33"/>
-        <Button Content="Button" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Height="33" Grid.Row="1"/>
-        <Button Content="Button" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Height="33" Grid.Row="1"/>
-        <Button Content="Button" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Height="33" Grid.Row="1"/>
-        <Button Content="Button" Grid.Column="4" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Height="33" Grid.Row="1"/>
-        <Button Content="Button" Grid.Column="5" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Height="33" Grid.Row="1"/>
+        <ItemsControl BorderBrush="Black" BorderThickness="2" ItemsSource="{Binding QuestionsTable}" Margin="0,0,335,0">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Vertical"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="{Binding Key}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
 
-        <Button Content="Button" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Height="33" Grid.Row="2"/>
-        <Button Content="Button" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Height="33" Grid.Row="2"/>
-        <Button Content="Button" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Height="33" Grid.Row="2"/>
-        <Button Content="Button" Grid.Column="4" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Height="33" Grid.Row="2"/>
-        <Button Content="Button" Grid.Column="5" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Height="33" Grid.Row="2"/>
+        <ItemsControl BorderBrush="Black" BorderThickness="2" Name="cat1" ItemsSource="{Binding Questions[0]}" Margin="65,0,0,165">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Width="60" Content="{Binding Points}" Height="30" Tag="{Binding Id}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"  Command="{Binding ElementName=cat1,  Path=DataContext.QuestionButtonClick}">
+                        </Button>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
 
-        <Button Content="Button" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Height="33" Grid.Row="3"/>
-        <Button Content="Button" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Height="33" Grid.Row="3"/>
-        <Button Content="Button" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Height="33" Grid.Row="3"/>
-        <Button Content="Button" Grid.Column="4" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Height="33" Grid.Row="3"/>
-        <Button Content="Button" Grid.Column="5" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Height="33" Grid.Row="3"/>
+        <ItemsControl BorderBrush="Black" BorderThickness="2" Name="cat2" ItemsSource="{Binding Questions[1]}" Margin="65,35,0,136">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Width="60" Content="{Binding Points}" Height="30" Tag="{Binding Id}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"  Command="{Binding ElementName=cat2,  Path=DataContext.QuestionButtonClick}">
+                        </Button>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
 
-        <Button Content="Button" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Height="33" Grid.Row="4"/>
-        <Button Content="Button" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Height="33" Grid.Row="4"/>
-        <Button Content="Button" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Height="33" Grid.Row="4"/>
-        <Button Content="Button" Grid.Column="4" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Height="33" Grid.Row="4"/>
-        <Button Content="Button" Grid.Column="5" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Height="33" Grid.Row="4"/>
+        <ItemsControl BorderBrush="Black" BorderThickness="2" Name="cat3" ItemsSource="{Binding Questions[2]}" Margin="65,64,0,104">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Width="60" Content="{Binding Points}" Height="30" Tag="{Binding Id}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"  Command="{Binding ElementName=cat3,  Path=DataContext.QuestionButtonClick}">
+                        </Button>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
 
-        <Button Content="Button" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Height="33" Grid.Row="5"/>
-        <Button Content="Button" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Height="33" Grid.Row="5"/>
-        <Button Content="Button" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Height="33" Grid.Row="5"/>
-        <Button Content="Button" Grid.Column="4" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Height="33" Grid.Row="5"/>
-        <Button Content="Button" Grid.Column="5" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Height="33" Grid.Row="5"/>
+        <ItemsControl BorderBrush="Black" BorderThickness="2" Name="cat4" ItemsSource="{Binding Questions[3]}" Margin="65,96,0,73">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Width="60" Content="{Binding Points}" Height="30" Tag="{Binding Id}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"  Command="{Binding ElementName=cat4,  Path=DataContext.QuestionButtonClick}">
+                        </Button>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <ItemsControl BorderBrush="Black" BorderThickness="2" Name="cat5" ItemsSource="{Binding Questions[4]}" Margin="65,127,0,41">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Width="60" Content="{Binding Points}" Height="30" Tag="{Binding Id}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"  Command="{Binding ElementName=cat5,  Path=DataContext.QuestionButtonClick}">
+                        </Button>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <ItemsControl BorderBrush="Black" BorderThickness="2" Name="cat6" ItemsSource="{Binding Questions[5]}" Margin="65,159,0,0">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Width="60" Content="{Binding Points}" Height="30" Tag="{Binding Id}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"  Command="{Binding ElementName=cat6,  Path=DataContext.QuestionButtonClick}">
+                        </Button>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+
+
 
 
     </Grid>

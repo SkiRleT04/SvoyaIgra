@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Client;
+using Client.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,8 +28,10 @@ namespace SvoyaIgraClient.Views.GameFrames
         public AnswerVariants()
         {
             InitializeComponent();
+            DataContext = ClientObject.view as GameViewModel;
         }
 
+        /*
         public AnswerVariants(Frame actionFrame, Grid controls) :this()
         {
             this.actionFrame = actionFrame;
@@ -39,7 +43,7 @@ namespace SvoyaIgraClient.Views.GameFrames
             actionFrame.NavigationService.GoBack();
             controls.IsEnabled = true;
             
-        }
+        }*/
 
         
     }

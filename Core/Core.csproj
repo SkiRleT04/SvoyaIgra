@@ -62,7 +62,8 @@
     <Compile Include="Packets\Request\RoomJoinRequest.cs" />
     <Compile Include="Packets\Request\RoomLeaveRequest.cs" />
     <Compile Include="Packets\Request\SetRespondentRequest.cs" />
-    <Compile Include="Packets\Request\UpdatePointsRequest.cs" />
+    <Compile Include="Packets\Request\ShowQuestionRequest.cs" />
+    <Compile Include="Packets\Request\UpdateRoomRequest.cs" />
     <Compile Include="Packets\Response\BaseResponse.cs" />
     <Compile Include="Packets\Response\CheckAnswerResponse.cs" />
     <Compile Include="Packets\Response\GetRoomInfoResponse.cs" />
@@ -74,7 +75,8 @@
     <Compile Include="Packets\Response\RoomJoinResponse.cs" />
     <Compile Include="Packets\Response\RoomLeaveResponse.cs" />
     <Compile Include="Packets\Response\SetRespondentResponse.cs" />
-    <Compile Include="Packets\Response\UpdatePointsResponse.cs" />
+    <Compile Include="Packets\Response\ShowQuestionResponse.cs" />
+    <Compile Include="Packets\Response\UpdateRoomResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

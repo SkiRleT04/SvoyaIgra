@@ -12,6 +12,5 @@ namespace Core.Packets.Response
     {
         public ResponseStatus Status { get; set; }
         public override RequestType Request { get; set; } = RequestType.CheckAnswer;
-        public Player Player { get; set; }
     }
 }

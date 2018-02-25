@@ -23,19 +23,18 @@ namespace Server.Objects.Commands
             Console.WriteLine($"Answer status: {response.Status }");
             int points = (response.Status == ResponseStatus.Ok) ? request.Question.Points : request.Question.Points * -1;
             client.UpdatePoints(points);
-            response.Player = client.Player;
             string packetResponse = JsonConvert.SerializeObject(response);
             room.SendMessageToDefiniteClient(packetResponse, client);
             //отправляем уведомление об обновлении счета игрока
-            NotifyPlayersAboutUpdatePoints(client, room);
+            NotifyPlayersAboutUpdateRoom(client, room);
         }
 
-        private void NotifyPlayersAboutUpdatePoints(ClientObject client, RoomObject room)
+        private void NotifyPlayersAboutUpdateRoom(ClientObject client, RoomObject room)
         {
-            var response = new UpdatePointsResponse();
+            var response = new UpdateRoomResponse();
             response.Player = client.Player;
             string packetResponse = JsonConvert.SerializeObject(response);
-            room.SendMessageToAllClientsExceptSendingClient(packetResponse, client);
+            room.SendMessageToAllClients(packetResponse);
         }
     }
 }

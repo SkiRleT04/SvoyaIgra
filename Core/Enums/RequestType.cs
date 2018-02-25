@@ -17,6 +17,7 @@ namespace Core.Enums
         RoomJoin,
         RoomLeave,
         GetRooms,
-        UpdatePoints
+        UpdateRoom,
+        ShowQuestion
     }
 }

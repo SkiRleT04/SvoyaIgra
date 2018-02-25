@@ -9,7 +9,7 @@
       Title="AnswerVariants" Width="400" Height="120">
 
     <Grid Background="White">
-        <ItemsControl BorderBrush="Black" BorderThickness="2" Name="cat1" ItemsSource="{Binding AnswerVariants}" Margin="65,0,0,165">
+        <ItemsControl BorderBrush="Black" BorderThickness="2" Name="answerVariants" ItemsSource="{Binding AnswerVariants}" Margin="65,0,0,165">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Orientation="Horizontal"/>
@@ -18,7 +18,7 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <Button Width="60" Content="{Binding Points}" Height="30" Tag="{Binding Id}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"  Command="{Binding ElementName=cat1,  Path=DataContext.QuestionButtonClick}">
+                        <Button Width="60" Content="{Binding}" Height="30" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"  Command="{Binding ElementName=answerVariants,  Path=DataContext.AnswerButtonClick}">
                         </Button>
                     </StackPanel>
                 </DataTemplate>

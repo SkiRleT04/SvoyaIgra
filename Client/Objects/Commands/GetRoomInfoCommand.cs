@@ -34,7 +34,7 @@ namespace Client.Objects.Commands
             if(getRoomInfoResponse.TableQuestions != null)
              (ClientObject.view as GameViewModel).QuestionsTable= getRoomInfoResponse.TableQuestions;
 
-            (ClientObject.view as GameViewModel).AnswerVariants = new ObservableCollection<Question>();
+           
         }
     }
 }

@@ -28,7 +28,7 @@ namespace SvoyaIgraClient.Views.GameFrames
             InitializeComponent();
             
             DataContext = ClientObject.view as GameViewModel;
-
+            
             /*foreach (var item in Questions.Children)
             {
                 if (item.GetType() == typeof(Button))
@@ -37,10 +37,16 @@ namespace SvoyaIgraClient.Views.GameFrames
                     MessageBox.Show(((Button)item).Content.ToString());
                 }
             }*/
-           
-            
+
+
+
         }
 
+        public void ChangeButtonEProp(bool isEnabled)
+        {
+            for (int i = 1; i < 7; i++)
+                (Layout.FindName("cat"+i) as ItemsControl).IsEnabled = isEnabled;
+        }
 
     }
 }

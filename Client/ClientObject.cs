@@ -53,7 +53,7 @@ namespace Client
             commands.Add(new SetRespondentCommand());
             commands.Add(new RoomJoinCommand());
             commands.Add(new RoomLeaveCommand());
-            commands.Add(new UpdatePointsCommand());
+            commands.Add(new UpdateRoomCommand());
             commands.Add(new ShowQuestionCommand());
             commands = commands.OrderByDescending(x => x.Frequency).ToList();
 

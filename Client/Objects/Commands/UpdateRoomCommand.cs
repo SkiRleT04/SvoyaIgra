@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 
 namespace Client.Objects.Commands
 {
-    class UpdatePointsCommand : BaseCommand
+    class UpdateRoomCommand : BaseCommand
     {
         public override RequestType RequestType => RequestType.UpdateRoom;
 
@@ -20,6 +20,7 @@ namespace Client.Objects.Commands
         {
             UpdateRoomResponse updateRoomResponse = JsonConvert.DeserializeObject<UpdateRoomResponse>(packet);
             (ClientObject.view as GameViewModel).UpdatePoints(updateRoomResponse.Player);
+            
 
         }
     }

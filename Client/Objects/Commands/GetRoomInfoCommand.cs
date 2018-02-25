@@ -11,6 +11,9 @@ using Core.Enums;
 using Core.Objects;
 using Core.Packets.Response;
 using Newtonsoft.Json;
+using SvoyaIgraClient;
+using SvoyaIgraClient.Views;
+using SvoyaIgraClient.Views.GameFrames;
 
 namespace Client.Objects.Commands
 {
@@ -37,7 +40,14 @@ namespace Client.Objects.Commands
             if (getRoomInfoResponse.Selector != null)
             {
                 bool b = ClientObject.user.Login == getRoomInfoResponse.Selector.Login;
-                (ClientObject.view as GameViewModel).CanSelect = (ClientObject.user.Login == getRoomInfoResponse.Selector.Login);
+
+
+                Application.Current.Dispatcher.Invoke(() =>
+            {
+
+
+                (((((MainWindow)Application.Current.MainWindow).Frame.Content as Game).GameFrame.Content) as CategoriesAndQuestionsTable).ChangeButtonEProp(b);
+            });
             }
         }
     }

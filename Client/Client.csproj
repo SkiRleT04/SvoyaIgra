@@ -77,7 +77,7 @@
     <Compile Include="Objects\Commands\RoomLeaveCommand.cs" />
     <Compile Include="Objects\Commands\SetRespondentCommand.cs" />
     <Compile Include="Objects\Commands\ShowQuestionCommand.cs" />
-    <Compile Include="Objects\Commands\UpdatePointsCommand.cs" />
+    <Compile Include="Objects\Commands\UpdateRoomCommand.cs" />
     <Compile Include="ViewModels\GameViewModel.cs" />
     <Compile Include="ViewModels\RoomViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />

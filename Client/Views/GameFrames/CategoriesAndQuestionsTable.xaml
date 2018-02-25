@@ -9,13 +9,20 @@
       d:DesignHeight="300" d:DesignWidth="300"
 
       Title="CategoriesAndQuestionsTable" Width="400" Height="200">
+    
+    
 
     <Page.DataContext>
         <viewmodels:GameViewModel/>
     </Page.DataContext>
 
 
-    <Grid Background="White">
+    
+    
+   
+    <Grid Background="White" Name="Layout">
+
+
 
         <ItemsControl BorderBrush="Black" BorderThickness="2" ItemsSource="{Binding QuestionsTable}" Margin="0,0,335,0">
             <ItemsControl.ItemsPanel>
@@ -41,7 +48,8 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <Button Width="60" IsEnabled="{Binding CanSelect}" Content="{Binding Points}" Height="30" Tag="{Binding Id}">
+                        <Button Width="60" Content="{Binding Points}" Height="30" Tag="{Binding Id}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"  Command="{Binding ElementName=cat1,  Path=DataContext.QuestionButtonClick}">
+                           
                         </Button>
                     </StackPanel>
                 </DataTemplate>
@@ -58,6 +66,7 @@
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <Button Width="60" Content="{Binding Points}" Height="30" Tag="{Binding Id}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"  Command="{Binding ElementName=cat2,  Path=DataContext.QuestionButtonClick}">
+                           
                         </Button>
                     </StackPanel>
                 </DataTemplate>
@@ -74,6 +83,7 @@
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <Button Width="60" Content="{Binding Points}" Height="30" Tag="{Binding Id}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"  Command="{Binding ElementName=cat3,  Path=DataContext.QuestionButtonClick}">
+                            
                         </Button>
                     </StackPanel>
                 </DataTemplate>
@@ -90,6 +100,7 @@
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <Button Width="60" Content="{Binding Points}" Height="30" Tag="{Binding Id}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"  Command="{Binding ElementName=cat4,  Path=DataContext.QuestionButtonClick}">
+                           
                         </Button>
                     </StackPanel>
                 </DataTemplate>
@@ -106,6 +117,7 @@
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <Button Width="60" Content="{Binding Points}" Height="30" Tag="{Binding Id}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"  Command="{Binding ElementName=cat5,  Path=DataContext.QuestionButtonClick}">
+                           
                         </Button>
                     </StackPanel>
                 </DataTemplate>
@@ -122,15 +134,11 @@
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <Button Width="60" Content="{Binding Points}" Height="30" Tag="{Binding Id}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"  Command="{Binding ElementName=cat6,  Path=DataContext.QuestionButtonClick}">
+                          
                         </Button>
                     </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-
-
-
-
-
     </Grid>
 </Page>

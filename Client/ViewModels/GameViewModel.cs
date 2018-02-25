@@ -1,5 +1,4 @@
-﻿using Client.Views;
-using Core.Enums;
+﻿using Core.Enums;
 using Core.Objects;
 using Core.Packets.Request;
 using DevExpress.Mvvm;
@@ -12,8 +11,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -41,15 +38,17 @@ namespace Client.ViewModels
             }
         }
 
-        private ObservableCollection<string> answerVariants;
+        private int selectedQuestionId;
 
-        public ObservableCollection<string> AnswerVariants
+        private ObservableCollection<string> answerVariantsColl;
+
+        public ObservableCollection<string> AnswerVariantsColl
         {
-            get { return answerVariants; }
+            get { return answerVariantsColl; }
             set
             {
-                answerVariants = value;
-                RaisePropertyChanged(() => AnswerVariants);
+                answerVariantsColl = value;
+                RaisePropertyChanged(() => AnswerVariantsColl);
             }
         }
 
@@ -115,6 +114,22 @@ namespace Client.ViewModels
             }
         }
 
+        public ICommand AnswerButtonClick
+        {
+            get
+            {
+                return new DelegateCommand<Button>((param) =>
+                {
+                    var question = GetQuestionById((int)param.Tag);
+                    CheckAnswerRequest checkAnswerRequest = new CheckAnswerRequest();
+                    checkAnswerRequest.Question = new Question {Points=(int)param.Content, Id = selectedQuestionId,  Answer = param.Content.ToString() };
+                    string jsonCheckAnswerRequest = JsonConvert.SerializeObject(checkAnswerRequest);
+                    ClientObject.SendMessage(jsonCheckAnswerRequest);
+                });
+            }
+
+        }
+
         public ICommand QuestionButtonClick
         {
             get
@@ -123,6 +138,7 @@ namespace Client.ViewModels
                 {
                 var page = ((MainWindow)Application.Current.MainWindow).Frame.Content as Game;
                 var question = GetQuestionById((int)param.Tag);
+                selectedQuestionId = (int)param.Tag;
 
                 if (question.Type == QuestionContentType.Text)
                 {
@@ -137,9 +153,10 @@ namespace Client.ViewModels
                     QuestionImage = BitmapFromBase64(img);
                 }
 
-                    AnswerVariants = new ObservableCollection<string> { question.Variant1,question.Variant2,question.Variant3,question.Variant4};
-                    page.GameFrame.NavigationService.Navigate(new AnswerVariants());
-                    
+                    page.ActionFrame.NavigationService.Navigate(new AnswerVariants());
+                    AnswerVariantsColl = new ObservableCollection<string> { question.Variant1, question.Variant2, question.Variant3, question.Variant4 };
+
+
                 });
             }
         }

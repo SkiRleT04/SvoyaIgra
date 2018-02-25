@@ -62,7 +62,7 @@ namespace SvoyaIgraClient.Views
         {
             Controls.IsEnabled = false;
 
-            ActionFrame.NavigationService.Navigate(new AnswerVariants(ActionFrame, Controls));
+            //ActionFrame.NavigationService.Navigate(new AnswerVariants(ActionFrame, Controls));
 
 
 

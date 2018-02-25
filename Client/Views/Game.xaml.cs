@@ -60,7 +60,7 @@ namespace SvoyaIgraClient.Views
 
         private void btnAnswer_Click(object sender, RoutedEventArgs e)
         {
-            Controls.IsEnabled = false;
+            //Controls.IsEnabled = false;
 
             //ActionFrame.NavigationService.Navigate(new AnswerVariants(ActionFrame, Controls));
 

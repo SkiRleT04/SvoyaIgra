@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using Client.ViewModels;
 using Core.Enums;
 using Core.Packets.Response;
+using Newtonsoft.Json;
 
 namespace Client.Objects.Commands
 {
@@ -17,7 +19,20 @@ namespace Client.Objects.Commands
 
         public override void Execute(string packet)
         {
-            throw new NotImplementedException();
+            SetRespondentResponse setRespondentResponse = JsonConvert.DeserializeObject<SetRespondentResponse>(packet);
+            GameViewModel gvm = ClientObject.view as GameViewModel;
+
+            switch (setRespondentResponse.Status)
+            {
+                case ResponseStatus.Ok:
+                    gvm.SetRespondent(setRespondentResponse.Player);
+                    break;
+
+                case ResponseStatus.Bad:
+                    break;
+            }
+                
+
         }
     }
 }

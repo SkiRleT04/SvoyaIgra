@@ -100,57 +100,6 @@ namespace Client.ViewModels
             }
         }
 
-        public ICommand ClickLeaveRoom
-        {
-            get
-            {
-                return new DelegateCommand(() =>
-                {
-                    RoomLeaveRequest roomLeaveRequest = new RoomLeaveRequest();
-                    string jsonLeaveRoom = JsonConvert.SerializeObject(roomLeaveRequest);
-                    ClientObject.SendMessage(jsonLeaveRoom);
-                });
-            }
-        }
-
-        public ICommand AnswerButtonClick
-        {
-            get
-            {
-                return new DelegateCommand<Button>((param) =>
-                {
-                    var page = ((MainWindow)Application.Current.MainWindow).Frame.Content as Game;
-                    var question = GetQuestionById(selectedQuestionId);
-                    CheckAnswerRequest checkAnswerRequest = new CheckAnswerRequest();
-                    checkAnswerRequest.Question = new Question {Points=question.Points, Id = selectedQuestionId,  Answer = param.Content.ToString() };
-                    string jsonCheckAnswerRequest = JsonConvert.SerializeObject(checkAnswerRequest);
-                    ClientObject.SendMessage(jsonCheckAnswerRequest);
-                    page.ActionFrame.NavigationService.GoBack();
-                });
-            }
-
-        }
-
-        public ICommand QuestionButtonClick
-        {
-            get
-            {
-                return new DelegateCommand<Button>((param) =>
-                {
-                    selectedQuestionId = (int)param.Tag;
-                   
-                    /*
-                         page.ActionFrame.NavigationService.Navigate(new AnswerVariants());
-                         AnswerVariantsColl = new ObservableCollection<string> { question.Variant1, question.Variant2, question.Variant3, question.Variant4 };
-                        */
-                    ShowQuestionRequest showQuestionRequest = new ShowQuestionRequest();
-                    showQuestionRequest.QuestionId = selectedQuestionId;
-                    string jsonShowQuestionRequest = JsonConvert.SerializeObject(showQuestionRequest);
-                    ClientObject.SendMessage(jsonShowQuestionRequest);
-                });
-            }
-        }
-
         public BitmapSource BitmapFromBase64(string b64string)
         {
             var bytes = Convert.FromBase64String(b64string);
@@ -174,6 +123,8 @@ namespace Client.ViewModels
             return null;
         }
 
+
+        //=========================================ACTIONS===================================================//
         public void UpdatePoints(Player player)
         {
           
@@ -204,5 +155,83 @@ namespace Client.ViewModels
             }
             });
         }
+
+        public void SetRespondent(Player respondent)
+        {
+            if (ClientObject.user.Login == respondent.Login)
+            {
+                var page = ((MainWindow)Application.Current.MainWindow).Frame.Content as Game;
+                var question = GetQuestionById(selectedQuestionId);
+                page.ActionFrame.NavigationService.Navigate(new AnswerVariants());
+                AnswerVariantsColl = new ObservableCollection<string> { question.Variant1, question.Variant2, question.Variant3, question.Variant4 };
+            }
+        }
+        //=========================================ACTIONS===================================================//
+
+
+        //=========================================COMMANDS===================================================//
+        public ICommand LeaveRoomClick
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    RoomLeaveRequest roomLeaveRequest = new RoomLeaveRequest();
+                    string jsonLeaveRoom = JsonConvert.SerializeObject(roomLeaveRequest);
+                    ClientObject.SendMessage(jsonLeaveRoom);
+                });
+            }
+        }
+
+        public ICommand AnswerButtonClick
+        {
+            get
+            {
+                return new DelegateCommand<Button>((param) =>
+                {
+                    var page = ((MainWindow)Application.Current.MainWindow).Frame.Content as Game;
+                    var question = GetQuestionById(selectedQuestionId);
+                    CheckAnswerRequest checkAnswerRequest = new CheckAnswerRequest();
+                    checkAnswerRequest.Question = new Question { Points = question.Points, Id = selectedQuestionId, Answer = param.Content.ToString() };
+                    string jsonCheckAnswerRequest = JsonConvert.SerializeObject(checkAnswerRequest);
+                    ClientObject.SendMessage(jsonCheckAnswerRequest);
+                    page.ActionFrame.NavigationService.GoBack();
+                });
+            }
+
+        }
+
+        public ICommand QuestionButtonClick
+        {
+            get
+            {
+                return new DelegateCommand<Button>((param) =>
+                {
+                    selectedQuestionId = (int)param.Tag;
+
+
+                    ShowQuestionRequest showQuestionRequest = new ShowQuestionRequest();
+                    showQuestionRequest.QuestionId = selectedQuestionId;
+                    string jsonShowQuestionRequest = JsonConvert.SerializeObject(showQuestionRequest);
+                    ClientObject.SendMessage(jsonShowQuestionRequest);
+                });
+            }
+        }
+
+        public ICommand SetRespondentClick
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    SetRespondentRequest setRespondentRequest = new SetRespondentRequest();
+
+                    string jsonSetRespondentRequest = JsonConvert.SerializeObject(setRespondentRequest);
+                    ClientObject.SendMessage(jsonSetRespondentRequest);
+                });
+            }
+        }
+        //=========================================COMMANDS===================================================//
+
     }
 }

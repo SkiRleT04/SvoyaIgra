@@ -21,7 +21,12 @@ namespace Server.Objects.Commands
 
             response.Status = DB.CheckAnswer(request.Question);
             Console.WriteLine($"Answer status: {response.Status }");
-            int points = (response.Status == ResponseStatus.Ok) ? request.Question.Points : request.Question.Points * -1;
+            int points = request.Question.Points * -1;
+            if (response.Status == ResponseStatus.Ok)
+            {
+                points = request.Question.Points;
+                room.Selector = client;
+            }
             client.UpdatePoints(points);
             string packetResponse = JsonConvert.SerializeObject(response);
             room.SendMessageToDefiniteClient(packetResponse, client);
@@ -33,6 +38,8 @@ namespace Server.Objects.Commands
         {
             var response = new UpdateRoomResponse();
             response.Player = client.Player;
+            response.Selector = room.Selector.Player;
+            response.Respondent = room.Respondent.Player;
             string packetResponse = JsonConvert.SerializeObject(response);
             room.SendMessageToAllClients(packetResponse);
         }

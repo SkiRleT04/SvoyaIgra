@@ -14,7 +14,7 @@ namespace Server.Objects.Commands
         static object locker = new Object();
         public void Excecute(ClientObject client, ServerObject server, RoomObject room, string packet = "")
         {
-            lock (locker)
+            /*lock (locker)
             {
                 var response = new SetRespondentResponse();
                 if (room.Respondent == null)
@@ -33,7 +33,7 @@ namespace Server.Objects.Commands
                     string packetResponse = JsonConvert.SerializeObject(response);
                     room.SendMessageToAllClientsExceptSendingClient(packetResponse, client);
                 }
-            }
+            }*/
         }
     }
 }

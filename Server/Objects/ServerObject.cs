@@ -38,7 +38,7 @@ namespace Server.Objects
             Commands = new ReadOnlyDictionary<RequestType, ICommand>(commands);
         }
 
-        //обновление комнат
+        //обновление комнат/
         private void UpdateRooms()
         {
             lock (locker)

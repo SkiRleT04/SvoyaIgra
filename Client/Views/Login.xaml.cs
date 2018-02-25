@@ -13,7 +13,7 @@ namespace SvoyaIgraClient.Views
         public Login()
         {
             InitializeComponent();
-            //ClientObject.page = this;
+            //ClientObject.page = this;123
             ClientObject.view = DataContext as UserViewModel;
 
         }

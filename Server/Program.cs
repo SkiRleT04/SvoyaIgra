@@ -18,19 +18,18 @@ namespace Server
         {
             var projectPath = Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory())) + @"\Database\";
             AppDomain.CurrentDomain.SetData("DataDirectory", projectPath);
-            DB.Test();
-                try
-                {
-                    server = new ServerObject();
-                    Task.Factory.StartNew(server.Listen);
-                    do { }
-                    while (Console.ReadKey().Key != ConsoleKey.Escape);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    server.Disconnect();
-                }
+            try
+            {
+                server = new ServerObject();
+                Task.Factory.StartNew(server.Listen);
+                do { }
+                while (Console.ReadKey().Key != ConsoleKey.Escape);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                server.Disconnect();
+            }
         }
     }
 }

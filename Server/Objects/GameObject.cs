@@ -7,18 +7,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Server.Objects
 {
-    public class GameObject
+    class GameObject
     {
         public Dictionary<string, IEnumerable<Question>> tabeleQuestions;
         public ReadOnlyDictionary<string, IEnumerable<Question>> TableQuestions { get; private set; }
+        public ClientObject Respondent { get; set; }
+        //public Timer Timer { get; private set; }
 
 
         public GameObject()
         {
             tabeleQuestions = DB.GetQuestionsTable();
             TableQuestions = new ReadOnlyDictionary<string, IEnumerable<Question>>(tabeleQuestions);
+            Respondent = null;
+            //Timer.
         }
+
+
     }
 }

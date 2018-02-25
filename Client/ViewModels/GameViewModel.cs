@@ -120,9 +120,9 @@ namespace Client.ViewModels
             {
                 return new DelegateCommand<Button>((param) =>
                 {
-                    var question = GetQuestionById((int)param.Tag);
+                    var question = GetQuestionById(selectedQuestionId);
                     CheckAnswerRequest checkAnswerRequest = new CheckAnswerRequest();
-                    checkAnswerRequest.Question = new Question {Points=(int)param.Content, Id = selectedQuestionId,  Answer = param.Content.ToString() };
+                    checkAnswerRequest.Question = new Question {Points=question.Points, Id = selectedQuestionId,  Answer = param.Content.ToString() };
                     string jsonCheckAnswerRequest = JsonConvert.SerializeObject(checkAnswerRequest);
                     ClientObject.SendMessage(jsonCheckAnswerRequest);
                 });

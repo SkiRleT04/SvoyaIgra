@@ -20,7 +20,9 @@ namespace Client.Objects.Commands
         {
             ShowQuestionResponse showQuestionResponse = JsonConvert.DeserializeObject<ShowQuestionResponse>(packet);
             GameViewModel gvm = ClientObject.view as GameViewModel;
-            gvm.ShowQuestion(showQuestionResponse.QuestionId);
+            int questionId = showQuestionResponse.QuestionId;
+            gvm.ShowQuestion(questionId);
+            gvm.RemoveQuestion(questionId);
             
         }
     }

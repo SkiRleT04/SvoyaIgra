@@ -16,6 +16,7 @@ namespace Core.Enums
         GetWinner,
         RoomJoin,
         RoomLeave,
-        GetRooms
+        GetRooms,
+        UpdatePoints
     }
 }

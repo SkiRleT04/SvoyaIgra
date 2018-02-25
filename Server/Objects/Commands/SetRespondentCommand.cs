@@ -24,6 +24,7 @@ namespace Server.Objects.Commands
                     response.Player = client.Player;
                     string packetResponse = JsonConvert.SerializeObject(response);
                     room.SendMessageToDefiniteClient(packetResponse, client);
+                    BlockAnswerButtonForAllPlayers(room, client);
 
                 }
                 else
@@ -34,6 +35,14 @@ namespace Server.Objects.Commands
                     room.SendMessageToAllClientsExceptSendingClient(packetResponse, client);
                 }
             }
+        }
+
+        private void BlockAnswerButtonForAllPlayers(RoomObject room, ClientObject client)
+        {
+            var response = new BlockAnswerButtonResponse();
+            response.IsEnabled = false;
+            string packetResponse = JsonConvert.SerializeObject(response);
+            room.SendMessageToAllClientsExceptSendingClient(packetResponse, client);
         }
     }
 }

@@ -184,5 +184,13 @@ namespace Client.ViewModels
             return null;
         }
 
+        public void UpdatePoints(Player player)
+        {
+          
+            Player p = Players.FirstOrDefault(x => x.Login == player.Login);
+            p.Points = player.Points;
+            RaisePropertyChanged(() => Players);
+        }
+
     }
 }

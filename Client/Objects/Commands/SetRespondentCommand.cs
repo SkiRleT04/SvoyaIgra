@@ -26,9 +26,11 @@ namespace Client.Objects.Commands
             {
                 case ResponseStatus.Ok:
                     gvm.SetRespondent(setRespondentResponse.Player);
+
                     break;
 
                 case ResponseStatus.Bad:
+                   // gvm.BlockAnswerButton(false);
                     break;
             }
                 

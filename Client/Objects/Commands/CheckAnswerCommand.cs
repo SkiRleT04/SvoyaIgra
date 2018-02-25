@@ -20,12 +20,15 @@ namespace Client.Objects.Commands
         public override void Execute(string packet)
         {
             CheckAnswerResponse checkAnswerResponse = JsonConvert.DeserializeObject<CheckAnswerResponse>(packet);
-           // (ClientObject.view as GameViewModel).UpdatePoints(checkAnswerResponse.Player);
+            // (ClientObject.view as GameViewModel).UpdatePoints(checkAnswerResponse.Player);
+            GameViewModel gvm = (ClientObject.view as GameViewModel);
 
 
             switch (checkAnswerResponse.Status)
             {
                 case ResponseStatus.Ok:
+                    gvm.BlockAnswerButton(true);
+                    
                     //(ClientObject.view as GameViewModel).UpdatePoints(checkAnswerResponse.Player);
                     //(ClientObject.view as GameViewModel).Status = "Был введён неверный пароль";
                     break;

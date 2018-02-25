@@ -73,6 +73,7 @@
     <Compile Include="Packets\Response\GetWinnerResponse.cs" />
     <Compile Include="Packets\Response\LoginUserResponse.cs" />
     <Compile Include="Packets\Response\RegisterUserResponse.cs" />
+    <Compile Include="Packets\Response\RemoveQuestionResponse.cs" />
     <Compile Include="Packets\Response\Response.cs" />
     <Compile Include="Packets\Response\RoomJoinResponse.cs" />
     <Compile Include="Packets\Response\RoomLeaveResponse.cs" />

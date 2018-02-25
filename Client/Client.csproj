@@ -68,11 +68,13 @@
     </ApplicationDefinition>
     <Compile Include="ClientObject.cs" />
     <Compile Include="Objects\Commands\BaseCommand.cs" />
+    <Compile Include="Objects\Commands\BlockAnswerButtonCommand.cs" />
     <Compile Include="Objects\Commands\CheckAnswerCommand.cs" />
     <Compile Include="Objects\Commands\GetRoomInfoCommand.cs" />
     <Compile Include="Objects\Commands\GetWinnerCommand.cs" />
     <Compile Include="Objects\Commands\LoginUserCommand.cs" />
     <Compile Include="Objects\Commands\RegisterUserCommand.cs" />
+    <Compile Include="Objects\Commands\RemoveQuestionCommand.cs" />
     <Compile Include="Objects\Commands\RoomJoinCommand.cs" />
     <Compile Include="Objects\Commands\RoomLeaveCommand.cs" />
     <Compile Include="Objects\Commands\SetRespondentCommand.cs" />

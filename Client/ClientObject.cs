@@ -55,6 +55,10 @@ namespace Client
             commands.Add(new RoomLeaveCommand());
             commands.Add(new UpdateRoomCommand());
             commands.Add(new ShowQuestionCommand());
+            commands.Add(new BlockAnswerButtonCommand());
+            commands.Add(new RemoveQuestionCommand());
+            
+
             commands = commands.OrderByDescending(x => x.Frequency).ToList();
 
             Task.Run(() =>{

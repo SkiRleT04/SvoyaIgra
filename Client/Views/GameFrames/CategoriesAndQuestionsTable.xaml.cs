@@ -37,15 +37,29 @@ namespace SvoyaIgraClient.Views.GameFrames
                     MessageBox.Show(((Button)item).Content.ToString());
                 }
             }*/
-
-
-
         }
 
         public void ChangeButtonEProp(bool isEnabled)
         {
             for (int i = 1; i < 7; i++)
                 (Layout.FindName("cat"+i) as ItemsControl).IsEnabled = isEnabled;
+        }
+
+        public void HideButton(int id)
+        {
+            foreach (Control ctrl in Layout.Children)
+            {
+                
+                if (ctrl.GetType() == typeof(Button))
+                {
+                    var b = ctrl as Button;
+                    if((b.Tag as Question).Id == id)
+                    {
+                        ctrl.Visibility = Visibility.Hidden;
+                        break;  
+                    }
+                }
+            }
         }
 
     }

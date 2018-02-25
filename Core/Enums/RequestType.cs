@@ -20,5 +20,6 @@ namespace Core.Enums
         UpdateRoom,
         ShowQuestion,
         BlockAnswerButton,
+        RemoveQuestion
     }
 }

@@ -127,10 +127,13 @@ namespace Client.ViewModels
         //=========================================ACTIONS===================================================//
         public void UpdatePoints(Player player)
         {
-          
+
+            if (player != null)
+            {
             Player p = players.FirstOrDefault(x => x.Login == player.Login);
             p.Points = player.Points;
             Players = new ObservableCollection<Player>(players);
+            }
         }
 
         public void ShowQuestion(int questionId)
@@ -156,6 +159,15 @@ namespace Client.ViewModels
             });
         }
 
+        public void BlockAnswerButton(bool b)
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                var page = ((MainWindow)Application.Current.MainWindow).Frame.Content as Game;
+                page.btnAnswer.IsEnabled = b;
+            });
+        }
+
         public void SetRespondent(Player respondent)
         {
             if (ClientObject.user.Login == respondent.Login)
@@ -167,6 +179,22 @@ namespace Client.ViewModels
                     page.ActionFrame.NavigationService.Navigate(new AnswerVariants());
                     AnswerVariantsColl = new ObservableCollection<string> { question.Variant1, question.Variant2, question.Variant3, question.Variant4 };
                 });
+            }
+        }
+
+        public void RemoveQuestion(int id)
+        {
+            foreach (var item in QuestionsTable)
+            {
+                var array = item.Value.ToArray();
+                for (int i = 0; i < array.Length; i++)
+                {
+                    if (array[i].Id == id)
+                    {
+                        array[i] = null;
+                        return;
+                    }
+                }
             }
         }
         //=========================================ACTIONS===================================================//

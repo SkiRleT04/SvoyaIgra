@@ -14,7 +14,18 @@ namespace Server.Objects
         public ReadOnlyCollection<ClientObject> Clients { get { return clients.AsReadOnly(); } }
         public Room Info { get; private set; }
         public GameObject Game { get; private set; }
-        public ClientObject Respondent { get; set; }
+        private ClientObject respondent;
+
+        public ClientObject Respondent
+        {
+            get
+            {
+                if (respondent == null && clients.Count>0)
+                    respondent = clients.First();
+                return respondent;
+            }
+            set => respondent = value;
+        }
 
         //инициализарует новую комнату
         public RoomObject(int id, string name, int size)

@@ -6,7 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Timers;
 
 namespace Server.Objects
 {
@@ -14,8 +14,9 @@ namespace Server.Objects
     {
         public Dictionary<string, IEnumerable<Question>> tabeleQuestions;
         public ReadOnlyDictionary<string, IEnumerable<Question>> TableQuestions { get; private set; }
-        public ClientObject Respondent { get; set; }
-        //public Timer Timer { get; private set; }
+        public Timer AnswerTimer { get; private set; }
+        private int secondAnswer = 0;
+        private static int ANSWER_TIMER = 10;
 
 
         public GameObject()
@@ -23,7 +24,23 @@ namespace Server.Objects
             tabeleQuestions = DB.GetQuestionsTable();
             TableQuestions = new ReadOnlyDictionary<string, IEnumerable<Question>>(tabeleQuestions);
             Respondent = null;
-            //Timer.
+            AnswerTimer.Interval = 1000;
+            AnswerTimer.Elapsed += AnswerTimer_Elapsed;
+        }
+
+        public void StartAnswerTimer()
+        {
+            secondAnswer = 0;
+            AnswerTimer.Start();
+        }
+
+        private void AnswerTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            secondAnswer++;
+            if (secondAnswer >= ANSWER_TIMER)
+            {
+                AnswerTimer.Stop();
+            }
         }
 
 

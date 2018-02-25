@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Objects\Commands\CheckAnswerCommand.cs" />
     <Compile Include="Objects\Commands\GetRoomInfoCommand.cs" />
     <Compile Include="Objects\Commands\GetRoomsCommand.cs" />
     <Compile Include="Objects\Commands\RoomJoinCommand.cs" />

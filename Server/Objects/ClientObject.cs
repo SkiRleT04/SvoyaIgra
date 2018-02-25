@@ -32,6 +32,12 @@ namespace Server.Objects
             server.AddConnection(this);
         }
 
+        public void UpdatePoints(int points)
+        {
+            if (Player != null)
+                Player.Points += points;
+        }
+
         //прослушивания каждого клиента и обработка присланных команд
         public void Process()
         {

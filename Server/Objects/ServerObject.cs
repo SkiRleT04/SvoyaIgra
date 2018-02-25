@@ -34,6 +34,7 @@ namespace Server.Objects
             commands.Add(RequestType.RoomJoin, new RoomJoinCommand());
             commands.Add(RequestType.RoomLeave, new RoomLeaveCommand());
             commands.Add(RequestType.GetRoomInfo, new GetRoomInfoCommand());
+            commands.Add(RequestType.CheckAnswer, new CheckAnswerCommand());
             Commands = new ReadOnlyDictionary<RequestType, ICommand>(commands);
         }
 

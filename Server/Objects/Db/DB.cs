@@ -44,11 +44,8 @@ namespace Server.Objects.Db
         {
             using (var db = new ApplicationContext())
             {
-                var dbQuestion = db.Questions.FirstOrDefault(q => q.Id == question.Id);
-                if (dbQuestion != null && dbQuestion.Answer == question.Answer)
-                    return ResponseStatus.Ok;
-
-                return ResponseStatus.Bad;
+                var dbQuestion = db.Questions.FirstOrDefault(q => q.Id == question.Id && q.Answer == question.Answer);
+                return (dbQuestion != null) ? ResponseStatus.Ok : ResponseStatus.Bad;
             }
         }
 

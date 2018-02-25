@@ -21,25 +21,62 @@ namespace Server.Objects.Commands
 
             response.Status = DB.CheckAnswer(request.Question);
             Console.WriteLine($"Answer status: {response.Status }");
-            int points = request.Question.Points * -1;
+            int points;
             if (response.Status == ResponseStatus.Ok)
             {
                 points = request.Question.Points;
                 room.Selector = client;
+                //очищаем клиентов ответивших не верно
+                room.Respondents.Clear();
+            }
+            else
+            {
+                points = request.Question.Points * -1;
+                room.Respondents.Add(client);
+                //если все ответили не верно, назначаем респондентом первого игрока
+                if (room.Clients.Count == room.Respondents.Count)
+                {
+                    room.Game.RemoveQuestionFromTable(request.Question.Id);
+                    if (room.Clients.Count != 0)
+                        room.Selector = room.Clients.First();
+                    NotifyPlayersAboutUpdateRoom(client, room, UpdateRoomType.UpdateTable);
+                }
             }
             client.UpdatePoints(points);
             string packetResponse = JsonConvert.SerializeObject(response);
             room.SendMessageToDefiniteClient(packetResponse, client);
             //отправляем уведомление об обновлении счета игрока
-            NotifyPlayersAboutUpdateRoom(client, room);
+            NotifyPlayersAboutUpdateRoom(client, room,UpdateRoomType.UpdatePlayers);
         }
 
-        private void NotifyPlayersAboutUpdateRoom(ClientObject client, RoomObject room)
+        private void ChangeAnswerButtonPropertyForPlayers(RoomObject room)
+        {
+            foreach (var client in room.Clients)
+            {
+                if (!room.Respondents.Contains(client))
+                {
+                    var response = new BlockAnswerButtonResponse();
+                    response.IsEnabled = true;
+                    string packetResponse = JsonConvert.SerializeObject(response);
+                    room.SendMessageToDefiniteClient(packetResponse, client);
+                }
+            }
+        }
+
+        private void NotifyPlayersAboutUpdateRoom(ClientObject client, RoomObject room, UpdateRoomType type)
         {
             var response = new UpdateRoomResponse();
-            response.Player = client.Player;
-            response.Selector = room.Selector.Player;
-            response.Respondent = room.Respondent.Player;
+            if (type == UpdateRoomType.UpdatePlayers)
+            {
+                response.Type = UpdateRoomType.UpdatePlayers;
+                response.Player = client.Player;
+                response.Selector = room.Selector.Player;
+                response.Respondent = room.Respondent.Player;
+            }
+            else
+            {
+                response.Type = UpdateRoomType.UpdateTable;
+            }
             string packetResponse = JsonConvert.SerializeObject(response);
             room.SendMessageToAllClients(packetResponse);
         }

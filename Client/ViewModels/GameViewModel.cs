@@ -160,10 +160,13 @@ namespace Client.ViewModels
         {
             if (ClientObject.user.Login == respondent.Login)
             {
-                var page = ((MainWindow)Application.Current.MainWindow).Frame.Content as Game;
-                var question = GetQuestionById(selectedQuestionId);
-                page.ActionFrame.NavigationService.Navigate(new AnswerVariants());
-                AnswerVariantsColl = new ObservableCollection<string> { question.Variant1, question.Variant2, question.Variant3, question.Variant4 };
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    var page = ((MainWindow)Application.Current.MainWindow).Frame.Content as Game;
+                    var question = GetQuestionById(selectedQuestionId);
+                    page.ActionFrame.NavigationService.Navigate(new AnswerVariants());
+                    AnswerVariantsColl = new ObservableCollection<string> { question.Variant1, question.Variant2, question.Variant3, question.Variant4 };
+                });
             }
         }
         //=========================================ACTIONS===================================================//

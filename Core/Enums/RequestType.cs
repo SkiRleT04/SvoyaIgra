@@ -18,6 +18,7 @@ namespace Core.Enums
         RoomLeave,
         GetRooms,
         UpdateRoom,
-        ShowQuestion
+        ShowQuestion,
+        BlockAnswerButton,
     }
 }

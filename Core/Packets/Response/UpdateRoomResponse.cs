@@ -10,7 +10,8 @@ namespace Core.Packets.Response
 {
     public class UpdateRoomResponse : Response
     {
-        public override RequestType Request { get; set; } = RequestType.UpdateRoom;       
+        public override RequestType Request { get; set; } = RequestType.UpdateRoom;
+        public UpdateRoomType Type { get; set; }
         public Player Player { get; set; }
         public Player Selector { get; set; }
         public Player Respondent { set; get; }

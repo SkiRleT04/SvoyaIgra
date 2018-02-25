@@ -19,6 +19,22 @@ namespace Server.Objects
         private static int ANSWER_TIMER = 10;
 
 
+        public void RemoveQuestionFromTable(int id)
+        {
+            foreach (var item in TableQuestions)
+            {
+                var array = item.Value.ToArray();
+                for (int i = 0; i < array.Length; i++)
+                {
+                    if (array[i].Id == id)
+                    {
+                        array[i] = null;
+                        return;
+                    }
+                }
+            }
+        }
+
         public GameObject()
         {
             tabeleQuestions = DB.GetQuestionsTable();

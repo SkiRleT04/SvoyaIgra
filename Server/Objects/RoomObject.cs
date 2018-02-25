@@ -27,6 +27,9 @@ namespace Server.Objects
         }
         public ClientObject Respondent { get; set; }
 
+        public List<ClientObject> Respondents { get; set; } = new List<ClientObject>();
+
+
         //инициализарует новую комнату
         public RoomObject(int id, string name, int size)
         {

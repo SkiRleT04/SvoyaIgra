@@ -23,18 +23,18 @@ namespace Client.Objects.Commands
         public override void Execute(string packet)
         {
             GetRoomInfoResponse getRoomInfoResponse = JsonConvert.DeserializeObject<GetRoomInfoResponse>(packet);
-
+            GameViewModel gvm = ClientObject.view as GameViewModel;
             /*Application.Current.Dispatcher.Invoke(() =>
             {
                 SetPage(new RoomsPage());
             });*/
 
-            (ClientObject.view as GameViewModel).Players = new ObservableCollection<Player>(getRoomInfoResponse.Players);
+           gvm.Players = new ObservableCollection<Player>(getRoomInfoResponse.Players);
 
             if(getRoomInfoResponse.TableQuestions != null)
-             (ClientObject.view as GameViewModel).QuestionsTable= getRoomInfoResponse.TableQuestions;
+                gvm.QuestionsTable= getRoomInfoResponse.TableQuestions;
 
-           
+           gvm.CanSelect = (ClientObject.user.Login == getRoomInfoResponse.Selector.Login);
         }
     }
 }

@@ -21,6 +21,19 @@ namespace Client.ViewModels
     class GameViewModel:ViewModelBase
     {
 
+        private bool canSelect;
+
+
+        public bool CanSelect
+        {
+            get { return canSelect; }
+            set
+            {
+                canSelect = value;
+                RaisePropertyChanged(() => CanSelect);
+            }
+        }
+
         private ObservableCollection<Player> players;
 
         public GameViewModel()

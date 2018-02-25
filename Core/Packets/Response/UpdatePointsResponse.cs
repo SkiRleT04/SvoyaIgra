@@ -8,7 +8,7 @@ using Core.Objects;
 
 namespace Core.Packets.Response
 {
-    class UpdatePointsResponse : Response
+    public class UpdatePointsResponse : Response
     {
         public override RequestType Request { get; set; } = RequestType.UpdatePoints;       
         public Player Player { get; set; }

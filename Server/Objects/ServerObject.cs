@@ -102,7 +102,7 @@ namespace Server.Objects
             }
         }
         
-        //отправка сообщения клиенту по ид
+        //отправка сообщения клиенту
         public void SendMessageToDefiniteClient(string message, ClientObject clientObject)
         {
             foreach (var client in tmpClients)

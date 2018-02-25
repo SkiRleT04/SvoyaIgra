@@ -21,15 +21,18 @@ namespace Client.ViewModels
     class GameViewModel:ViewModelBase
     {
 
-        private bool canSelect;
+        private Boolean canSelect;
 
 
-        public bool CanSelect
+        public Boolean CanSelect
         {
-            get { return canSelect; }
+            get
+            {
+                return canSelect;
+            }
             set
             {
-                canSelect = value;
+                canSelect = false;
                 RaisePropertyChanged(() => CanSelect);
             }
         }

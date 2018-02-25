@@ -41,7 +41,7 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <Button Width="60" IsEnabled="{Binding CanSelect}" Content="{Binding Points}" Height="30" Tag="{Binding Id}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"  Command="{Binding ElementName=cat1,  Path=DataContext.QuestionButtonClick}">
+                        <Button Width="60" IsEnabled="{Binding CanSelect}" Content="{Binding Points}" Height="30" Tag="{Binding Id}">
                         </Button>
                     </StackPanel>
                 </DataTemplate>

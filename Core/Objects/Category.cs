@@ -17,5 +17,9 @@ namespace Core.Objects
         public string Name { get; set; }
         public ICollection<Question> Questions { get; set; }
 
+        public Category(string name)
+        {
+            Name = name;
+        }
     }
 }

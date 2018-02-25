@@ -120,11 +120,13 @@ namespace Client.ViewModels
             {
                 return new DelegateCommand<Button>((param) =>
                 {
+                    var page = ((MainWindow)Application.Current.MainWindow).Frame.Content as Game;
                     var question = GetQuestionById(selectedQuestionId);
                     CheckAnswerRequest checkAnswerRequest = new CheckAnswerRequest();
                     checkAnswerRequest.Question = new Question {Points=question.Points, Id = selectedQuestionId,  Answer = param.Content.ToString() };
                     string jsonCheckAnswerRequest = JsonConvert.SerializeObject(checkAnswerRequest);
                     ClientObject.SendMessage(jsonCheckAnswerRequest);
+                    page.ActionFrame.NavigationService.GoBack();
                 });
             }
 
@@ -190,6 +192,7 @@ namespace Client.ViewModels
             Player p = Players.FirstOrDefault(x => x.Login == player.Login);
             p.Points = player.Points;
             RaisePropertyChanged(() => Players);
+            
         }
 
     }

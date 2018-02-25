@@ -21,6 +21,8 @@ namespace Client.Objects.Commands
         {
             CheckAnswerResponse checkAnswerResponse = JsonConvert.DeserializeObject<CheckAnswerResponse>(packet);
             (ClientObject.view as GameViewModel).UpdatePoints(checkAnswerResponse.Player);
+
+
             switch (checkAnswerResponse.Status)
             {
                 case ResponseStatus.Ok:

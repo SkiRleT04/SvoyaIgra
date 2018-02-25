@@ -25,7 +25,7 @@ namespace Server.Objects.Commands
             client.UpdatePoints(points);
             response.Player = client.Player;
             string packetResponse = JsonConvert.SerializeObject(response);
-            server.SendMessageToDefiniteClient(packetResponse, client);
+            room.SendMessageToDefiniteClient(packetResponse, client);
             //отправляем уведомление об обновлении счета игрока
             NotifyPlayersAboutUpdatePoints(client, room);
         }

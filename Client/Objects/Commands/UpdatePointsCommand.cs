@@ -12,14 +12,14 @@ namespace Client.Objects.Commands
 {
     class UpdatePointsCommand : BaseCommand
     {
-        public override RequestType RequestType => RequestType.UpdatePoints;
+        public override RequestType RequestType => RequestType.UpdateRoom;
 
         public override int Frequency => 3;
 
         public override void Execute(string packet)
         {
-            UpdateRoomResponse updatePointsResponse = JsonConvert.DeserializeObject<UpdateRoomResponse>(packet);
-            (ClientObject.view as GameViewModel).UpdatePoints(updatePointsResponse.Player);
+            UpdateRoomResponse updateRoomResponse = JsonConvert.DeserializeObject<UpdateRoomResponse>(packet);
+            (ClientObject.view as GameViewModel).UpdatePoints(updateRoomResponse.Player);
 
         }
     }

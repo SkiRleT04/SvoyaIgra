@@ -9,9 +9,6 @@
       d:DesignHeight="300" d:DesignWidth="300"
       Title="Players" Width="400" Height="120" Background="#FFCD1515">
 
-
-    
-
     <Grid Background="White">
         <ListBox x:Name="myListView" ItemsSource="{Binding Players}">
             <ListBox.ItemsPanel>

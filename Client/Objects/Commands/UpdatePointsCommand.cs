@@ -18,7 +18,7 @@ namespace Client.Objects.Commands
 
         public override void Execute(string packet)
         {
-            UpdatePointsResponse updatePointsResponse = JsonConvert.DeserializeObject<UpdatePointsResponse>(packet);
+            UpdateRoomResponse updatePointsResponse = JsonConvert.DeserializeObject<UpdateRoomResponse>(packet);
             (ClientObject.view as GameViewModel).UpdatePoints(updatePointsResponse.Player);
 
         }

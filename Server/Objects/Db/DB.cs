@@ -90,6 +90,13 @@ namespace Server.Objects.Db
             int counter = 0;
             using (var db = new ApplicationContext())
             {
+                for (int i = 1; i < 16; i++)
+                {
+                    db.Categories.Add(new Category($"Category{i}"));
+                    db.SaveChanges();
+                }
+
+
                 var categories = db.Categories.ToList();
 
                 for (int i = 0; i < categories.Count; i++)
@@ -100,7 +107,7 @@ namespace Server.Objects.Db
                         {
                             counter++;
                             var type = (counter % 2 == 0) ? QuestionContentType.Img : QuestionContentType.Text;
-                            db.Questions.Add(new Question(j * 300, $"Answer{counter}", $"Content{counter}", type, categories[i]));
+                            db.Questions.Add(new Question(j * 300, $"Answer{counter}", $"Content{counter}", type, categories[i], $"Answer{counter}", $"Answer{counter + 1}", $"Answer{counter - 1}", $"Answer{counter + 3}"));
                             db.SaveChanges();
                         }
                     }

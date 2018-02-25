@@ -15,6 +15,7 @@ namespace Core.Packets.Response
 
         public ReadOnlyDictionary<string, IEnumerable<Question>> TableQuestions { get; set; }
         public IEnumerable<Player> Players { get; set; }
+        public Player Selector { get; set; }
 
     }
 }

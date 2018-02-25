@@ -15,15 +15,22 @@ namespace Server.Objects
         public Room Info { get; private set; }
         public GameObject Game { get; private set; }
         private ClientObject respondent;
+        private ClientObject selector;
 
-        public ClientObject Respondent
+        public ClientObject Selector
         {
             get
             {
-                if (respondent == null && clients.Count>0)
-                    respondent = clients.First();
-                return respondent;
+                if (selector == null && clients.Count == 1)
+                    selector = clients.First();
+                return selector;
             }
+            set => selector = value;
+        }
+
+        public ClientObject Respondent
+        {
+            get => respondent;
             set => respondent = value;
         }
 

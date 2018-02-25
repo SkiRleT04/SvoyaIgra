@@ -17,6 +17,7 @@ namespace Server.Objects.Commands
             var response = new GetRoomInfoResponse();
             response.TableQuestions = room.Game.TableQuestions;
             response.Players = room.GetAllPlayers();
+            response.Selector = room.Selector.Player;
 
             string packetResponse = JsonConvert.SerializeObject(response);
             room.SendMessageToDefiniteClient(packetResponse, client);

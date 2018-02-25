@@ -23,6 +23,7 @@ namespace Server.Objects
         {
             tabeleQuestions = DB.GetQuestionsTable();
             TableQuestions = new ReadOnlyDictionary<string, IEnumerable<Question>>(tabeleQuestions);
+            AnswerTimer = new Timer();
             AnswerTimer.Interval = 1000;
             AnswerTimer.Elapsed += AnswerTimer_Elapsed;
         }

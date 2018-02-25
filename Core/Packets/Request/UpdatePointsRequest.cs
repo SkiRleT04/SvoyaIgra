@@ -7,7 +7,7 @@ using Core.Enums;
 
 namespace Core.Packets.Request
 {
-    class UpdatePointsRequest : Request
+    public class UpdatePointsRequest : Request
     {
         public override RequestType Type { get; set; } = RequestType.UpdatePoints;
     }

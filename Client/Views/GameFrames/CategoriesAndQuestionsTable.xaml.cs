@@ -2,6 +2,7 @@
 using Client.ViewModels;
 using Core.Objects;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -47,20 +48,43 @@ namespace SvoyaIgraClient.Views.GameFrames
 
         public void HideButton(int id)
         {
-            foreach (Control ctrl in Layout.Children)
+            for (int i = 1; i < 7; i++)
             {
-                
-                if (ctrl.GetType() == typeof(Button))
+                var sp = FindControl<StackPanel>(this, typeof(StackPanel), $"sp{i}");
+                foreach (Button btn in sp.Children)
                 {
-                    var b = ctrl as Button;
-                    if((b.Tag as Question).Id == id)
-                    {
-                        ctrl.Visibility = Visibility.Hidden;
-                        break;  
-                    }
+                    if ((int)btn.Tag == id)
+                        btn.Visibility = Visibility.Hidden;
                 }
             }
+           
         }
+
+        public static T FindControl<T>(UIElement parent, Type targetType, string ControlName) where T : FrameworkElement
+        {
+
+            if (parent == null) return null;
+
+            if (parent.GetType() == targetType && ((T)parent).Name == ControlName)
+            {
+                return (T)parent;
+            }
+            T result = null;
+            int count = VisualTreeHelper.GetChildrenCount(parent);
+            for (int i = 0; i < count; i++)
+            {
+                UIElement child = (UIElement)VisualTreeHelper.GetChild(parent, i);
+
+                if (FindControl<T>(child, targetType, ControlName) != null)
+                {
+                    result = FindControl<T>(child, targetType, ControlName);
+                    break;
+                }
+            }
+            return result;
+        }
+
+
 
     }
 }

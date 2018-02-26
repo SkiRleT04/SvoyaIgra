@@ -227,6 +227,7 @@ namespace Client.ViewModels
                     string jsonCheckAnswerRequest = JsonConvert.SerializeObject(checkAnswerRequest);
                     ClientObject.SendMessage(jsonCheckAnswerRequest);
                     page.ActionFrame.NavigationService.GoBack();
+                   
                 });
             }
 
@@ -262,6 +263,8 @@ namespace Client.ViewModels
                 });
             }
         }
+
+        public int SelectedQuestionId { get => selectedQuestionId; set => selectedQuestionId = value; }
         //=========================================COMMANDS===================================================//
 
     }

@@ -28,6 +28,8 @@ namespace Server.Objects.Commands
                 room.Selector = client;
                 //очищаем клиентов ответивших не верно
                 room.Respondents.Clear();
+                NotifyPlayersAboutUpdateRoom(client, room, UpdateRoomType.UpdateTable);
+
             }
             else
             {

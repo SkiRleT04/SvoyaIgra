@@ -41,14 +41,14 @@
 
         <ItemsControl BorderBrush="Black" BorderThickness="2" Name="cat1" ItemsSource="{Binding Questions[0]}" Margin="65,0,0,165">
             <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
+                <ItemsPanelTemplate >
                     <WrapPanel Orientation="Horizontal"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <Button Width="60" Content="{Binding Points}" Height="30" Tag="{Binding Id}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"  Command="{Binding ElementName=cat1,  Path=DataContext.QuestionButtonClick}">
+                <DataTemplate x:Name="dt1">
+                    <StackPanel Orientation="Horizontal" x:Name="sp1">
+                        <Button Width="60" Content="{Binding Points}" Height="30" Tag="{Binding Id}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"  Command="{Binding ElementName=cat1,  Path=DataContext.QuestionButtonClick}" >
                            
                         </Button>
                     </StackPanel>
@@ -64,7 +64,7 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" x:Name="sp2">
                         <Button Width="60" Content="{Binding Points}" Height="30" Tag="{Binding Id}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"  Command="{Binding ElementName=cat2,  Path=DataContext.QuestionButtonClick}">
                            
                         </Button>
@@ -81,7 +81,7 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" x:Name="sp3">
                         <Button Width="60" Content="{Binding Points}" Height="30" Tag="{Binding Id}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"  Command="{Binding ElementName=cat3,  Path=DataContext.QuestionButtonClick}">
                             
                         </Button>
@@ -98,7 +98,7 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" x:Name="sp4">
                         <Button Width="60" Content="{Binding Points}" Height="30" Tag="{Binding Id}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"  Command="{Binding ElementName=cat4,  Path=DataContext.QuestionButtonClick}">
                            
                         </Button>
@@ -115,7 +115,7 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" x:Name="sp5">
                         <Button Width="60" Content="{Binding Points}" Height="30" Tag="{Binding Id}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"  Command="{Binding ElementName=cat5,  Path=DataContext.QuestionButtonClick}">
                            
                         </Button>
@@ -132,7 +132,7 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" x:Name="sp6">
                         <Button Width="60" Content="{Binding Points}" Height="30" Tag="{Binding Id}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"  Command="{Binding ElementName=cat6,  Path=DataContext.QuestionButtonClick}">
                           
                         </Button>

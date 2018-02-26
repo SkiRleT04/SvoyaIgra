@@ -26,10 +26,7 @@ namespace Client.Objects.Commands
             GameViewModel gvm = (ClientObject.view as GameViewModel);
             int questionId = removeQuestionResponse.QuestionId;
                 gvm.RemoveQuestion(questionId);
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    (((((MainWindow)Application.Current.MainWindow).Frame.Content as Game).GameFrame.Content) as CategoriesAndQuestionsTable).HideButton(questionId);
-                });
+                
         }
     }
 }

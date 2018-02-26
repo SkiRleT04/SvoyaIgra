@@ -35,7 +35,13 @@ namespace Client.Objects.Commands
            (ClientObject.view as GameViewModel).Players = new ObservableCollection<Player>(getRoomInfoResponse.Players);
 
             if(getRoomInfoResponse.TableQuestions != null)
-                (ClientObject.view as GameViewModel).QuestionsTable= getRoomInfoResponse.TableQuestions;
+            {
+                (ClientObject.view as GameViewModel).QuestionsTable = getRoomInfoResponse.TableQuestions;
+                
+                
+            }
+
+
 
             if (getRoomInfoResponse.Selector != null)
             {

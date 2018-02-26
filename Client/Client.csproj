@@ -80,6 +80,8 @@
     <Compile Include="Objects\Commands\SetRespondentCommand.cs" />
     <Compile Include="Objects\Commands\ShowQuestionCommand.cs" />
     <Compile Include="Objects\Commands\UpdateRoomCommand.cs" />
+    <Compile Include="Objects\DependencyObjectExtensions.cs" />
+    <Compile Include="Objects\NullVisibilityConverter.cs" />
     <Compile Include="ViewModels\GameViewModel.cs" />
     <Compile Include="ViewModels\RoomViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />

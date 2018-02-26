@@ -41,16 +41,16 @@ namespace Server.Objects
         //прослушивания каждого клиента и обработка присланных команд
         public void Process()
         {
-            try
-            {
+           // try
+            //{
                 Reader = new StreamReader(client.GetStream());
                 Writer = new StreamWriter(client.GetStream());
                 Writer.AutoFlush = true;
                 Console.WriteLine($"{Id}: connected");
                 while (true)
                 {
-                    try
-                    {
+                    //try
+                    //{
                         string packet = Reader.ReadLine();
                         if (!String.IsNullOrEmpty(packet))
                         {
@@ -59,7 +59,7 @@ namespace Server.Objects
                             server.Commands[typePacket]?.Excecute(this, server, Room, packet);
                         }
                     }
-                    catch
+                    /*catch
                     {
                         Console.WriteLine($"{Id}: leave");
                         //если клиент был в комнате удаляем его с нее, иначе со временных клиентов
@@ -72,9 +72,9 @@ namespace Server.Objects
                         else
                             server.RemoveConnection(this);
                         break;
-                    }
-                }
-            }
+                    }*/
+                //}
+            /*}
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
@@ -82,7 +82,7 @@ namespace Server.Objects
             finally
             {
                 Close();
-            }
+            }*/
         }
 
         //проверяет находится ли клиент в комнате

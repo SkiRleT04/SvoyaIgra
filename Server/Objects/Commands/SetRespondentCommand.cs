@@ -17,6 +17,7 @@ namespace Server.Objects.Commands
             lock (locker)
             {
                 var response = new SetRespondentResponse();
+
                 if (room.Respondent == null)
                 {
                     room.Respondent = client;
@@ -25,7 +26,6 @@ namespace Server.Objects.Commands
                     string packetResponse = JsonConvert.SerializeObject(response);
                     room.SendMessageToDefiniteClient(packetResponse, client);
                     BlockAnswerButtonForAllPlayers(room, client);
-
                 }
                 else
                 {
@@ -44,5 +44,7 @@ namespace Server.Objects.Commands
             string packetResponse = JsonConvert.SerializeObject(response);
             room.SendMessageToAllClientsExceptSendingClient(packetResponse, client);
         }
+
+        
     }
 }

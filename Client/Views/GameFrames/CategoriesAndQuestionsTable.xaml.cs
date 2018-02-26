@@ -1,4 +1,5 @@
 ﻿using Client;
+using Client.Objects;
 using Client.ViewModels;
 using Core.Objects;
 using System;
@@ -50,14 +51,18 @@ namespace SvoyaIgraClient.Views.GameFrames
         {
             for (int i = 1; i < 7; i++)
             {
-                var sp = FindControl<StackPanel>(this, typeof(StackPanel), $"sp{i}");
-                foreach (Button btn in sp.Children)
+
+                var cat = (Layout.FindName("cat" + i) as ItemsControl);
+                var buttons = cat.GetChildren<Button>().ToList();
+
+                foreach (var btn in buttons)
                 {
                     if ((int)btn.Tag == id)
                         btn.Visibility = Visibility.Hidden;
                 }
             }
            
+
         }
 
         public static T FindControl<T>(UIElement parent, Type targetType, string ControlName) where T : FrameworkElement
@@ -83,6 +88,10 @@ namespace SvoyaIgraClient.Views.GameFrames
             }
             return result;
         }
+
+       
+           
+        
 
 
 

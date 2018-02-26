@@ -21,6 +21,10 @@ namespace Client.ViewModels
     class GameViewModel:ViewModelBase
     {
         private ObservableCollection<Player> players;
+        private Question selectedQuestion;
+
+        private Boolean isVisible;
+        public bool IsVisible { get => isVisible; set => isVisible = value; }
 
         public GameViewModel()
         {
@@ -55,12 +59,15 @@ namespace Client.ViewModels
 
         public IDictionary<string, IEnumerable<Question>> QuestionsTable
         {
-            get { return questionsTable;
+            get {
+               
+                return questionsTable;
             }
             set
             {
                 questionsTable = value ;
                 Questions = questionsTable?.Values.ToList();
+                RaisePropertyChanged(() => Questions);
                 RaisePropertyChanged(() => QuestionsTable);
             }
         }
@@ -92,11 +99,13 @@ namespace Client.ViewModels
         {
             get
             {
+               
                 return questionsTable?.Values.ToList();
             }
             set
             {
                 RaisePropertyChanged(() => Questions);
+                RaisePropertyChanged(() => QuestionsTable);
             }
         }
 
@@ -175,7 +184,7 @@ namespace Client.ViewModels
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     var page = ((MainWindow)Application.Current.MainWindow).Frame.Content as Game;
-                    var question = GetQuestionById(selectedQuestionId);
+                    var question = selectedQuestion;
                     page.ActionFrame.NavigationService.Navigate(new AnswerVariants());
                     AnswerVariantsColl = new ObservableCollection<string> { question.Variant1, question.Variant2, question.Variant3, question.Variant4 };
                 });
@@ -191,11 +200,17 @@ namespace Client.ViewModels
                 {
                     if (array[i].Id == id)
                     {
-                        array[i] = null;
+                        array[i].Id = 0;
+                        
+                        QuestionsTable = new Dictionary<string, IEnumerable<Question>>(QuestionsTable);
+                        RaisePropertyChanged(() => Questions);
+                        RaisePropertyChanged(() => QuestionsTable);
                         return;
                     }
                 }
             }
+
+            
         }
         //=========================================ACTIONS===================================================//
 
@@ -221,7 +236,7 @@ namespace Client.ViewModels
                 return new DelegateCommand<Button>((param) =>
                 {
                     var page = ((MainWindow)Application.Current.MainWindow).Frame.Content as Game;
-                    var question = GetQuestionById(selectedQuestionId);
+                    var question = selectedQuestion;
                     CheckAnswerRequest checkAnswerRequest = new CheckAnswerRequest();
                     checkAnswerRequest.Question = new Question { Points = question.Points, Id = selectedQuestionId, Answer = param.Content.ToString() };
                     string jsonCheckAnswerRequest = JsonConvert.SerializeObject(checkAnswerRequest);
@@ -240,6 +255,7 @@ namespace Client.ViewModels
                 return new DelegateCommand<Button>((param) =>
                 {
                     selectedQuestionId = (int)param.Tag;
+                    selectedQuestion = GetQuestionById(selectedQuestionId);
 
 
                     ShowQuestionRequest showQuestionRequest = new ShowQuestionRequest();
@@ -265,6 +281,7 @@ namespace Client.ViewModels
         }
 
         public int SelectedQuestionId { get => selectedQuestionId; set => selectedQuestionId = value; }
+
         //=========================================COMMANDS===================================================//
 
     }

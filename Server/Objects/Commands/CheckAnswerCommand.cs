@@ -27,7 +27,9 @@ namespace Server.Objects.Commands
                 points = request.Question.Points;
                 room.Selector = client;
                 //очищаем клиентов ответивших не верно
+                room.Game.RemoveQuestionFromTable(request.Question.Id);
                 room.Respondents.Clear();
+
                 NotifyPlayersAboutUpdateRoom(client, room, UpdateRoomType.UpdateTable);
 
             }
@@ -35,20 +37,23 @@ namespace Server.Objects.Commands
             {
                 points = request.Question.Points * -1;
                 room.Respondents.Add(client);
-                //если все ответили не верно, назначаем респондентом первого игрока
+                //если все ответили не верно, назначаем селектором первого игрока
                 if (room.Clients.Count == room.Respondents.Count)
                 {
                     room.Game.RemoveQuestionFromTable(request.Question.Id);
                     if (room.Clients.Count != 0)
                         room.Selector = room.Clients.First();
+                    room.Respondents.Clear();
                     NotifyPlayersAboutUpdateRoom(client, room, UpdateRoomType.UpdateTable);
-                }
+                }       
             }
             client.UpdatePoints(points);
             string packetResponse = JsonConvert.SerializeObject(response);
             room.SendMessageToDefiniteClient(packetResponse, client);
             //отправляем уведомление об обновлении счета игрока
             NotifyPlayersAboutUpdateRoom(client, room,UpdateRoomType.UpdatePlayers);
+            //обновляем статус кнопки ответа для всех игроков
+            ChangeAnswerButtonPropertyForPlayers(room);
         }
 
         private void ChangeAnswerButtonPropertyForPlayers(RoomObject room)
@@ -73,13 +78,16 @@ namespace Server.Objects.Commands
                 response.Type = UpdateRoomType.UpdatePlayers;
                 response.Player = client.Player;
                 response.Selector = room.Selector.Player;
-                response.Respondent = room.Respondent.Player;
+                if (room.Respondent != null)
+                    response.Respondent = room.Respondent.Player;
             }
             else
             {
                 response.Type = UpdateRoomType.UpdateTable;
             }
             string packetResponse = JsonConvert.SerializeObject(response);
+            //после отправки удаляем респондента
+            room.Respondent = null;
             room.SendMessageToAllClients(packetResponse);
         }
     }

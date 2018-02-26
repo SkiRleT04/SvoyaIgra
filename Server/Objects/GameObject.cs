@@ -28,7 +28,7 @@ namespace Server.Objects
                 {
                     if (array[i].Id == id)
                     {
-                        array[i] = null;
+                        array[i].Id = 0;
                         return;
                     }
                 }

@@ -29,8 +29,10 @@ namespace Client.Objects.Commands
            Application.Current.Dispatcher.Invoke(() =>
             {
                 (((((MainWindow)Application.Current.MainWindow).Frame.Content as Game).GameFrame.Content) as CategoriesAndQuestionsTable).HideButton(questionId);
+     
             });
             gvm.ShowQuestion(questionId);
+            gvm.BlockAnswerButton(true);
             gvm.RemoveQuestion(questionId);
            
 

@@ -136,7 +136,6 @@ namespace Client.ViewModels
         //=========================================ACTIONS===================================================//
         public void UpdatePoints(Player player)
         {
-
             if (player != null)
             {
             Player p = players.FirstOrDefault(x => x.Login == player.Login);
@@ -152,6 +151,7 @@ namespace Client.ViewModels
                 var page = ((MainWindow)Application.Current.MainWindow).Frame.Content as Game;
            
             var question = GetQuestionById(questionId);
+                selectedQuestion = question;
 
             if (question.Type == QuestionContentType.Text)
             {
@@ -184,6 +184,7 @@ namespace Client.ViewModels
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     var page = ((MainWindow)Application.Current.MainWindow).Frame.Content as Game;
+
                     var question = selectedQuestion;
                     page.ActionFrame.NavigationService.Navigate(new AnswerVariants());
                     AnswerVariantsColl = new ObservableCollection<string> { question.Variant1, question.Variant2, question.Variant3, question.Variant4 };

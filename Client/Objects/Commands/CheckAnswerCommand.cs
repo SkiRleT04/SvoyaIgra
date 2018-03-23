@@ -27,7 +27,7 @@ namespace Client.Objects.Commands
             switch (checkAnswerResponse.Status)
             {
                 case ResponseStatus.Ok:
-                    gvm.BlockAnswerButton(true);
+                    //gvm.BlockAnswerButton(true);
                     
                     //(ClientObject.view as GameViewModel).UpdatePoints(checkAnswerResponse.Player);
                     //(ClientObject.view as GameViewModel).Status = "Был введён неверный пароль";

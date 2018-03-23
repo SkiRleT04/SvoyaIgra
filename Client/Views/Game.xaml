@@ -15,7 +15,7 @@
         <Frame x:Name="GameFrame" Content="Frame" Height="200" VerticalAlignment="Top" Margin="100,0" Background="Black" />
         <Label Content="Нажатие кнопки" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.482,0.462" Width="100" FontSize="9" Height="24"/>
         <Label Content="Принятие решения" HorizontalAlignment="Left" Margin="0,47,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.482,0.462" Width="100" FontSize="9"/>
-            <Button x:Name="btnAnswer" Content="ОТВЕТИТЬ" HorizontalAlignment="Left" Margin="258,334,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SetRespondentClick}" Click="btnAnswer_Click"/>
+            <Button x:Name="btnAnswer" Content="ОТВЕТИТЬ" HorizontalAlignment="Left" Margin="258,334,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SetRespondentClick}" Click="btnAnswer_Click" IsEnabled="False"/>
         <Button Content="Button" HorizontalAlignment="Left" Margin="516,14,0,0" VerticalAlignment="Top" Width="66" Click="Button_Click"/>
             <Button x:Name="btnLeaveRoom"  Content="Покинуть комнату" Command="{Binding LeaveRoomClick}" HorizontalAlignment="Left" Margin="25,334,0,0" VerticalAlignment="Top" Width="75"/>
         </Grid>

@@ -24,18 +24,25 @@ namespace Client.Objects.Commands
         {
             UpdateRoomResponse updateRoomResponse = JsonConvert.DeserializeObject<UpdateRoomResponse>(packet);
             GameViewModel gvm = (ClientObject.view as GameViewModel);
-          
+
             switch (updateRoomResponse.Type)
             {
                 case UpdateRoomType.UpdatePlayers:
+                    bool isSelector = ClientObject.user.Login == updateRoomResponse.Selector.Login;
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        (((((MainWindow)Application.Current.MainWindow).Frame.Content as Game).GameFrame.Content) as CategoriesAndQuestionsTable)?.ChangeButtonEProp(isSelector);
+                    });
                     gvm.UpdatePoints(updateRoomResponse.Player);
                     break;
 
                 case UpdateRoomType.UpdateTable:
+                    
                     Application.Current.Dispatcher.Invoke(() =>
                     {
                         (((MainWindow)Application.Current.MainWindow).Frame.Content as Game).GameFrame.NavigationService.GoBack();
                     });
+                    gvm.BlockAnswerButton(false);
                     break;
             }
 

@@ -45,15 +45,20 @@ namespace Server.Objects.Commands
                         room.Selector = room.Clients.First();
                     room.Respondents.Clear();
                     NotifyPlayersAboutUpdateRoom(client, room, UpdateRoomType.UpdateTable);
-                }       
+                }
+
+                if (room.Respondents.Count != 0)
+                    //обновляем статус кнопки ответа для всех игроков
+                    ChangeAnswerButtonPropertyForPlayers(room);
+
             }
+
             client.UpdatePoints(points);
             string packetResponse = JsonConvert.SerializeObject(response);
             room.SendMessageToDefiniteClient(packetResponse, client);
             //отправляем уведомление об обновлении счета игрока
             NotifyPlayersAboutUpdateRoom(client, room,UpdateRoomType.UpdatePlayers);
-            //обновляем статус кнопки ответа для всех игроков
-            ChangeAnswerButtonPropertyForPlayers(room);
+
         }
 
         private void ChangeAnswerButtonPropertyForPlayers(RoomObject room)

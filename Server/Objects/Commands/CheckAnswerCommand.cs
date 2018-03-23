@@ -48,9 +48,13 @@ namespace Server.Objects.Commands
                 }
 
                 if (room.Respondents.Count != 0)
+                {
                     //обновляем статус кнопки ответа для всех игроков
                     ChangeAnswerButtonPropertyForPlayers(room);
 
+                    room.Game.StopAnswerButtonClickTimer();
+                    room.Game.AnswerButtonClickTimer.Start();
+                }
             }
 
             client.UpdatePoints(points);
@@ -89,6 +93,8 @@ namespace Server.Objects.Commands
             else
             {
                 response.Type = UpdateRoomType.UpdateTable;
+                //запускаем таймер выбора вопроса при показе таблицы с вопросами
+                room.Game.SelectQuestionTimer.Start();
             }
             string packetResponse = JsonConvert.SerializeObject(response);
             //после отправки удаляем респондента

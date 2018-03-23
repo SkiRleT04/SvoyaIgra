@@ -20,10 +20,14 @@ namespace Server.Objects
             get
             {
                 if (selector == null && clients.Count == 1)
-                    selector = clients.First();
+                    Selector = clients.First();
                 return selector;
             }
-            set => selector = value;
+            set
+            {
+                Game.SelectQuestionTimer.Start();
+                selector = value;
+            }
         }
         public ClientObject Respondent { get; set; }
 
@@ -35,6 +39,7 @@ namespace Server.Objects
         {
             Info = new Room(id, name, size);
             Game = new GameObject();
+            Game.Room = this;
         }
 
         //отправка сообщения всем клиентам комнаты

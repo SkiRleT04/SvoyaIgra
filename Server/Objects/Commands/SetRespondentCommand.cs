@@ -26,6 +26,8 @@ namespace Server.Objects.Commands
                     string packetResponse = JsonConvert.SerializeObject(response);
                     room.SendMessageToDefiniteClient(packetResponse, client);
                     BlockAnswerButtonForAllPlayers(room, client);
+                    //останавливаем таймер для нажатия кнопки "ответить"
+                    room.Game.StopAnswerButtonClickTimer();
                 }
                 else
                 {

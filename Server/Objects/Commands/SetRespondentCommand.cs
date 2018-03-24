@@ -28,6 +28,7 @@ namespace Server.Objects.Commands
                     BlockAnswerButtonForAllPlayers(room, client);
                     //останавливаем таймер для нажатия кнопки "ответить"
                     room.Game.StopAnswerButtonClickTimer();
+                    room.Game.StartAnswerTimer();
                 }
                 else
                 {

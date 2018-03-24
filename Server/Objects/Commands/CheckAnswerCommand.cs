@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using Server.Objects.Db;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,13 +16,14 @@ namespace Server.Objects.Commands
     {
         public void Excecute(ClientObject client, ServerObject server, RoomObject room, string packet = "")
         {
+            room.Game.StopAnswerTimer();
             Console.WriteLine("Check answer");
             var request = JsonConvert.DeserializeObject<CheckAnswerRequest>(packet);
             var response = new CheckAnswerResponse();
 
             response.Status = DB.CheckAnswer(request.Question);
             Console.WriteLine($"Answer status: {response.Status }");
-            int points;
+            int points=0;
             if (response.Status == ResponseStatus.Ok)
             {
                 points = request.Question.Points;
@@ -31,7 +33,7 @@ namespace Server.Objects.Commands
                 room.Respondents.Clear();
 
                 NotifyPlayersAboutUpdateRoom(client, room, UpdateRoomType.UpdateTable);
-
+                room.Game.StopAnswerButtonClickTimer();
             }
             else
             {
@@ -45,16 +47,19 @@ namespace Server.Objects.Commands
                         room.Selector = room.Clients.First();
                     room.Respondents.Clear();
                     NotifyPlayersAboutUpdateRoom(client, room, UpdateRoomType.UpdateTable);
+                    room.Game.StopAnswerButtonClickTimer();
+                }
+                else
+                {
+                    room.Game.StartAnswerButtonClickTimer();
                 }
 
                 if (room.Respondents.Count != 0)
                 {
                     //обновляем статус кнопки ответа для всех игроков
                     ChangeAnswerButtonPropertyForPlayers(room);
-
-                    room.Game.StopAnswerButtonClickTimer();
-                    room.Game.AnswerButtonClickTimer.Start();
                 }
+
             }
 
             client.UpdatePoints(points);
@@ -62,6 +67,7 @@ namespace Server.Objects.Commands
             room.SendMessageToDefiniteClient(packetResponse, client);
             //отправляем уведомление об обновлении счета игрока
             NotifyPlayersAboutUpdateRoom(client, room,UpdateRoomType.UpdatePlayers);
+
 
         }
 
@@ -93,8 +99,7 @@ namespace Server.Objects.Commands
             else
             {
                 response.Type = UpdateRoomType.UpdateTable;
-                //запускаем таймер выбора вопроса при показе таблицы с вопросами
-                room.Game.SelectQuestionTimer.Start();
+                room.Game.StopAnswerButtonClickTimer();
             }
             string packetResponse = JsonConvert.SerializeObject(response);
             //после отправки удаляем респондента

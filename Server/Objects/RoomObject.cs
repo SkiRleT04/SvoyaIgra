@@ -25,7 +25,7 @@ namespace Server.Objects
             }
             set
             {
-                Game.SelectQuestionTimer.Start();
+                Game.StartSelectQuestionTimer();
                 selector = value;
             }
         }

@@ -3,10 +3,12 @@ using Core.Objects;
 using Core.Packets.Request;
 using Core.Packets.Response;
 using Newtonsoft.Json;
+using Server.Objects.Commands;
 using Server.Objects.Db;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Timers;
 
@@ -90,14 +92,16 @@ namespace Server.Objects
 
         private void SendShowQuestionCommand(int id)
         {
-
+            Room.Respondents.Clear();
             Console.WriteLine("Show question");
             var response = new ShowQuestionResponse();
             response.QuestionId = id;
             string packetResponse = JsonConvert.SerializeObject(response);
             Room.SendMessageToAllClients(packetResponse);
+            //останавливаем таймер когда игрок выбрал вопрос
+            StopSelectQuestionTimer();
             //запускаем таймер для нажания на кнопку "ответ"
-            AnswerButtonClickTimer.Start();
+            StartAnswerButtonClickTimer();
         }
 
         private void SendUpdateTableCommand()
@@ -108,7 +112,9 @@ namespace Server.Objects
             Room.Respondent = null;
             Room.SendMessageToAllClients(packetResponse);
             //запускаем таймер выбора вопроса при показе таблицы с вопросами
-            SelectQuestionTimer.Start();
+            StartSelectQuestionTimer();
+            StopAnswerButtonClickTimer();
+
         }
 
         private Question GetFirstQuestion()
@@ -132,7 +138,7 @@ namespace Server.Objects
             secondAnswerButtonClick++;
             if (secondAnswerButtonClick >= ANSWER_BUTTON_CLICK_TIMER)
             {
-                AnswerButtonClickTimer.Stop();
+                StopAnswerButtonClickTimer();
                 //remove question from table and return on page table
                 RemoveQuestionFromTable(CurrentQuestionId);
                 SendUpdateTableCommand();
@@ -144,8 +150,9 @@ namespace Server.Objects
             secondAnswer++;
             if (secondAnswer >= ANSWER_TIMER)
             {
-                AnswerButtonClickTimer.Stop();
-                //chuvachek nepravilno otvetil
+                StopAnswerTimer();
+                //chuvachek nepravilno otvetil i zablokirovat knopki otveta
+                //SendBadAnswerCommand();
             }
         }
 
@@ -154,14 +161,127 @@ namespace Server.Objects
 
         public void StopSelectQuestionTimer()
         {
+            Console.WriteLine("Таймер выбора вопроса остановлен");
             SelectQuestionTimer.Stop();
-            secondSelectQuestion = 0;
         }
 
         public void StopAnswerButtonClickTimer()
         {
+            Console.WriteLine("Таймер кнопки ответа остановлен");
             AnswerButtonClickTimer.Stop();
+        }
+
+        public void StopAnswerTimer()
+        {
+            Debug.WriteLine("Таймер ответа остановлен");
+            AnswerTimer.Stop();
+        }
+
+
+        public void StartSelectQuestionTimer()
+        {
+            Console.WriteLine("Таймер выбора вопроса запущен");
+            secondSelectQuestion = 0;
+            SelectQuestionTimer.Start();
+        }
+
+        public void StartAnswerButtonClickTimer()
+        {
+            Console.WriteLine("Таймер кнопки ответа запущен");
             secondAnswerButtonClick = 0;
+            AnswerButtonClickTimer.Start();
+        }
+
+        public void StartAnswerTimer()
+        {
+            Debug.WriteLine("Таймер ответа запущен");
+            secondAnswer = 0;
+            AnswerTimer.Start();
+        }
+
+
+        private Question GetQuestionById(int id)
+        {
+            foreach (var item in TableQuestions)
+            {
+                var array = item.Value.ToArray();
+                for (int i = 0; i < array.Length; i++)
+                {
+                    if (array[i].Id == id)
+                    {
+                        return array[i];
+                    }
+                }
+            }
+            return null;
+        }
+
+        private void SendBadAnswerCommand()
+        {
+            var question = GetQuestionById(CurrentQuestionId);
+            int points = question.Points * -1;
+            Room.Respondents.Add(Room.Respondent);
+            Room.Respondent.UpdatePoints(points);
+            //если все ответили не верно, назначаем селектором первого игрока
+            if (Room.Clients.Count == Room.Respondents.Count)
+            {
+                RemoveQuestionFromTable(question.Id);
+                if (Room.Clients.Count != 0)
+                    Room.Selector = Room.Clients.First();
+                Room.Respondents.Clear();
+                NotifyPlayersAboutUpdateRoom(Room.Respondent, Room, UpdateRoomType.UpdateTable);
+                StopAnswerButtonClickTimer();
+            }
+            else
+            {
+                StartAnswerButtonClickTimer();
+            }
+
+            if (Room.Respondents.Count != 0)
+            {
+                //обновляем статус кнопки ответа для всех игроков
+                ChangeAnswerButtonPropertyForPlayers(Room);
+            }
+            NotifyPlayersAboutUpdateRoom(Room.Respondent, Room, UpdateRoomType.UpdatePlayers);
+
+        }
+
+
+
+
+        private void ChangeAnswerButtonPropertyForPlayers(RoomObject room)
+        {
+            foreach (var client in room.Clients)
+            {
+                if (!room.Respondents.Contains(client))
+                {
+                    var response = new BlockAnswerButtonResponse();
+                    response.IsEnabled = true;
+                    string packetResponse = JsonConvert.SerializeObject(response);
+                    room.SendMessageToDefiniteClient(packetResponse, client);
+                }
+            }
+        }
+
+        private void NotifyPlayersAboutUpdateRoom(ClientObject client, RoomObject room, UpdateRoomType type)
+        {
+            var response = new UpdateRoomResponse();
+            if (type == UpdateRoomType.UpdatePlayers)
+            {
+                response.Type = UpdateRoomType.UpdatePlayers;
+                response.Selector = room.Selector.Player;
+                if (room.Respondent != null)
+                    response.Respondent = room.Respondent.Player;
+            }
+            else
+            {
+                response.Type = UpdateRoomType.UpdateTable;
+                room.Game.StopAnswerButtonClickTimer();
+            }
+            string packetResponse = JsonConvert.SerializeObject(response);
+            //после отправки удаляем респондента
+            room.Respondent = null;
+            room.SendMessageToAllClients(packetResponse);
         }
 
 

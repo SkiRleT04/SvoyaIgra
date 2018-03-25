@@ -47,9 +47,9 @@ namespace Server.Objects
         
 
 
-        private static int SELECT_QUESTION_TIMER = 3;
-        private static int ANSWER_BUTTON_CLICK_TIMER = 3;
-        private static int ANSWER_TIMER = 3;
+        private static int SELECT_QUESTION_TIMER = 10;
+        private static int ANSWER_BUTTON_CLICK_TIMER = 10;
+        private static int ANSWER_TIMER = 10;
 
 
 
@@ -96,9 +96,9 @@ namespace Server.Objects
             AnswerTimer = new Timer();
             AnswerButtonClickTimer = new Timer();
             SelectQuestionTimer = new Timer();
-            AnswerTimer.Interval = 50;
-            AnswerButtonClickTimer.Interval =50;
-            SelectQuestionTimer.Interval = 50;
+            AnswerTimer.Interval = 1000;
+            AnswerButtonClickTimer.Interval =1000;
+            SelectQuestionTimer.Interval = 1000;
 
             AnswerTimer.Elapsed += AnswerTimer_Tick;
             AnswerButtonClickTimer.Elapsed += AnswerButtonClickTimer_Tick;

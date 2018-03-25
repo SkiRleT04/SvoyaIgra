@@ -45,13 +45,7 @@ namespace Client.Objects.Commands
                     gvm.BlockAnswerButton(false);
                     break;
 
-                case UpdateRoomType.NavigateTable:
-                    Application.Current.Dispatcher.Invoke(() =>
-                    {
-                        (((MainWindow)Application.Current.MainWindow).Frame.Content as Game).GameFrame.NavigationService.Navigate((((MainWindow)Application.Current.MainWindow).Frame.Content as Game).CategoriesAndQuestionsTable);
-                    });
-                    gvm.BlockAnswerButton(false);
-                    break;
+                
             }
 
         }

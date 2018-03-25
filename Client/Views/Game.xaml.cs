@@ -29,9 +29,9 @@ namespace SvoyaIgraClient.Views
         public Timer answerTimer { get; private set; }
 
 
-        private int secondAnswer = 10;
-        private int secondSelectQuestion = 10;
-        private int secondAnswerButtonClick = 10;
+        private int secondAnswer = 1;
+        private int secondSelectQuestion = 1;
+        private int secondAnswerButtonClick = 1;
 
 
       

@@ -47,9 +47,9 @@ namespace Server.Objects
         
 
 
-        private static int SELECT_QUESTION_TIMER = 10;
-        private static int ANSWER_BUTTON_CLICK_TIMER = 10;
-        private static int ANSWER_TIMER = 10;
+        private static int SELECT_QUESTION_TIMER = 1;
+        private static int ANSWER_BUTTON_CLICK_TIMER = 1;
+        private static int ANSWER_TIMER = 1;
 
 
 

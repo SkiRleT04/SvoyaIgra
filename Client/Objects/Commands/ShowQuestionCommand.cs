@@ -28,7 +28,7 @@ namespace Client.Objects.Commands
             gvm.SelectedQuestionId = questionId;
            Application.Current.Dispatcher.Invoke(() =>
             {
-                (((((MainWindow)Application.Current.MainWindow).Frame.Content as Game).GameFrame.Content) as CategoriesAndQuestionsTable)?.HideButton(questionId);
+                (((((MainWindow)Application.Current.MainWindow).Frame.Content as Game)?.GameFrame.Content) as CategoriesAndQuestionsTable)?.HideButton(questionId);
      
             });
             gvm.ShowQuestion(questionId);

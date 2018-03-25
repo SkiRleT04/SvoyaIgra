@@ -23,16 +23,21 @@ namespace SvoyaIgraClient.Views
     /// </summary>
     public partial class Game : Page
     {
+
+        public CategoriesAndQuestionsTable CategoriesAndQuestionsTable { get; set; }
+
         int count = 0;
         public Game()
         {
             InitializeComponent();
+            CategoriesAndQuestionsTable = new CategoriesAndQuestionsTable();
             DataContext = new GameViewModel();
             ClientObject.view = DataContext as GameViewModel;
             ActionFrame.NavigationService.Navigate(new Players());
-            GameFrame.NavigationService.Navigate(new CategoriesAndQuestionsTable());
+            //GameFrame.NavigationService.Navigate(CategoriesAndQuestionsTable);
             //ClientObject.view = DataContext as GameViewModel;
-            
+            GameFrame.NavigationService.Navigate(new CategoriesAndQuestionsTable());
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

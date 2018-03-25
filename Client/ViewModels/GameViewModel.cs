@@ -173,7 +173,8 @@ namespace Client.ViewModels
             Application.Current.Dispatcher.Invoke(() =>
             {
                 var page = ((MainWindow)Application.Current.MainWindow).Frame.Content as Game;
-                page.btnAnswer.IsEnabled = b;
+                if (page != null)
+                    page.btnAnswer.IsEnabled = b;
             });
         }
 

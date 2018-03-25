@@ -3,6 +3,7 @@ using Core.Enums;
 using Core.Packets.Request;
 using Core.Packets.Response;
 using Newtonsoft.Json;
+using Server.Objects.Db;
 
 namespace Server.Objects.Commands
 {
@@ -25,6 +26,10 @@ namespace Server.Objects.Commands
                     //конектим пользователя к комнате
                     server.ConnectToRoom(client, roomObject);
                     response.Status = ResponseStatus.Ok;
+                    if (roomObject.Game.IsEmptyTableQuestions())
+                    {
+                        roomObject.Game.TableQuestions = DB.GetQuestionsTable();
+                    }
                     Console.WriteLine($"User {client.Player.Login} connect to room {roomObject.Info.Name}");
                 }
             }

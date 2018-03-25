@@ -9,6 +9,7 @@ namespace Core.Enums
     public enum UpdateRoomType
     {
         UpdatePlayers,
-        UpdateTable
+        UpdateTable,
+        NavigateTable
     }
 }

@@ -31,7 +31,7 @@ namespace Client.Objects.Commands
                     bool isSelector = ClientObject.user.Login == updateRoomResponse.Selector.Login;
                     Application.Current.Dispatcher.Invoke(() =>
                     {
-                        (((((MainWindow)Application.Current.MainWindow).Frame.Content as Game).GameFrame.Content) as CategoriesAndQuestionsTable)?.ChangeButtonEProp(isSelector);
+                        (((((MainWindow)Application.Current.MainWindow).Frame.Content as Game)?.GameFrame.Content) as CategoriesAndQuestionsTable)?.ChangeButtonEProp(isSelector);
                     });
                     gvm.UpdatePoints(updateRoomResponse.Player);
                     break;
@@ -41,6 +41,14 @@ namespace Client.Objects.Commands
                     Application.Current.Dispatcher.Invoke(() =>
                     {
                         (((MainWindow)Application.Current.MainWindow).Frame.Content as Game).GameFrame.NavigationService.GoBack();
+                    });
+                    gvm.BlockAnswerButton(false);
+                    break;
+
+                case UpdateRoomType.NavigateTable:
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        (((MainWindow)Application.Current.MainWindow).Frame.Content as Game).GameFrame.NavigationService.Navigate((((MainWindow)Application.Current.MainWindow).Frame.Content as Game).CategoriesAndQuestionsTable);
                     });
                     gvm.BlockAnswerButton(false);
                     break;

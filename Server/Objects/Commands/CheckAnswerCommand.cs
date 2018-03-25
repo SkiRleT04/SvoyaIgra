@@ -38,6 +38,7 @@ namespace Server.Objects.Commands
             else
             {
                 points = request.Question.Points * -1;
+                room.Game.listClickButton.Add(client);
                 room.Respondents.Add(client);
                 //если все ответили не верно, назначаем селектором первого игрока
                 if (room.Clients.Count == room.Respondents.Count)

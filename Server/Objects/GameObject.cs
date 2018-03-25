@@ -16,16 +16,30 @@ namespace Server.Objects
 {
     class GameObject
     {
-        public Dictionary<string, IEnumerable<Question>> tabeleQuestions;
-        public ReadOnlyDictionary<string, IEnumerable<Question>> TableQuestions { get; private set; }
+
+        private Dictionary<string, IEnumerable<Question>> tabeleQuestions;
+
         public RoomObject Room { get; set; }
         public int CurrentQuestionId { get; set; }
+        public Question CurrentQuestion { get; set; }
+        public int Points { get; set; }
         
         public Timer SelectQuestionTimer { get; private set; }
         public Timer AnswerButtonClickTimer { get; private set; }
         public Timer AnswerTimer { get; private set; }
-
-
+        public Dictionary<string, IEnumerable<Question>> TableQuestions
+        {
+            get
+            {
+                if (IsEmptyTableQuestions())
+                {
+                    ThrowRoom();
+                    //tabeleQuestions = DB.GetQuestionsTable();
+                }
+                return tabeleQuestions;
+            }
+            set => tabeleQuestions = value;
+        }
 
         private int secondAnswer = 0;
         private int secondSelectQuestion = 0;
@@ -33,12 +47,27 @@ namespace Server.Objects
         
 
 
-        private static int SELECT_QUESTION_TIMER = 10;
-        private static int ANSWER_BUTTON_CLICK_TIMER = 10;
-        private static int ANSWER_TIMER = 10;
+        private static int SELECT_QUESTION_TIMER = 3;
+        private static int ANSWER_BUTTON_CLICK_TIMER = 3;
+        private static int ANSWER_TIMER = 3;
 
 
-   
+
+        public bool IsEmptyTableQuestions()
+        {
+            foreach (var item in tabeleQuestions)
+            {
+                var array = item.Value.ToArray();
+                for (int i = 0; i < array.Length; i++)
+                {
+                    if (array[i].Id != 0)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
 
         public void RemoveQuestionFromTable(int id)
         {
@@ -49,6 +78,8 @@ namespace Server.Objects
                 {
                     if (array[i].Id == id)
                     {
+                        Points = array[i].Points;
+                        CurrentQuestion = array[i];
                         array[i].Id = 0;
                         return;
                     }
@@ -59,15 +90,15 @@ namespace Server.Objects
 
         public GameObject()
         {
-            tabeleQuestions = DB.GetQuestionsTable();
-            TableQuestions = new ReadOnlyDictionary<string, IEnumerable<Question>>(tabeleQuestions);
+
+            TableQuestions = new Dictionary<string, IEnumerable<Question>>(DB.GetQuestionsTable());
 
             AnswerTimer = new Timer();
             AnswerButtonClickTimer = new Timer();
             SelectQuestionTimer = new Timer();
-            AnswerTimer.Interval = 1000;
-            AnswerButtonClickTimer.Interval = 1000;
-            SelectQuestionTimer.Interval = 1000;
+            AnswerTimer.Interval = 50;
+            AnswerButtonClickTimer.Interval =50;
+            SelectQuestionTimer.Interval = 50;
 
             AnswerTimer.Elapsed += AnswerTimer_Tick;
             AnswerButtonClickTimer.Elapsed += AnswerButtonClickTimer_Tick;
@@ -92,6 +123,8 @@ namespace Server.Objects
 
         private void SendShowQuestionCommand(int id)
         {
+            list.Clear();
+            listClickButton.Clear();
             Room.Respondents.Clear();
             Console.WriteLine("Show question");
             var response = new ShowQuestionResponse();
@@ -103,6 +136,7 @@ namespace Server.Objects
             //запускаем таймер для нажания на кнопку "ответ"
             StartAnswerButtonClickTimer();
         }
+        
 
         private void SendUpdateTableCommand()
         {
@@ -114,6 +148,24 @@ namespace Server.Objects
             //запускаем таймер выбора вопроса при показе таблицы с вопросами
             StartSelectQuestionTimer();
             StopAnswerButtonClickTimer();
+
+        }
+
+
+        private void ThrowRoom()
+        {
+            Room.Selector = null;
+            Room.Respondent = null;
+            CurrentQuestionId = 0;
+            CurrentQuestion = null;
+
+            for (int i = 0; i < Room.Clients.Count; i++)
+            {
+                Room.Server?.Commands[RequestType.RoomLeave].Excecute(Room.Clients[i], Room.Server, Room);
+            }
+            StopAnswerButtonClickTimer();
+            StopAnswerTimer();
+            StopSelectQuestionTimer();
 
         }
 
@@ -140,7 +192,7 @@ namespace Server.Objects
             {
                 StopAnswerButtonClickTimer();
                 //remove question from table and return on page table
-                RemoveQuestionFromTable(CurrentQuestionId);
+                //RemoveQuestionFromTable(CurrentQuestionId);
                 SendUpdateTableCommand();
             }
         }
@@ -152,7 +204,7 @@ namespace Server.Objects
             {
                 StopAnswerTimer();
                 //chuvachek nepravilno otvetil i zablokirovat knopki otveta
-                //SendBadAnswerCommand();
+                SendBadAnswerCommand();
             }
         }
 
@@ -173,30 +225,39 @@ namespace Server.Objects
 
         public void StopAnswerTimer()
         {
-            Debug.WriteLine("Таймер ответа остановлен");
+            Console.WriteLine("Таймер ответа остановлен");
             AnswerTimer.Stop();
         }
 
 
         public void StartSelectQuestionTimer()
         {
-            Console.WriteLine("Таймер выбора вопроса запущен");
-            secondSelectQuestion = 0;
-            SelectQuestionTimer.Start();
+            if (Room.Clients.Count > 0)
+            {
+                Console.WriteLine("Таймер выбора вопроса запущен");
+                secondSelectQuestion = 0;
+                SelectQuestionTimer.Start();
+            }
         }
 
         public void StartAnswerButtonClickTimer()
         {
-            Console.WriteLine("Таймер кнопки ответа запущен");
-            secondAnswerButtonClick = 0;
-            AnswerButtonClickTimer.Start();
+            if (Room.Clients.Count > 0)
+            {
+                Console.WriteLine("Таймер кнопки ответа запущен");
+                secondAnswerButtonClick = 0;
+                AnswerButtonClickTimer.Start();
+            }
         }
 
         public void StartAnswerTimer()
         {
-            Debug.WriteLine("Таймер ответа запущен");
-            secondAnswer = 0;
-            AnswerTimer.Start();
+            if (Room.Clients.Count > 0)
+            {
+                Console.WriteLine("Таймер ответа запущен");
+                secondAnswer = 0;
+                AnswerTimer.Start();
+            }
         }
 
 
@@ -216,20 +277,46 @@ namespace Server.Objects
             return null;
         }
 
+
+        public List<ClientObject> list = new List<ClientObject>();
+        public List<ClientObject> listClickButton = new List<ClientObject>();
         private void SendBadAnswerCommand()
         {
-            var question = GetQuestionById(CurrentQuestionId);
-            int points = question.Points * -1;
-            Room.Respondents.Add(Room.Respondent);
-            Room.Respondent.UpdatePoints(points);
+
+            Room.Game.StopAnswerTimer();
+            var response = new CheckAnswerResponse();
+            var client = Room.Respondent;
+
+            //var question = GetQuestionById(CurrentQuestionId);
+            int points = Points * -1;
+            Room.Respondents.Add(client);
+            client.UpdatePoints(points);
+
+
+
+
+            foreach (var item in Room.Respondents)
+            {
+                if (!list.Contains(item) && !listClickButton.Contains(item))
+                {
+                    var res = new UpdateRoomResponse();
+                    res.Type = UpdateRoomType.UpdateTable;
+
+                    Room.SendMessageToDefiniteClient(JsonConvert.SerializeObject(res), item);
+                }
+                list.Add(item);
+            }
+
+
+
             //если все ответили не верно, назначаем селектором первого игрока
             if (Room.Clients.Count == Room.Respondents.Count)
             {
-                RemoveQuestionFromTable(question.Id);
+                RemoveQuestionFromTable(CurrentQuestionId);
                 if (Room.Clients.Count != 0)
                     Room.Selector = Room.Clients.First();
                 Room.Respondents.Clear();
-                NotifyPlayersAboutUpdateRoom(Room.Respondent, Room, UpdateRoomType.UpdateTable);
+                NotifyPlayersAboutUpdateRoom(client, Room, UpdateRoomType.UpdateTable);
                 StopAnswerButtonClickTimer();
             }
             else
@@ -242,7 +329,18 @@ namespace Server.Objects
                 //обновляем статус кнопки ответа для всех игроков
                 ChangeAnswerButtonPropertyForPlayers(Room);
             }
-            NotifyPlayersAboutUpdateRoom(Room.Respondent, Room, UpdateRoomType.UpdatePlayers);
+
+
+
+            string packetResponse = JsonConvert.SerializeObject(response);
+            Room.SendMessageToDefiniteClient(packetResponse, client);
+
+
+
+            NotifyPlayersAboutUpdateRoom(client, Room, UpdateRoomType.UpdatePlayers);
+
+
+            
 
         }
 
@@ -269,6 +367,7 @@ namespace Server.Objects
             if (type == UpdateRoomType.UpdatePlayers)
             {
                 response.Type = UpdateRoomType.UpdatePlayers;
+                response.Player = client.Player;
                 response.Selector = room.Selector.Player;
                 if (room.Respondent != null)
                     response.Respondent = room.Respondent.Player;
@@ -278,16 +377,14 @@ namespace Server.Objects
                 response.Type = UpdateRoomType.UpdateTable;
                 room.Game.StopAnswerButtonClickTimer();
             }
-            string packetResponse = JsonConvert.SerializeObject(response);
+
+
+            //response.Type = UpdateRoomType.NavigateTable;
+
             //после отправки удаляем респондента
             room.Respondent = null;
+            string packetResponse = JsonConvert.SerializeObject(response);
             room.SendMessageToAllClients(packetResponse);
         }
-
-
-
-
-
-
     }
 }

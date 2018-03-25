@@ -60,7 +60,8 @@ namespace Client.ViewModels
         public IDictionary<string, IEnumerable<Question>> QuestionsTable
         {
             get {
-               
+
+              
                 return questionsTable;
             }
             set
@@ -236,6 +237,7 @@ namespace Client.ViewModels
             {
                 return new DelegateCommand<Button>((param) =>
                 {
+                    
                     var page = ((MainWindow)Application.Current.MainWindow).Frame.Content as Game;
                     var question = selectedQuestion;
                     CheckAnswerRequest checkAnswerRequest = new CheckAnswerRequest();

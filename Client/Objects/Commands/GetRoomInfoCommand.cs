@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,7 +38,23 @@ namespace Client.Objects.Commands
             if(getRoomInfoResponse.TableQuestions != null)
             {
                 (ClientObject.view as GameViewModel).QuestionsTable = getRoomInfoResponse.TableQuestions;
-                
+
+                foreach (var item in getRoomInfoResponse.TableQuestions)
+                {
+                    foreach (var i in item.Value)
+                    {
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            if(i.Id==0)
+                                (((((MainWindow)Application.Current.MainWindow).Frame.Content as Game).GameFrame.Content) as CategoriesAndQuestionsTable)?.HideButton(i.Id);
+                         });
+
+
+                        Debug.Write(i.Id != 0 ? 1 : 0);
+                        
+                    }
+                    Debug.WriteLine("");
+                }
                 
             }
 

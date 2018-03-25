@@ -13,6 +13,8 @@ namespace Server.Objects.Commands
     {
         public void Excecute(ClientObject client, ServerObject server, RoomObject room, string packet = "")
         {
+            room.Game.list.Clear();
+            room.Game.listClickButton.Clear();
             room.Respondents.Clear();
             Console.WriteLine("Show question");
             var request = JsonConvert.DeserializeObject<ShowQuestionRequest>(packet);

@@ -5,6 +5,7 @@ using Core.Objects;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -49,6 +50,7 @@ namespace SvoyaIgraClient.Views.GameFrames
 
         public void HideButton(int id)
         {
+            Debug.WriteLine("------------");
             for (int i = 1; i < 7; i++)
             {
 
@@ -59,7 +61,11 @@ namespace SvoyaIgraClient.Views.GameFrames
                 {
                     if ((int)btn.Tag == id)
                         btn.Visibility = Visibility.Hidden;
+
+                    
+                    Debug.Write((int)btn.Tag>0?1:0);
                 }
+                Debug.WriteLine("");
             }
            
 

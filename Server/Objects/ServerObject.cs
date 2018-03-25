@@ -47,7 +47,7 @@ namespace Server.Objects
             {
                 if (rooms.Count == 0)
                 {
-                    rooms.Add(new RoomObject(1, NameRoom.Get(), 3));
+                    rooms.Add(new RoomObject(1, NameRoom.Get(), 3, this));
                 }
             }
             //если пустых комнат больше чем одна, оставляем только одну
@@ -64,7 +64,7 @@ namespace Server.Objects
             if (freeRooms.Length == 0)
             {
                 int idRoom = rooms.OrderByDescending(r => r.Info.Id).First().Info.Id + 1;
-                rooms.Add(new RoomObject(idRoom, NameRoom.Get(), 3));
+                rooms.Add(new RoomObject(idRoom, NameRoom.Get(), 3, this));
             } 
         }
         

@@ -1,4 +1,6 @@
 ﻿using Core.Objects;
+using Core.Packets.Response;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -29,17 +31,19 @@ namespace Server.Objects
                 selector = value;
             }
         }
+        public ServerObject Server { get; set; }
         public ClientObject Respondent { get; set; }
 
         public List<ClientObject> Respondents { get; set; } = new List<ClientObject>();
 
 
         //инициализарует новую комнату
-        public RoomObject(int id, string name, int size)
+        public RoomObject(int id, string name, int size, ServerObject server)
         {
             Info = new Room(id, name, size);
             Game = new GameObject();
             Game.Room = this;
+            Game.Room.Server = server;
         }
 
         //отправка сообщения всем клиентам комнаты

@@ -12,6 +12,7 @@ using Core.Enums;
 using Core.Objects;
 using Core.Packets.Response;
 using Newtonsoft.Json;
+using SvoyaIgraClient;
 using SvoyaIgraClient.ViewModels;
 using SvoyaIgraClient.Views;
 
@@ -22,6 +23,16 @@ namespace Client.Objects.Commands
         public override RequestType RequestType => RequestType.LoginUser;
 
         public override int Frequency => 1;
+
+
+        public void unlock()
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                (((MainWindow)Application.Current.MainWindow).Frame.Content as Login).btnLogIn.IsEnabled = true;
+                (((MainWindow)Application.Current.MainWindow).Frame.Content as Login).btnBack.IsEnabled = true;
+            });
+        }
 
         public override void Execute(string packet)
         {
@@ -38,18 +49,25 @@ namespace Client.Objects.Commands
                     break;
 
                 case ResponseStatus.Bad:
+                    unlock();
                     (ClientObject.view as UserViewModel).Status = "Ошибка на стороне сервера";
                     break;
 
                 case ResponseStatus.UserDoesntExist:
-                    (ClientObject.view as UserViewModel).Status = "Пользователя с таким логином не существует";
+                    unlock();
+
+                    (ClientObject.view as UserViewModel).Status = "Пользователь с таким логином не существует";
                     break;
 
                 case ResponseStatus.WrongPassword:
+                    unlock();
+
                     (ClientObject.view as UserViewModel).Status = "Был введён неверный пароль";
                     break;
 
                 case ResponseStatus.UserIsPlaying:
+                    unlock();
+
                     (ClientObject.view as UserViewModel).Status = "Пользователь с таким логином уже играет";
                     break;
 

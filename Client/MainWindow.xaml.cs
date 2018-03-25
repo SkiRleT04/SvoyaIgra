@@ -34,10 +34,13 @@ namespace SvoyaIgraClient
             //Auth auth = new Auth();
             //DataContext = pvm;
             Frame.NavigationService.Navigate(new UserIdentification());
-            
+            this.Width = System.Windows.SystemParameters.VirtualScreenWidth;
+            this.Height = System.Windows.SystemParameters.VirtualScreenHeight;
+
             //ClientObject.RecieveMessage();
-            
+
         }
+
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {

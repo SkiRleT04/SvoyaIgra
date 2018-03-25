@@ -27,6 +27,8 @@ namespace Client.Views
         {
             InitializeComponent();
             ClientObject.view = DataContext as RoomViewModel;
+            this.Width = System.Windows.SystemParameters.VirtualScreenWidth;
+            this.Height = System.Windows.SystemParameters.VirtualScreenHeight;
         }
     }
 }

@@ -25,13 +25,22 @@ namespace SvoyaIgraClient.Views
         public Register()
         {
             InitializeComponent();
-            ClientObject.view = DataContext as UserViewModel;
+            if (ClientObject.view != null)
+                ClientObject.view = DataContext as UserViewModel;
+            this.Width = System.Windows.SystemParameters.VirtualScreenWidth;
+            this.Height = System.Windows.SystemParameters.VirtualScreenHeight;
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new UserIdentification());
 
+        }
+
+        private void btnRegister_Click(object sender, RoutedEventArgs e)
+        {
+            btnRegister.IsEnabled = false;
+            btnBack.IsEnabled = false;
         }
     }
 }

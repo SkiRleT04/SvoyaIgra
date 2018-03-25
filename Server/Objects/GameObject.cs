@@ -47,9 +47,9 @@ namespace Server.Objects
         
 
 
-        private static int SELECT_QUESTION_TIMER = 1;
-        private static int ANSWER_BUTTON_CLICK_TIMER = 1;
-        private static int ANSWER_TIMER = 1;
+        private static int SELECT_QUESTION_TIMER = 10;
+        private static int ANSWER_BUTTON_CLICK_TIMER = 10;
+        private static int ANSWER_TIMER = 10;
 
 
 
@@ -159,10 +159,16 @@ namespace Server.Objects
             CurrentQuestionId = 0;
             CurrentQuestion = null;
 
-            for (int i = 0; i < Room.Clients.Count; i++)
+            ClientObject[] clients = new ClientObject[Room.Clients.Count];
+            Array.Copy(Room.Clients.ToArray(), clients, Room.Clients.Count);
+
+
+            for (int i = 0; i < clients.Length; i++)
             {
-                Room.Server?.Commands[RequestType.RoomLeave].Excecute(Room.Clients[i], Room.Server, Room);
+                Room.Server?.Commands[RequestType.RoomLeave].Excecute(clients[i], Room.Server, Room);
             }
+
+
             StopAnswerButtonClickTimer();
             StopAnswerTimer();
             StopSelectQuestionTimer();

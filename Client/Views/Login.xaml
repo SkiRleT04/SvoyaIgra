@@ -7,21 +7,21 @@
       xmlns:viewmodels="clr-namespace:SvoyaIgraClient.ViewModels"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
-      Title="Login" Width="600" Height="398">
+      Title="Login" Width="600" Height="400">
 
     <Page.DataContext>
         <viewmodels:UserViewModel/>
     </Page.DataContext>
-    
-    <Grid Background="White" Width="600" Height="400
-          ">
-        <Label Content="Логин" Margin="0,15,0,0" VerticalAlignment="Top" HorizontalAlignment="Center"/>
-        <Button x:Name="btnLogIn" Command="{Binding ClickLogin}" Content="Войти" Margin="0,200,0,0" VerticalAlignment="Top" Width="140" Height="40"/>
-        <Label Content="Пароль" Margin="0,76,0,0" VerticalAlignment="Top" HorizontalAlignment="Center"/>
-        <TextBox x:Name="tbLogin" Height="25" Margin="0,42,0,0" TextWrapping="Wrap" Text="{Binding Login}" VerticalAlignment="Top" Width="200"/>
-        <TextBox x:Name="tbPassword" Height="25" Margin="50,103,50,0" TextWrapping="Wrap" Text="{Binding Password}" VerticalAlignment="Top" Width="200"/>
-        <Button x:Name="btnBack" Content="Назад" Click="btnBack_Click" Margin="230,295,230,65" Height="40" Width="140"/>
-        <Label Content="{Binding Status}" Margin="0,154,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.211,-0.212" HorizontalAlignment="Center" Foreground="Red" FontSize="16" FontWeight="Bold"/>
+
+
+    <Grid Background="White" Margin="0,44,0,-250">
+        <Label Content="Логин" Margin="0" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="480" FontSize="24" FontFamily="Sylfaen" Height="40" VerticalAlignment="Top"/>
+        <Button x:Name="btnLogIn" Command="{Binding ClickLogin}" Content="Войти" Margin="0,400,0,0" VerticalAlignment="Top" Width="400" Height="80" HorizontalAlignment="Center" FontSize="36" FontFamily="Sylfaen" Click="btnLogIn_Click"/>
+        <Label Content="Пароль" Margin="0,130,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="480" FontSize="24" FontFamily="Sylfaen" Height="40"/>
+        <TextBox x:Name="tbLogin" Text="{Binding Login}" Height="80" Margin="0,40,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="400" HorizontalAlignment="Center" FontSize="36" FontFamily="Sylfaen" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <TextBox x:Name="tbPassword" Text="{Binding Password}" Height="80" Margin="100,170,100,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="400" HorizontalAlignment="Center" FontSize="36" FontFamily="Sylfaen" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Button x:Name="btnBack" Content="Назад" Margin="0,501,0,0" VerticalAlignment="Top" Click="btnBack_Click" Width="400" Height="80" HorizontalAlignment="Center" FontSize="36" FontFamily="Sylfaen"/>
+        <Label Content="{Binding Status}" Margin="0,300,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.211,-0.212" HorizontalAlignment="Center" Foreground="Red" FontSize="36" FontWeight="Bold" FontFamily="Sylfaen" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="800"/>
 
     </Grid>
 </Page>

@@ -19,7 +19,7 @@ namespace Client
     static class ClientObject
     {
         
-        private const string host = "127.0.0.1";
+        private const string host = "192.168.0.108";
         private const int port = 8888;
         static TcpClient client;
         static StreamReader reader;
@@ -27,24 +27,46 @@ namespace Client
         public static ViewModelBase view;
         public static User user;
 
+       public static bool isConnected()
+        {
+            return client.Connected;
+        }
+
         static ClientObject()
         {
+            try
+            {
+
+         
             client = new TcpClient();
             client.Connect(host, port);
             writer = new StreamWriter(client.GetStream());
             reader = new StreamReader(client.GetStream());
             RecieveMessage();
+            }
+            catch
+            {
+                MessageBox.Show("Сервер временно недоступен...");
+            }
         }
 
         public static void SendMessage(string s)
         {
+            try { 
             writer.WriteLine(s);
             writer.Flush();
+            }
+            catch
+            {
+                MessageBox.Show("Сервер временно недоступен...");
+            }
         }
 
         public static void RecieveMessage()
         {
-            List<BaseCommand> commands = new List<BaseCommand>();
+            try
+            {
+                List<BaseCommand> commands = new List<BaseCommand>();
             commands.Add(new CheckAnswerCommand());
             commands.Add(new GetRoomInfoCommand());
             commands.Add(new GetWinnerCommand());
@@ -62,26 +84,41 @@ namespace Client
             commands = commands.OrderByDescending(x => x.Frequency).ToList();
 
             Task.Run(() =>{
-                while (true)
+                try
                 {
-                   string s = reader.ReadLine();
 
-                   if(!String.IsNullOrEmpty(s))
-                   {
-                        BaseResponse baseResponse = JsonConvert.DeserializeObject<BaseResponse>(s); 
-                        
-                        foreach (BaseCommand command in commands)
+
+                    while (true)
+                    {
+                        string s = reader.ReadLine();
+
+                        if (!String.IsNullOrEmpty(s))
                         {
-                            if (command.TypesAreEqual(baseResponse.Request))
+                            BaseResponse baseResponse = JsonConvert.DeserializeObject<BaseResponse>(s);
+
+                            foreach (BaseCommand command in commands)
                             {
-                                command.Execute(s);
+                                if (command.TypesAreEqual(baseResponse.Request))
+                                {
+                                    command.Execute(s);
+                                }
                             }
                         }
-                   }
 
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Сервер временно недоступен...");
+                   
                 }
             });
-            
+            }
+            catch
+            {
+                MessageBox.Show("Сервер временно недоступен...");
+            }
+
         }
 
         static void Disconnect()

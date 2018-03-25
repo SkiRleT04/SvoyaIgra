@@ -6,18 +6,17 @@
       xmlns:local="clr-namespace:SvoyaIgraClient.Views.GameFrames"
       xmlns:viewmodels="clr-namespace:Client.ViewModels"
       xmlns:Client.Objects="clr-namespace:Client.Objects"
-      mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
+      mc:Ignorable="d" d:DesignWidth="300"
 
-      Title="CategoriesAndQuestionsTable" Width="400" Height="200">
-    
-    
+      Title="CategoriesAndQuestionsTable" Width="730" Height="360">
+
+
 
     <Page.DataContext>
         <viewmodels:GameViewModel/>
     </Page.DataContext>
 
-    
+
 
 
 
@@ -29,22 +28,24 @@
         </Grid.Resources>
 
 
-        <ItemsControl BorderBrush="Black" BorderThickness="2" ItemsSource="{Binding QuestionsTable}" Margin="0,0,335,0">
+        <ItemsControl Width="167" BorderBrush="Black" BorderThickness="2" ItemsSource="{Binding QuestionsTable}" Margin="0,0,0,0" Height="365" HorizontalAlignment="Left">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel Orientation="Vertical"/>
+                    <WrapPanel Orientation="Vertical"  />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Vertical">
-                        <TextBlock Text="{Binding Key}" />
+                        <Border BorderBrush="Black" BorderThickness="1" Width="163">
+                            <TextBlock Text="{Binding Key}" FontSize="18" Margin="0,16.8,0,16.8" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Sylfaen"/>
+                        </Border>
                     </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
 
-        <ItemsControl BorderBrush="Black" BorderThickness="2" Name="cat1" ItemsSource="{Binding Questions[0]}" Margin="65,0,0,165">
+        <ItemsControl BorderBrush="Black" BorderThickness="2" Name="cat1" ItemsSource="{Binding Questions[0]}" Margin="165,0,0,0" Height="60" Width ="564" VerticalAlignment="Top">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate >
                     <WrapPanel Orientation="Horizontal"/>
@@ -53,15 +54,15 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate x:Name="dt1">
                     <StackPanel Orientation="Horizontal" x:Name="sp1">
-                        <Button Width="60" Content="{Binding Points}" Height="30" Tag="{Binding Id}" Visibility="{Binding Id, Converter={StaticResource NullToVisibilityConverter}}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"  Command="{Binding ElementName=cat1,  Path=DataContext.QuestionButtonClick}" >
-                           
+                        <Button Content="{Binding Points}" Height="56" Width="112"  Tag="{Binding Id}" Visibility="{Binding Id, Converter={StaticResource NullToVisibilityConverter}}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"  Command="{Binding ElementName=cat1,  Path=DataContext.QuestionButtonClick}" FontSize="36" FontWeight="Bold" FontFamily="Sylfaen" >
+
                         </Button>
                     </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
 
-        <ItemsControl BorderBrush="Black" BorderThickness="2" Name="cat2" ItemsSource="{Binding Questions[1]}" Margin="65,35,0,136">
+        <ItemsControl Width ="564" BorderBrush="Black" BorderThickness="2" Name="cat2" ItemsSource="{Binding Questions[1]}" Margin="165,60,0,0" Height="60" VerticalAlignment="Top">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Orientation="Horizontal"/>
@@ -70,15 +71,15 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal" x:Name="sp2">
-                        <Button Width="60" Content="{Binding Points}" Height="30" Tag="{Binding Id}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"  Command="{Binding ElementName=cat2,  Path=DataContext.QuestionButtonClick}">
-                           
+                        <Button FontSize="36" FontWeight="Bold" FontFamily="Sylfaen"  Content="{Binding Points}" Width="112" Height="56"  Tag="{Binding Id}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"  Command="{Binding ElementName=cat2,  Path=DataContext.QuestionButtonClick}" >
+
                         </Button>
                     </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
 
-        <ItemsControl BorderBrush="Black" BorderThickness="2" Name="cat3" ItemsSource="{Binding Questions[2]}" Margin="65,64,0,104">
+        <ItemsControl Width ="564" BorderBrush="Black" BorderThickness="2" Name="cat3" ItemsSource="{Binding Questions[2]}" Margin="165,120,0,0" Height="60" VerticalAlignment="Top">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Orientation="Horizontal"/>
@@ -87,15 +88,15 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal" x:Name="sp3">
-                        <Button Width="60" Content="{Binding Points}" Height="30" Tag="{Binding Id}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"  Command="{Binding ElementName=cat3,  Path=DataContext.QuestionButtonClick}">
-                            
+                        <Button FontSize="36" FontWeight="Bold" FontFamily="Sylfaen" Width="112" Content="{Binding Points}" Height="56" Tag="{Binding Id}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"  Command="{Binding ElementName=cat3,  Path=DataContext.QuestionButtonClick}">
+
                         </Button>
                     </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
 
-        <ItemsControl BorderBrush="Black" BorderThickness="2" Name="cat4" ItemsSource="{Binding Questions[3]}" Margin="65,96,0,73">
+        <ItemsControl Width ="564" BorderBrush="Black" BorderThickness="2" Name="cat4" ItemsSource="{Binding Questions[3]}" Margin="165,180,0,0" Height="60" VerticalAlignment="Top">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Orientation="Horizontal"/>
@@ -104,15 +105,15 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal" x:Name="sp4">
-                        <Button Width="60" Content="{Binding Points}" Height="30" Tag="{Binding Id}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"  Command="{Binding ElementName=cat4,  Path=DataContext.QuestionButtonClick}">
-                           
+                        <Button FontSize="36" FontWeight="Bold" FontFamily="Sylfaen" Width="112" Content="{Binding Points}" Height="56" Tag="{Binding Id}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"  Command="{Binding ElementName=cat4,  Path=DataContext.QuestionButtonClick}">
+
                         </Button>
                     </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
 
-        <ItemsControl BorderBrush="Black" BorderThickness="2" Name="cat5" ItemsSource="{Binding Questions[4]}" Margin="65,127,0,41">
+        <ItemsControl Width ="564" BorderBrush="Black" BorderThickness="2" Name="cat5" ItemsSource="{Binding Questions[4]}" Margin="165,240,0,0" Height="60" VerticalAlignment="Top">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Orientation="Horizontal"/>
@@ -121,15 +122,15 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal" x:Name="sp5">
-                        <Button Width="60" Content="{Binding Points}" Height="30" Tag="{Binding Id}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"  Command="{Binding ElementName=cat5,  Path=DataContext.QuestionButtonClick}">
-                           
+                        <Button FontSize="36" FontWeight="Bold" FontFamily="Sylfaen" Width="112" Content="{Binding Points}" Height="56" Tag="{Binding Id}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"  Command="{Binding ElementName=cat5,  Path=DataContext.QuestionButtonClick}">
+
                         </Button>
                     </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
 
-        <ItemsControl BorderBrush="Black" BorderThickness="2" Name="cat6" ItemsSource="{Binding Questions[5]}" Margin="65,159,0,0">
+        <ItemsControl Width ="564" BorderBrush="Black" BorderThickness="2" Name="cat6" ItemsSource="{Binding Questions[5]}" Margin="165,300,0,0" Height="60" VerticalAlignment="Top">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Orientation="Horizontal"/>
@@ -138,8 +139,8 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal" x:Name="sp6">
-                        <Button Width="60" Content="{Binding Points}" Height="30" Tag="{Binding Id}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"  Command="{Binding ElementName=cat6,  Path=DataContext.QuestionButtonClick}">
-                          
+                        <Button FontSize="36" FontWeight="Bold" FontFamily="Sylfaen" Width="112" Content="{Binding Points}" Height="56" Tag="{Binding Id}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"  Command="{Binding ElementName=cat6,  Path=DataContext.QuestionButtonClick}">
+
                         </Button>
                     </StackPanel>
                 </DataTemplate>

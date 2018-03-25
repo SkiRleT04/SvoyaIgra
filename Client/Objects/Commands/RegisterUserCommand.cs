@@ -20,6 +20,15 @@ namespace Client.Objects.Commands
 
         public override int Frequency => 1;
 
+        public void unlock()
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                (((MainWindow)Application.Current.MainWindow).Frame.Content as Register).btnRegister.IsEnabled = true;
+                (((MainWindow)Application.Current.MainWindow).Frame.Content as Register).btnBack.IsEnabled = true;
+            });
+        }
+
         public override void Execute(string packet)
         {
             RegisterUserResponse registerUserResponse = JsonConvert.DeserializeObject<RegisterUserResponse>(packet);
@@ -35,11 +44,14 @@ namespace Client.Objects.Commands
                     break;
 
                 case ResponseStatus.Bad:
-                    (ClientObject.view as UserViewModel).Status = "Ошибка на стороне сервера";
+                    unlock();
+                     (ClientObject.view as UserViewModel).Status = "Ошибка на стороне сервера";
                     break;
 
                 case ResponseStatus.LoginIsTaken:
-                    (ClientObject.view as UserViewModel).Status = "Пользователя с таким логином уже существует";
+                    unlock();
+
+                    (ClientObject.view as UserViewModel).Status = "Пользователь с таким логином уже существует";
                     break;
 
             }

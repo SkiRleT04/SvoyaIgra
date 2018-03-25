@@ -8,10 +8,11 @@
       d:DesignHeight="300" d:DesignWidth="300"
       Title="UserIdentification" Width="600" Height="400">
 
-    <Grid Background="White">
-        <Label Content="Своя Игра" Margin="0,10,0,0" VerticalAlignment="Top" Height="60" HorizontalAlignment="Center" FontSize="36"/>
-        <Button x:Name="btnLogIn" Content="Войти" Margin="80,140" VerticalAlignment="Center" Click="btnLogIn_Click" Width="140" Height="40" FontSize="14"/>
-        <Button x:Name="btnRegister" Content="Зарегестрироваться" Margin="80,115,80,0" VerticalAlignment="Top" Click="btnRegister_Click" Width="140" Height="40" FontSize="14"/>
+    <Grid Background="White" Margin="0,0,0,-42">
+        <Label Content="Своя Игра" Margin="10,10,10,290" FontSize="72" FontWeight="Bold" FontFamily="Sylfaen" HorizontalAlignment="Center"/>
+        <Button x:Name="btnLogIn" Content="Войти" Margin="100,230,100,0" VerticalAlignment="Top" Click="btnLogIn_Click" Width="400" Height="80" FontSize="36" HorizontalAlignment="Center" FontFamily="Sylfaen"/>
+        <Button x:Name="btnRegister" Content="Зарегестрироваться" Margin="100,330,100,0" Click="btnRegister_Click" Width="400" FontSize="36" Height="80" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Sylfaen"/>
+        <Button x:Name="btnExit" Content="Выйти" HorizontalAlignment="Center" Margin="100,430,100,0" VerticalAlignment="Top" Width="400" Height="80" FontSize="36" Click="btnExit_Click" FontFamily="Sylfaen"/>
 
     </Grid>
 </Page>

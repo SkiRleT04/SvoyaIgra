@@ -14,7 +14,10 @@ namespace SvoyaIgraClient.Views
         {
             InitializeComponent();
             //ClientObject.page = this;123
+            if(ClientObject.view!=null)
             ClientObject.view = DataContext as UserViewModel;
+            this.Width = System.Windows.SystemParameters.VirtualScreenWidth;
+            this.Height = System.Windows.SystemParameters.VirtualScreenHeight;
 
         }
 
@@ -29,6 +32,10 @@ namespace SvoyaIgraClient.Views
 
         }
 
-        
+        private void btnLogIn_Click(object sender, RoutedEventArgs e)
+        {
+            btnLogIn.IsEnabled = false;
+            btnBack.IsEnabled = false;
+        }
     }
 }

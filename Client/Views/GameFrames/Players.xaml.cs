@@ -26,6 +26,7 @@ namespace SvoyaIgraClient.Views.GameFrames
         {
             InitializeComponent();
             DataContext = ClientObject.view as GameViewModel;
+            
         }
     }
 }

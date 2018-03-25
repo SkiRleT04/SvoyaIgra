@@ -18,7 +18,7 @@
 
     <Grid>
         <ListBox Grid.Column="0" ItemsSource="{Binding Rooms}"
-                 SelectedItem="{Binding SelectedRoom}">
+                 SelectedItem="{Binding SelectedRoom}" >
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
                     <i:InvokeCommandAction Command="{Binding ClickJoin}"/>
@@ -28,8 +28,8 @@
             <ListBox.ItemTemplate >
                 <DataTemplate>
                     <StackPanel Margin="5">
-                        <TextBlock FontSize="18" Text="{Binding Name}"/>
-                        <TextBlock FontSize="16">
+                        <TextBlock FontSize="48" Text="{Binding Name}" FontFamily="Sylfaen"/>
+                        <TextBlock FontSize="46" FontFamily="Sylfaen">
                             <TextBlock.Text>
                                 <MultiBinding StringFormat="{}{0}/{1}">
                                     <Binding Path="PlayersCount" />

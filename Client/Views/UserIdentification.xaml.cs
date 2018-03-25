@@ -1,4 +1,5 @@
 ﻿using Client;
+using DevExpress.Mvvm.UI.Native;
 using SvoyaIgraClient.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -25,18 +26,27 @@ namespace SvoyaIgraClient.Views
         public UserIdentification()
         {
             InitializeComponent();
+            this.Width = System.Windows.SystemParameters.VirtualScreenWidth;
+            this.Height = System.Windows.SystemParameters.VirtualScreenHeight;
+
         }
 
         private void btnLogIn_Click(object sender, RoutedEventArgs e)
         {
-           
+            if(ClientObject.isConnected())
             this.NavigationService.Navigate(new Login());
             
         }
 
         private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new Register());
+            if (ClientObject.isConnected())
+                this.NavigationService.Navigate(new Register());
+        }
+
+        private void btnExit_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Shutdown();
         }
     }
 }

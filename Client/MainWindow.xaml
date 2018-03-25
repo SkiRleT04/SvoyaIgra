@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SvoyaIgraClient"
         xmlns:local1="clr-namespace:SvoyaIgraClient.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="400" Width="600" Name="wMainWindow">
+        Title="MainWindow" Height="400" Width="600" Name="wMainWindow" WindowStartupLocation="CenterScreen" WindowState="Maximized">
 
     <Grid>
         <Frame x:Name="Frame" Content="" NavigationUIVisibility="Hidden"/>

@@ -59,6 +59,7 @@ namespace SvoyaIgraClient.ViewModels
                 if (user.Password != value)
                 {
                     user.Password = value;
+                   
                     RaisePropertyChanged(() => Password);
                 }
             }

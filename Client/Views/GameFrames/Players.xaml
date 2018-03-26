@@ -10,13 +10,13 @@
       Title="Players" Background="#FFCD1515">
 
     <Grid Background="White">
-        <ListBox x:Name="myListView" ItemsSource="{Binding Players}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-            <ListBox.ItemsPanel>
+        <ItemsControl Margin="5,5,5,5" x:Name="myListView" ItemsSource="{Binding Players}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center"/>
                 </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-            <ListBox.ItemTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
                 <DataTemplate>
 
                     <Border BorderBrush="Black" BorderThickness="2">
@@ -29,7 +29,7 @@
                     </Border>
 
                 </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </Grid>
 </Page>

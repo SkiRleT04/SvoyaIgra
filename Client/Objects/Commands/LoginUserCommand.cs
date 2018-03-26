@@ -55,8 +55,9 @@ namespace Client.Objects.Commands
 
                 case ResponseStatus.UserDoesntExist:
                     unlock();
-
-                    (ClientObject.view as UserViewModel).Status = "Пользователь с таким логином не существует";
+                    
+                        (ClientObject.view as UserViewModel).Status = "Пользователь с таким логином не существует";
+                  
                     break;
 
                 case ResponseStatus.WrongPassword:

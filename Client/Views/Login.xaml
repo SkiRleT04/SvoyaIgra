@@ -13,6 +13,10 @@
         <viewmodels:UserViewModel/>
     </Page.DataContext>
 
+    <Page.InputBindings>
+        <KeyBinding Command="{Binding ClickLogin}" Key="Return"/>
+    </Page.InputBindings>
+
 
     <Grid Background="White" Margin="0,44,0,-250">
         <Label Content="Логин" Margin="0" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="480" FontSize="24" FontFamily="Sylfaen" Height="40" VerticalAlignment="Top"/>

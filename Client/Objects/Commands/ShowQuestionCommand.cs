@@ -26,7 +26,7 @@ namespace Client.Objects.Commands
             GameViewModel gvm = ClientObject.view as GameViewModel;
             int questionId = showQuestionResponse.QuestionId;
             gvm.SelectedQuestionId = questionId;
-           Application.Current.Dispatcher.Invoke(() =>
+            Application.Current.Dispatcher.Invoke(() =>
             {
                 (((((MainWindow)Application.Current.MainWindow).Frame.Content as Game)?.GameFrame.Content) as CategoriesAndQuestionsTable)?.HideButton(questionId);
      

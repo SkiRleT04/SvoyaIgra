@@ -25,7 +25,7 @@ namespace SvoyaIgraClient.Views
         public Register()
         {
             InitializeComponent();
-            if (ClientObject.view != null)
+            //if (ClientObject.view != null)
                 ClientObject.view = DataContext as UserViewModel;
             this.Width = System.Windows.SystemParameters.VirtualScreenWidth;
             this.Height = System.Windows.SystemParameters.VirtualScreenHeight;
@@ -41,6 +41,29 @@ namespace SvoyaIgraClient.Views
         {
             btnRegister.IsEnabled = false;
             btnBack.IsEnabled = false;
+        }
+
+        private void Page_KeyDown(object sender, KeyEventArgs e)
+        {
+            
+        }
+
+        private void tbLogin_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                btnRegister.IsEnabled = false;
+                btnBack.IsEnabled = false;
+            }
+        }
+
+        private void tbPassword_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                btnRegister.IsEnabled = false;
+                btnBack.IsEnabled = false;
+            }
         }
     }
 }

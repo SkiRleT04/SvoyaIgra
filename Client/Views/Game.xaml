@@ -9,7 +9,6 @@
       d:DesignHeight="300" d:DesignWidth="300"
       Title="Game" Width="1366" Height="768">
 
-
     <Grid  Background="White">
         <Grid Name="Controls">
             <Frame BorderBrush="Black" BorderThickness="1"  x:Name="GameFrame" Height="360" VerticalAlignment="Top" Margin="10,0" Background="White" LoadCompleted="GameFrame_LoadCompleted" />

@@ -9,6 +9,9 @@
       d:DesignHeight="300" d:DesignWidth="300"
       Title="Register" Width="600" Height="400">
 
+    <Page.InputBindings>
+        <KeyBinding Command="{Binding ClickRegister}" Key="Return"/>
+    </Page.InputBindings>
 
     <Page.DataContext>
         <ViewModels:UserViewModel/>

@@ -47,5 +47,6 @@ namespace SvoyaIgraClient
            // pvm.PlayerNickName = "33333333";
         }
 
+       
     }
 }

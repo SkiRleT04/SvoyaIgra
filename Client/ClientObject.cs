@@ -18,8 +18,23 @@ namespace Client
 {
     static class ClientObject
     {
-        
-        private const string host = "192.168.43.150";
+
+        public static string Host
+        {
+            get
+            {
+                try
+                {
+                    return File.ReadAllText("config.cfg");
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message, Application.Current.MainWindow.Title);
+                    Application.Current.Shutdown();
+                }
+                return "";
+            }
+        }
         private const int port = 8888;
         static TcpClient client;
         static StreamReader reader;
@@ -27,38 +42,47 @@ namespace Client
         public static ViewModelBase view;
         public static User user;
 
-       public static bool isConnected()
+        public static bool isConnected()
         {
-            return client.Connected;
+            try
+            {
+                return client.Connected;
+            }
+            catch
+            {
+                Environment.Exit(0);
+            }
+            return false;
         }
 
         static ClientObject()
         {
             try
             {
-
-         
-            client = new TcpClient();
-            client.Connect(host, port);
-            writer = new StreamWriter(client.GetStream());
-            reader = new StreamReader(client.GetStream());
-            RecieveMessage();
+                client = new TcpClient();
+                client.Connect(Host, port);
+                writer = new StreamWriter(client.GetStream());
+                reader = new StreamReader(client.GetStream());
+                RecieveMessage();
             }
             catch
             {
-                MessageBox.Show("Сервер временно недоступен...");
+                MessageBox.Show("Сервер временно недоступен...", "Ошибка подключения");
+                Environment.Exit(0);
             }
         }
 
         public static void SendMessage(string s)
         {
-            try { 
-            writer.WriteLine(s);
-            writer.Flush();
+            try
+            {
+                writer.WriteLine(s);
+                writer.Flush();
             }
             catch
             {
-                MessageBox.Show("Сервер временно недоступен...");
+                MessageBox.Show("Сервер временно недоступен...", "Ошибка подключения");
+                Environment.Exit(0);
             }
         }
 
@@ -67,63 +91,66 @@ namespace Client
             try
             {
                 List<BaseCommand> commands = new List<BaseCommand>();
-            commands.Add(new CheckAnswerCommand());
-            commands.Add(new GetRoomInfoCommand());
-            commands.Add(new GetWinnerCommand());
-            commands.Add(new LoginUserCommand());
-            commands.Add(new RegisterUserCommand());
-            commands.Add(new SetRespondentCommand());
-            commands.Add(new RoomJoinCommand());
-            commands.Add(new RoomLeaveCommand());
-            commands.Add(new UpdateRoomCommand());
-            commands.Add(new ShowQuestionCommand());
-            commands.Add(new BlockAnswerButtonCommand());
-            commands.Add(new RemoveQuestionCommand());
-            
+                commands.Add(new CheckAnswerCommand());
+                commands.Add(new GetRoomInfoCommand());
+                commands.Add(new GetWinnerCommand());
+                commands.Add(new LoginUserCommand());
+                commands.Add(new RegisterUserCommand());
+                commands.Add(new SetRespondentCommand());
+                commands.Add(new RoomJoinCommand());
+                commands.Add(new RoomLeaveCommand());
+                commands.Add(new UpdateRoomCommand());
+                commands.Add(new ShowQuestionCommand());
+                commands.Add(new BlockAnswerButtonCommand());
+                commands.Add(new RemoveQuestionCommand());
 
-            commands = commands.OrderByDescending(x => x.Frequency).ToList();
 
-            Task.Run(() =>{
-                try
+                commands = commands.OrderByDescending(x => x.Frequency).ToList();
+
+                Task.Run(() =>
                 {
-
-
-                    while (true)
+                    try
                     {
-                        string s = reader.ReadLine();
 
-                        if (!String.IsNullOrEmpty(s))
+
+                        while (true)
                         {
-                            BaseResponse baseResponse = JsonConvert.DeserializeObject<BaseResponse>(s);
+                            string s = reader.ReadLine();
 
-                            foreach (BaseCommand command in commands)
+                            if (!String.IsNullOrEmpty(s))
                             {
-                                if (command.TypesAreEqual(baseResponse.Request))
+                                BaseResponse baseResponse = JsonConvert.DeserializeObject<BaseResponse>(s);
+
+                                foreach (BaseCommand command in commands)
                                 {
-                                    command.Execute(s);
+                                    if (command.TypesAreEqual(baseResponse.Request))
+                                    {
+                                        command.Execute(s);
+                                    }
                                 }
                             }
+
                         }
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Сервер временно недоступен...", "Ошибка подключения");
+                        Environment.Exit(0);
 
                     }
-                }
-                catch
-                {
-                    MessageBox.Show("Сервер временно недоступен...");
-                   
-                }
-            });
+                });
             }
             catch
             {
-                MessageBox.Show("Сервер временно недоступен...");
+                MessageBox.Show("Сервер временно недоступен...", "Ошибка подключения");
+                Environment.Exit(0);
             }
 
         }
 
         static void Disconnect()
         {
-           
+
             reader?.Close();
             writer?.Close();
             client?.Close();

@@ -3,6 +3,7 @@ using SvoyaIgraClient.ViewModels;
 using SvoyaIgraClient.Views;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
@@ -47,6 +48,17 @@ namespace SvoyaIgraClient
            // pvm.PlayerNickName = "33333333";
         }
 
-       
+        /*private void wMainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ClientObject.Host = File.ReadAllText("config.cfg");
+            }
+            catch
+            {
+                MessageBox
+            }
+            ClientObject.Initialize();
+        }*/
     }
 }

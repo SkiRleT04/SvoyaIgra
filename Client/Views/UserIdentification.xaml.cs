@@ -35,7 +35,6 @@ namespace SvoyaIgraClient.Views
         {
             if(ClientObject.isConnected())
             this.NavigationService.Navigate(new Login());
-            
         }
 
         private void btnRegister_Click(object sender, RoutedEventArgs e)
@@ -46,7 +45,7 @@ namespace SvoyaIgraClient.Views
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
-            System.Windows.Application.Current.Shutdown();
+            Environment.Exit(0);
         }
     }
 }

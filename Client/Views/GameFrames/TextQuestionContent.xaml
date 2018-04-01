@@ -9,7 +9,8 @@
       Title="TextQuestionContent" Width="730" Height="360">
 
     <Grid Width="730" Height="360" Background="White">
-        <Label Content="{Binding QuestionText}" Margin="0" FontSize="24" FontFamily="Sylfaen" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
+        <TextBlock TextWrapping="Wrap" Text="{Binding QuestionText}" Margin="10" FontSize="24" FontFamily="Sylfaen" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
 
     </Grid>
 </Page>
